@@ -18,14 +18,15 @@ Cada pasta `dia-X/` contém:
 - Comentários explicativos no código
 - Exemplos de uso
 
-### Dias Concluídos:
+### Dias e Projetos concluídos:
+- **Dia 1**: Filtro de câmera estilo Instagram (OpenCV)
 
 ## 🛠️ Como Usar
 
 1. **Clone o repositório**:
 
    ```bash
-   git clone https://github.com/seuusuario/30-dias-codigos-python.git
+   git clone https://github.com/vbeal/30-dias-codigos-python.git
    cd 30-dias-codigos-python
    ```
 
