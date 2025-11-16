@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>💰 Conversor de Moedas Web</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      form {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      button {
+        width: 100%;
+        padding: 12px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .resultado {
+        background-color: #e8f5e8;
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+      .erro {
+        background-color: #ffebee;
+        color: #c62828;
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>💰 Conversor de Moedas Web</h1>
+      <p>Converta de BRL para outras moedas usando cotação em tempo real.</p>
+
+      <form method="POST">
+        <label for="valor">💵 Valor em BRL:</label>
+        <input
+          type="text"
+          id="valor"
+          name="valor"
+          placeholder="Ex: 100,50"
+          required
+        />
+
+        <label for="moeda">🔄 Moeda de destino:</label>
+        <select id="moeda" name="moeda" required>
+          <option value="">Selecione uma moeda</option>
+          <option value="USD">USD - Dólar Americano</option>
+          <option value="EUR">EUR - Euro</option>
+          <option value="GBP">GBP - Libra Esterlina</option>
+          <option value="JPY">JPY - Iene Japonês</option>
+          <option value="CAD">CAD - Dólar Canadense</option>
+        </select>
+
+        <button type="submit">✅ Converter</button>
+      </form>
+
+      {% if resultado %} {% if resultado.erro %}
+      <div class="erro">❌ {{ resultado.erro }}</div>
+      {% else %}
+      <div class="resultado">
+        <h3>✅ Conversão:</h3>
+        <p>
+          <strong
+            >{{ resultado.valor_brl }} BRL = {{ resultado.valor_convertido }} {{
+            resultado.moeda }}</strong
+          >
+        </p>
+        <p>Taxa: 1 {{ resultado.moeda }} = {{ resultado.taxa }} BRL</p>
+        <p>Última atualização: {{ resultado.data }}</p>
+      </div>
+      {% endif %} {% endif %}
+    </div>
+  </body>
+</html>
