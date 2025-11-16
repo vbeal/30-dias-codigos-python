@@ -19,9 +19,11 @@ Cada pasta `dia-X/` contém:
 - Exemplos de uso
 
 ### Dias e Projetos concluídos:
+
 - **Dia 1**: Filtro de câmera estilo Instagram (OpenCV)
 - **Dia 2**: Conversor de texto para voz com estilo (pyttsx3)
 - **Dia 3**: Baixar vídeo do YouTube com escolha de formato (pytubefix)
+- **Dia 4**: Cartão de visita digital com ícones e logo (Pillow)
 
 ## 🛠️ Como Usar
 
