@@ -24,6 +24,7 @@ Cada pasta `dia-X/` contém:
 - **Dia 2**: Conversor de texto para voz com estilo (pyttsx3)
 - **Dia 3**: Baixar vídeo do YouTube com escolha de formato (pytubefix)
 - **Dia 4**: Cartão de visita digital com ícones e logo (Pillow)
+- **Dia 5**: Fogos de artifício com Turtle
 
 ## 🛠️ Como Usar
 
