@@ -20,6 +20,7 @@ Cada pasta `dia-X/` contém:
 
 ### Dias e Projetos concluídos:
 - **Dia 1**: Filtro de câmera estilo Instagram (OpenCV)
+- **Dia 2**: Conversor de texto para voz com estilo (pyttsx3)
 
 ## 🛠️ Como Usar
 
