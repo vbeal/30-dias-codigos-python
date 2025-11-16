@@ -26,6 +26,7 @@ Cada pasta `dia-X/` contém:
 - **Dia 4**: Cartão de visita digital com ícones e logo (Pillow)
 - **Dia 5**: Fogos de artifício com Turtle
 - **Dia 6**: Conversor de moedas com API (requests)
+- **Dia 7**: Conversor de moedas com interface gráfica (Tkinter)
 
 ## 🛠️ Como Usar
 
