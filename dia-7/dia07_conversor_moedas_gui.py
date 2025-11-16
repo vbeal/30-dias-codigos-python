@@ -19,11 +19,7 @@ from datetime import datetime
 def converter_moeda():
     try:
         # Aceitar entrada com vírgula (formato brasileiro) e converter para float
-        valor_str = entry_valor.get().strip()
-        if not valor_str or valor_str == '0,00':
-            messagebox.showerror("Erro", "Digite um valor válido.")
-            return
-        valor_str = valor_str.replace('.', '').replace(',', '.')  # Remover pontos de milhar e trocar vírgula por ponto
+        valor_str = entry_valor.get().replace(',', '.').replace('.', '')  # Remover pontos de milhar
         valor_brl = float(valor_str)
         moeda_destino = var_moeda.get()
         
