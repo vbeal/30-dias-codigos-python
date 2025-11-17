@@ -29,29 +29,23 @@ Cada pasta `dia-X/` contém:
 - **Dia 7**: Conversor de moedas com interface gráfica (Tkinter)
 - **Dia 8**: Conversor de moedas web com Flask
 - **Dia 9**: Gráfico de Cotação de Moeda
+- **Dia 10**: Baixar post do Instagram (Instaloader)
 
-## Dia 9 - Gráfico de Cotação de Moeda
+## Dia 10 - Baixar post do Instagram
 
-Este projeto gera um gráfico interativo da cotação de moedas (USD, EUR, GBP, JPY, CAD) em relação ao Real (BRL) usando dados da AwesomeAPI.
+Este projeto permite baixar o conteúdo (imagem, vídeo e legenda) de um post público do Instagram informando a URL. O download é feito via Instaloader e os arquivos são organizados na pasta `dia-10/downloaded_videos`.
 
-- O usuário escolhe a moeda e o período (em dias) para consulta.
-- O gráfico exibe os valores históricos, com tooltip ao passar o mouse sobre cada ponto.
-- O arquivo do gráfico é salvo automaticamente em JPG com nome único (moeda + data/hora).
-- Para salvar em JPG, é necessário ter o Pillow instalado (`pip install pillow`).
-- O botão "Salvar" do matplotlib pode não mostrar JPG/JPEG em alguns sistemas; use o PNG ou salve via código.
+- O usuário informa a URL do post.
+- O script baixa a capa (imagem), vídeo (se houver) e legenda (exibida no terminal).
+- Arquivos auxiliares (.json.xz) são removidos automaticamente.
+- Menu interativo para abrir capa, vídeo ou exibir legenda.
 
 **Bibliotecas usadas:**
 
-- matplotlib
-- requests
-- datetime
-- pillow
+- instaloader
+- os
 
-**API:**
-
-- https://economia.awesomeapi.com.br/json/daily/{MOEDA}-BRL/{DIAS}
-
-Arquivo principal: `dia-9/dia09_grafico_moeda.py`
+Arquivo principal: `dia-10/dia10_instagram_downloader.py`
 
 ## 🛠️ Como Usar
 
@@ -88,6 +82,7 @@ Arquivo principal: `dia-9/dia09_grafico_moeda.py`
 - **OpenCV** (visão computacional)
 - **Pytube/Pytubefix** (YouTube)
 - **Matplotlib** (gráficos)
+- **Instaloader** (Instagram)
 
 ## 📖 Licença
 
