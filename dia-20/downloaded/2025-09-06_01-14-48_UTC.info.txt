@@ -1,0 +1,8 @@
+URL: https://www.instagram.com/reel/DOPe0mPD_h_/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==
+Base: 2025-09-06_01-14-48_UTC
+Shortcode: DOPe0mPD_h_
+Imagem: D:\projetos Python\30-dias-codigos-python\dia-20\downloaded\2025-09-06_01-14-48_UTC.jpg
+Vídeo: D:\projetos Python\30-dias-codigos-python\dia-20\downloaded\2025-09-06_01-14-48_UTC.mp4
+Date: 2025-09-05T22:14:48
+Downloaded: 2025-11-17T15:44:23.912133
+Legenda: Almost 😂

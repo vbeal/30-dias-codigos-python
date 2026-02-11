@@ -1,0 +1,16 @@
+# Ignore Python bytecode and cache files
+__pycache__/
+*.py[cod]
+# Ignore virtual environment (if used locally)
+.venv/
+# Ignore common OS files
+Thumbs.db
+.DS_Store
+.env
+temp/
+*.log
+*.sqlite3
+*.db
+*.sqlite
+.vscode/
+.idea/
