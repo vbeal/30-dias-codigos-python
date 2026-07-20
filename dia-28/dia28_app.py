@@ -648,14 +648,18 @@ def uploaded_file(filename):
 
 
 if __name__ == "__main__":
+    import os
+
     init_db()
     UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    port = int(os.environ.get("PORT", 5000))
+    debug = os.environ.get("DEBUG", "0") == "1"
     print("\n" + "=" * 50)
     print("  InvestidorWeb - Dia 28")
-    print("  Acesse: http://localhost:5000/")
+    print(f"  Acesse: http://0.0.0.0:{port}/")
     print(f"  Busca: lista fixa com {len(ATIVOS)} ativos")
     print("  Carteiras + proventos + cache Yahoo")
     print("  (somente usuarios logados)")
     print("  Ctrl+C para encerrar")
     print("=" * 50 + "\n")
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=port, debug=debug)

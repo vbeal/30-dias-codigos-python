@@ -1,0 +1,6 @@
+# Dependencias Dia 28 — InvestidorWeb (Flask + scraper + Yahoo)
+flask==3.1.0
+requests==2.31.0
+beautifulsoup4
+yfinance
+pandas
