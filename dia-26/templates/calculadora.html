@@ -1,0 +1,892 @@
+{% extends "base.html" %} {% block title %}Calculadora{% endblock %} {% block
+content %} {# Novidade Dia 25: calculadora de dividendos (Brapi light) #}
+<div
+  class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4"
+>
+  <div>
+    <h1 class="h4 mb-1">
+      <i class="bi bi-calculator"></i> Calculadora de Dividendos
+    </h1>
+    <p class="text-body-secondary small mb-0">
+      Simulacao com aportes + DY atual (Investidor10). Educativa — sem garantia
+      de rentabilidade.
+    </p>
+  </div>
+  <a href="{{ url_for('painel') }}" class="btn btn-outline-secondary btn-sm">
+    <i class="bi bi-arrow-left"></i> Painel
+  </a>
+</div>
+
+<div class="row g-4">
+  {# --- Parametros --- #}
+  <div class="col-lg-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-semibold">Parametros da simulacao</div>
+      <div class="card-body">
+        <div class="mb-3 position-relative" id="calcBuscaWrap">
+          <label class="form-label" for="calcBusca">
+            Ativo
+            <i
+              class="bi bi-info-circle text-primary tip"
+              tabindex="0"
+              data-bs-toggle="tooltip"
+              data-bs-title="O FII ou a acao que voce quer simular. Escolha na lista."
+            ></i>
+          </label>
+          <input
+            type="search"
+            class="form-control"
+            id="calcBusca"
+            placeholder="Digite ou escolha da lista..."
+            autocomplete="off"
+            value=""
+          />
+          <input type="hidden" id="calcTicker" value="" />
+          <input type="hidden" id="calcTipo" value="" />
+          <div
+            id="calcBuscaLista"
+            class="busca-ativo-lista list-group shadow"
+            hidden
+          ></div>
+          <div class="form-text" id="calcAtivoHint">
+            Escolha um FII ou Ação na lista.
+          </div>
+        </div>
+
+        <div class="row g-2 mb-3 align-items-end">
+          <div class="col-6">
+            <label class="form-label" for="calcPeriodo">
+              Periodo
+              <i
+                class="bi bi-info-circle text-primary tip"
+                tabindex="0"
+                data-bs-toggle="tooltip"
+                data-bs-title="Por quanto tempo voce imagina investir todo mes (1 ano, 5 anos...)."
+              ></i>
+            </label>
+            <select class="form-select" id="calcPeriodo">
+              {% for label, meses in periodos.items() %}
+              <option value="{{ meses }}" {% if meses == 12 %}selected{% endif %}>
+                {{ label }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-6">
+            <div class="form-check form-switch mb-0 pt-1">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="calcReinvestir"
+                checked
+              />
+              <label class="form-check-label" for="calcReinvestir">
+                Reinvestir
+                <i
+                  class="bi bi-info-circle text-primary tip"
+                  tabindex="0"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Se ligado, o dinheiro que o ativo 'paga' todo mes e usado para comprar mais cotas. Se desligado, esse dinheiro fica separado."
+                ></i>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <label class="form-label" for="calcInicial">
+              Aporte inicial (R$)
+              <i
+                class="bi bi-info-circle text-primary tip"
+                tabindex="0"
+                data-bs-toggle="tooltip"
+                data-bs-title="Quanto voce coloca no primeiro mes, de uma vez."
+              ></i>
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="calcInicial"
+              min="0"
+              step="100"
+              value="1000"
+            />
+          </div>
+          <div class="col-6">
+            <label class="form-label" for="calcMensal">
+              Aporte mensal (R$)
+              <i
+                class="bi bi-info-circle text-primary tip"
+                tabindex="0"
+                data-bs-toggle="tooltip"
+                data-bs-title="Quanto voce coloca todo mes depois do primeiro."
+              ></i>
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="calcMensal"
+              min="0"
+              step="50"
+              value="500"
+            />
+          </div>
+        </div>
+
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <label class="form-label" for="calcIpca12">
+              IPCA acumulado<br />
+              <span class="text-body-secondary fw-normal">12 meses</span>
+              <i
+                class="bi bi-info-circle text-primary tip"
+                tabindex="0"
+                data-bs-toggle="tooltip"
+                data-bs-title="IPCA e a inflacao oficial do Brasil. Este numero mostra quanto os precos subiram nos ultimos 12 meses. Buscamos no Investidor10."
+              ></i>
+            </label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                id="calcIpca12"
+                value="{% if ipca_12m is not none %}{{ '%.2f'|format(ipca_12m) }}{% else %}—{% endif %}"
+                readonly
+              />
+              <span class="input-group-text">% a.a.</span>
+            </div>
+            <div class="form-text">
+              {% if ipca_erro %}
+              <span class="text-danger">Falha ao ler IPCA: {{ ipca_erro }}</span>
+              {% else %} Lido do
+              <a
+                href="https://investidor10.com.br/indices/ipca/"
+                target="_blank"
+                rel="noopener"
+                >Investidor10</a
+              >. {% endif %}
+            </div>
+          </div>
+          <div class="col-6">
+            <label class="form-label" for="calcTaxaReal">
+              Taxa real<br />
+              <span class="text-body-secondary fw-normal">(+X% a.a.)</span>
+              <i
+                class="bi bi-info-circle text-primary tip"
+                tabindex="0"
+                data-bs-toggle="tooltip"
+                data-bs-title="E o 'extra' acima da inflacao, como no Tesouro IPCA+. Ex.: IPCA + 6%. Voce escolhe o 6. Usamos so para comparar: e como se o mesmo dinheiro rendesse essa taxa."
+              ></i>
+            </label>
+            <div class="input-group">
+              <span class="input-group-text">IPCA +</span>
+              <input
+                type="number"
+                class="form-control"
+                id="calcTaxaReal"
+                min="0"
+                max="20"
+                step="0.1"
+                value="{{ taxa_real_default }}"
+              />
+              <span class="input-group-text">%</span>
+            </div>
+            <div class="form-text">
+              Comparacao = <strong>IPCA + X</strong>
+              <span id="calcTaxaComboHint"></span>.
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-primary flex-fill" id="btnSimular">
+            <i class="bi bi-play-fill"></i> Simular
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-secondary flex-fill"
+            id="btnLimpar"
+          >
+            Limpar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# --- Resultados --- #}
+  <div class="col-lg-8">
+    <div id="calcLoading" class="text-center py-5 d-none">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-3 mb-0 text-body-secondary">
+        Consultando ativo e simulando...
+      </p>
+    </div>
+
+    <div id="calcErro" class="alert alert-danger d-none" role="alert"></div>
+
+    <div id="calcVazio" class="card shadow-sm">
+      <div class="card-body text-center text-body-secondary py-5">
+        <i class="bi bi-graph-up-arrow display-6 d-block mb-2"></i>
+        Escolha o ativo e clique em <strong>Simular</strong>.
+      </div>
+    </div>
+
+    <div id="calcResultado" class="d-none">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            data-bs-toggle="tab"
+            data-bs-target="#tabResumo"
+            type="button"
+          >
+            Resumo
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#tabHistorico"
+            type="button"
+          >
+            Historico
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#tabGrafico"
+            type="button"
+          >
+            Grafico
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content border border-top-0 rounded-bottom p-3 bg-body">
+        <div class="tab-pane fade show active" id="tabResumo">
+          <p class="small text-body-secondary mb-3" id="calcMetaInfo"></p>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6 col-xl-3">
+              <div class="card h-100 border-success">
+                <div class="card-body">
+                  <div class="small text-body-secondary">
+                    Total final
+                    <i
+                      class="bi bi-info-circle text-primary tip"
+                      tabindex="0"
+                      data-bs-toggle="tooltip"
+                      data-bs-title="Quanto seu dinheiro valeria no fim, somando cotas (e dividendos guardados, se nao reinvestir)."
+                    ></i>
+                  </div>
+                  <div class="fs-5 fw-semibold text-success" id="rPatrimonio">
+                    —
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="small text-body-secondary">
+                    Total aportado
+                    <i
+                      class="bi bi-info-circle text-primary tip"
+                      tabindex="0"
+                      data-bs-toggle="tooltip"
+                      data-bs-title="Soma de tudo que voce tirou do bolso (inicial + mensais). Nao inclui o rendimento."
+                    ></i>
+                  </div>
+                  <div class="fs-5 fw-semibold" id="rAportado">—</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="small text-body-secondary">
+                    Rentabilidade
+                    <i
+                      class="bi bi-info-circle text-primary tip"
+                      tabindex="0"
+                      data-bs-toggle="tooltip"
+                      data-bs-title="Quanto voce 'ganhou' em % em cima do que colocou. Ex.: 10% significa que o lucro foi 10% do valor aportado."
+                    ></i>
+                  </div>
+                  <div class="fs-5 fw-semibold" id="rRent">—</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="card h-100 border-primary">
+                <div class="card-body">
+                  <div class="small text-body-secondary">
+                    Renda mensal est.
+                    <i
+                      class="bi bi-info-circle text-primary tip"
+                      tabindex="0"
+                      data-bs-toggle="tooltip"
+                      data-bs-title="Estimativa de quanto o ativo pagaria por mes no final, com as cotas que voce teria."
+                    ></i>
+                  </div>
+                  <div class="fs-5 fw-semibold text-primary" id="rRenda">—</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-4">
+              <div class="small text-body-secondary">
+                Cotas no 1º mes
+                <i
+                  class="bi bi-info-circle text-primary tip"
+                  tabindex="0"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Quantas cotas a simulacao compra no primeiro mes (com o aporte inicial + 1º mensal)."
+                ></i>
+              </div>
+              <div class="fw-semibold" id="rCotasIni">—</div>
+            </div>
+            <div class="col-md-4">
+              <div class="small text-body-secondary">
+                Cotas no final
+                <i
+                  class="bi bi-info-circle text-primary tip"
+                  tabindex="0"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Total de cotas no fim do periodo. Veja a aba Historico para o detalhe mes a mes."
+                ></i>
+              </div>
+              <div class="fw-semibold" id="rCotas">—</div>
+            </div>
+            <div class="col-md-4">
+              <div class="small text-body-secondary">
+                Dividendos no periodo
+                <i
+                  class="bi bi-info-circle text-primary tip"
+                  tabindex="0"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Soma de tudo que o ativo 'pagou' de renda nos meses da simulacao."
+                ></i>
+              </div>
+              <div class="fw-semibold" id="rDivs">—</div>
+            </div>
+            <div class="col-md-4">
+              <div class="small text-body-secondary">
+                Renda sobre o que investiu
+                <i
+                  class="bi bi-info-circle text-primary tip"
+                  tabindex="0"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Antes chamavam de Yield on Cost. E a renda anual estimada no fim, dividida pelo total que voce colocou do bolso. Mostra quanto % ao ano aquela renda representa em cima do seu dinheiro investido."
+                ></i>
+              </div>
+              <div class="fw-semibold" id="rYoc">—</div>
+            </div>
+            <div class="col-md-4">
+              <div class="small text-body-secondary">
+                Preco usado
+                <i
+                  class="bi bi-info-circle text-primary tip"
+                  tabindex="0"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Preco da cota/acao hoje no Investidor10. Na simulacao esse preco nao muda."
+                ></i>
+              </div>
+              <div class="fw-semibold" id="rPreco">—</div>
+            </div>
+            <div class="col-md-4">
+              <div class="small text-body-secondary">
+                DY (12 meses)
+                <i
+                  class="bi bi-info-circle text-primary tip"
+                  tabindex="0"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Dividend Yield: quanto o ativo pagou de renda nos ultimos 12 meses, em % do preco. Usamos isso para estimar a renda mensal."
+                ></i>
+              </div>
+              <div class="fw-semibold" id="rDy">—</div>
+            </div>
+            <div class="col-12">
+              <div class="small text-body-secondary">
+                Comparacao com IPCA+
+                <i
+                  class="bi bi-info-circle text-primary tip"
+                  tabindex="0"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Se voce tivesse colocado o mesmo dinheiro num rendimento tipo Tesouro IPCA+X, quanto teria no fim. O valor em verde/vermelho e a diferenca: positivo = a simulacao do ativo ficou na frente."
+                ></i>
+              </div>
+              <div class="fw-semibold" id="rVsIpca">—</div>
+            </div>
+          </div>
+
+          <div
+            class="alert alert-light border small mb-0"
+            id="calcAvisos"
+          ></div>
+        </div>
+
+        <div class="tab-pane fade" id="tabHistorico">
+          <p class="small text-body-secondary mb-3">
+            Cada linha e um mes da simulacao: quanto voce colocou, quantas cotas
+            comprou e o total ate ali. O preco fica fixo (preco de hoje) —
+            diferente da Brapi, que usa o preco de cada mes do passado.
+          </p>
+          <div
+            id="calcHistoricoLista"
+            class="calc-historico list-group list-group-flush border rounded"
+          ></div>
+        </div>
+
+        <div class="tab-pane fade" id="tabGrafico">
+          <p class="small text-body-secondary mb-2">
+            Linhas: valor das suas cotas, quanto voce colocou do bolso, e quanto
+            renderia no IPCA+.
+          </p>
+          <canvas id="calcChart" height="120"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  id="calcPage"
+  data-pre-ticker="{{ preselect_ticker or '' }}"
+  data-pre-tipo="{{ preselect_tipo or '' }}"
+  hidden
+></div>
+{% endblock %} {% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+  (function () {
+    var ativos = [];
+    try {
+      var elDados = document.getElementById("ativosData");
+      ativos = elDados ? JSON.parse(elDados.textContent || "[]") : [];
+    } catch (e) {
+      ativos = [];
+    }
+
+    var pageMeta = document.getElementById("calcPage");
+    var preTicker =
+      (pageMeta && pageMeta.getAttribute("data-pre-ticker")) || "";
+    var preTipo = (pageMeta && pageMeta.getAttribute("data-pre-tipo")) || "";
+
+    var busca = document.getElementById("calcBusca");
+    var lista = document.getElementById("calcBuscaLista");
+    var wrap = document.getElementById("calcBuscaWrap");
+    var tickerEl = document.getElementById("calcTicker");
+    var tipoEl = document.getElementById("calcTipo");
+    var hint = document.getElementById("calcAtivoHint");
+    var chart = null;
+
+    function money(v) {
+      return Number(v || 0).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+    }
+    function pct(v) {
+      return (
+        Number(v || 0).toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }) + "%"
+      );
+    }
+
+    function selecionarAtivo(item) {
+      tickerEl.value = item.ticker;
+      tipoEl.value = item.tipo;
+      busca.value = item.ticker;
+      hint.textContent =
+        (item.tipo === "fii" ? "FII" : "Ação") +
+        " — " +
+        item.ticker +
+        (item.nome ? " · " + item.nome : "");
+      lista.hidden = true;
+    }
+
+    function filtrar(q) {
+      q = (q || "").trim().toLowerCase();
+      var out = !q
+        ? ativos.slice()
+        : ativos.filter(function (a) {
+            return (
+              (a.ticker || "").toLowerCase().indexOf(q) !== -1 ||
+              (a.nome || "").toLowerCase().indexOf(q) !== -1
+            );
+          });
+      out.sort(function (a, b) {
+        return (a.ticker || "").localeCompare(b.ticker || "", "pt-BR");
+      });
+      return out.slice(0, 80); // lista da calculadora: ate 80 para performance
+    }
+
+    function renderLista(itens) {
+      lista.innerHTML = "";
+      if (!itens.length) {
+        lista.innerHTML =
+          '<div class="list-group-item small">Nenhum ativo</div>';
+        lista.hidden = false;
+        return;
+      }
+      itens.forEach(function (item) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "list-group-item list-group-item-action";
+        var badge =
+          item.tipo === "fii"
+            ? '<span class="badge text-bg-info">FII</span>'
+            : '<span class="badge text-bg-success">Ação</span>';
+        btn.innerHTML =
+          "<strong>" +
+          item.ticker +
+          "</strong> " +
+          badge +
+          '<div class="small text-body-secondary text-truncate">' +
+          (item.nome || "") +
+          "</div>";
+        btn.addEventListener("mousedown", function (ev) {
+          ev.preventDefault();
+          selecionarAtivo(item);
+        });
+        lista.appendChild(btn);
+      });
+      lista.hidden = false;
+    }
+
+    busca.addEventListener("focus", function () {
+      renderLista(filtrar(busca.value));
+    });
+    busca.addEventListener("input", function () {
+      renderLista(filtrar(busca.value));
+    });
+    document.addEventListener("click", function (ev) {
+      if (!wrap.contains(ev.target)) lista.hidden = true;
+    });
+
+    function atualizarHintTaxa() {
+      var ipca =
+        parseFloat(
+          String(document.getElementById("calcIpca12").value).replace(",", "."),
+        ) || 0;
+      var real = parseFloat(document.getElementById("calcTaxaReal").value) || 0;
+      var hint = document.getElementById("calcTaxaComboHint");
+      if (hint)
+        hint.textContent =
+          " → " + (ipca + real).toFixed(2).replace(".", ",") + "% a.a.";
+    }
+    document
+      .getElementById("calcTaxaReal")
+      .addEventListener("input", atualizarHintTaxa);
+    atualizarHintTaxa();
+
+    // Se veio da URL (?ticker=&tipo=) ou de um icone nas tabelas, pre-seleciona
+    if (preTicker) {
+      var pre = ativos.find(function (a) {
+        return a.ticker === preTicker;
+      });
+      if (pre) {
+        selecionarAtivo(pre);
+      } else if (preTipo) {
+        selecionarAtivo({ ticker: preTicker, tipo: preTipo, nome: preTicker });
+      }
+    }
+
+    function ativarTooltips(root) {
+      (root || document)
+        .querySelectorAll('[data-bs-toggle="tooltip"]')
+        .forEach(function (el) {
+          bootstrap.Tooltip.getOrCreateInstance(el);
+        });
+    }
+    ativarTooltips(document);
+
+    function setVisao(modo) {
+      document
+        .getElementById("calcLoading")
+        .classList.toggle("d-none", modo !== "loading");
+      document
+        .getElementById("calcErro")
+        .classList.toggle("d-none", modo !== "erro");
+      document
+        .getElementById("calcVazio")
+        .classList.toggle("d-none", modo !== "vazio");
+      document
+        .getElementById("calcResultado")
+        .classList.toggle("d-none", modo !== "ok");
+    }
+
+    function num4(v) {
+      return Number(v || 0).toLocaleString("pt-BR", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 4,
+      });
+    }
+
+    function preencher(data) {
+      document.getElementById("calcMetaInfo").textContent =
+        data.tipo_label +
+        " " +
+        data.ticker +
+        " · " +
+        data.meses +
+        " meses · " +
+        (data.reinvestir ? "reinvestindo a renda" : "sem reinvestir a renda") +
+        " · dados de " +
+        data.consultado_em +
+        " (" +
+        data.tempo_carregamento +
+        ")";
+
+      document.getElementById("rPatrimonio").textContent = money(
+        data.patrimonio_final,
+      );
+      document.getElementById("rAportado").textContent = money(
+        data.total_aportado,
+      );
+      document.getElementById("rRent").textContent = pct(
+        data.rentabilidade_pct,
+      );
+      document.getElementById("rRenda").textContent = money(
+        data.renda_mensal_estimada,
+      );
+      document.getElementById("rCotasIni").textContent = num4(
+        data.cotas_iniciais,
+      );
+      document.getElementById("rCotas").textContent = num4(data.cotas);
+      document.getElementById("rDivs").textContent = money(
+        data.total_dividendos,
+      );
+      document.getElementById("rYoc").textContent = pct(
+        data.renda_sobre_aporte_pct || data.yield_on_cost_pct,
+      );
+      document.getElementById("rPreco").textContent = money(data.preco);
+      document.getElementById("rDy").textContent = pct(data.dy_aa);
+      if (data.ipca_12m != null) {
+        document.getElementById("calcIpca12").value = Number(
+          data.ipca_12m,
+        ).toFixed(2);
+        atualizarHintTaxa();
+      }
+
+      var vs = data.vs_ipca_mais;
+      var vsEl = document.getElementById("rVsIpca");
+      vsEl.textContent =
+        "Diferenca: " +
+        money(vs) +
+        " · Se fosse IPCA " +
+        pct(data.ipca_12m) +
+        " + " +
+        pct(data.taxa_real_aa) +
+        " (= " +
+        pct(data.ipca_mais_aa) +
+        "), o total seria " +
+        money(data.ipca_mais_final);
+      vsEl.classList.toggle("text-success", vs >= 0);
+      vsEl.classList.toggle("text-danger", vs < 0);
+
+      document.getElementById("calcAvisos").innerHTML =
+        "<strong>Informações Importantes:</strong><br>" +
+        (data.avisos || [])
+          .map(function (a) {
+            return "• " + a;
+          })
+          .join("<br>");
+
+      // Historico estilo lista (data | aporte + cotas @ preco | total)
+      var listaH = document.getElementById("calcHistoricoLista");
+      listaH.innerHTML = "";
+      (data.historico || []).forEach(function (h) {
+        var item = document.createElement("div");
+        item.className = "list-group-item calc-historico-item";
+        var cotasTxt = num4(h.cotas_compradas);
+        item.innerHTML =
+          '<div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">' +
+          '<div class="min-w-0">' +
+          '<div class="fw-semibold">' +
+          (h.data_br || "Mes " + h.mes) +
+          "</div>" +
+          '<div class="small text-body-secondary">' +
+          data.ticker +
+          "</div>" +
+          "</div>" +
+          '<div class="text-start text-md-center flex-grow-1 min-w-0">' +
+          '<div class="fw-semibold">' +
+          money(h.aporte) +
+          "</div>" +
+          '<div class="small text-body-secondary">' +
+          cotasTxt +
+          " cotas @ " +
+          money(h.preco || data.preco) +
+          "</div>" +
+          '<div class="small text-body-secondary">Renda do mes: ' +
+          money(h.dividendos_mes) +
+          "</div>" +
+          "</div>" +
+          '<div class="text-end">' +
+          '<div class="small text-body-secondary">Total</div>' +
+          '<div class="fw-semibold">' +
+          money(h.patrimonio) +
+          "</div>" +
+          "</div>" +
+          "</div>";
+        listaH.appendChild(item);
+      });
+
+      var labels = data.historico.map(function (h) {
+        return "Mes " + h.mes;
+      });
+      var patrimonio = data.historico.map(function (h) {
+        return h.patrimonio;
+      });
+      var aportado = data.historico.map(function (h) {
+        return h.total_aportado;
+      });
+
+      var r = data.ipca_mais_aa / 100 / 12;
+      var saldo = 0;
+      var ipcaSerie = data.historico.map(function (h, idx) {
+        var aporte =
+          idx === 0
+            ? data.aporte_inicial + data.aporte_mensal
+            : data.aporte_mensal;
+        saldo = saldo * (1 + r) + aporte;
+        return Math.round(saldo * 100) / 100;
+      });
+
+      if (chart) chart.destroy();
+      var ctx = document.getElementById("calcChart");
+      chart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Seu total no ativo",
+              data: patrimonio,
+              borderColor: "#198754",
+              tension: 0.2,
+            },
+            {
+              label: "O que voce colocou",
+              data: aportado,
+              borderColor: "#6c757d",
+              borderDash: [5, 5],
+              tension: 0.2,
+            },
+            {
+              label:
+                "Se fosse IPCA+" +
+                String(data.ipca_mais_aa).replace(".", ",") +
+                "%",
+              data: ipcaSerie,
+              borderColor: "#0d6efd",
+              tension: 0.2,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { position: "bottom" } },
+          scales: {
+            y: {
+              ticks: {
+                callback: function (v) {
+                  return v.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                    maximumFractionDigits: 0,
+                  });
+                },
+              },
+            },
+          },
+        },
+      });
+
+      ativarTooltips(document.getElementById("calcResultado"));
+    }
+
+    document
+      .getElementById("btnSimular")
+      .addEventListener("click", function () {
+        var ticker = (tickerEl.value || busca.value || "").trim().toUpperCase();
+        var tipo = tipoEl.value;
+        if (!ticker) {
+          setVisao("erro");
+          document.getElementById("calcErro").textContent =
+            "Escolha um ativo na lista.";
+          return;
+        }
+        // Se digitou ticker sem clicar, tenta achar na lista
+        var found = ativos.find(function (a) {
+          return a.ticker === ticker;
+        });
+        if (found) {
+          tipo = found.tipo;
+          tipoEl.value = tipo;
+          tickerEl.value = ticker;
+        }
+
+        setVisao("loading");
+        var body = {
+          tipo: tipo,
+          ticker: ticker,
+          aporte_inicial: Number(
+            document.getElementById("calcInicial").value || 0,
+          ),
+          aporte_mensal: Number(
+            document.getElementById("calcMensal").value || 0,
+          ),
+          meses: Number(document.getElementById("calcPeriodo").value || 12),
+          reinvestir: document.getElementById("calcReinvestir").checked,
+          taxa_real_aa: Number(
+            document.getElementById("calcTaxaReal").value || 6,
+          ),
+        };
+
+        fetch("{{ url_for('api_calculadora') }}", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        })
+          .then(function (r) {
+            return r.json().then(function (j) {
+              return { ok: r.ok, j: j };
+            });
+          })
+          .then(function (res) {
+            if (!res.ok || res.j.erro) {
+              setVisao("erro");
+              document.getElementById("calcErro").textContent =
+                res.j.erro || "Falha na simulacao.";
+              return;
+            }
+            preencher(res.j);
+            setVisao("ok");
+          })
+          .catch(function (err) {
+            setVisao("erro");
+            document.getElementById("calcErro").textContent = String(err);
+          });
+      });
+
+    document.getElementById("btnLimpar").addEventListener("click", function () {
+      if (chart) {
+        chart.destroy();
+        chart = null;
+      }
+      setVisao("vazio");
+    });
+  })();
+</script>
+{% endblock %}

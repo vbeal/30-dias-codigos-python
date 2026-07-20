@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        {# Cabecalho: foto clicavel = abrir seletor e enviar #}
+        <div class="d-flex align-items-center gap-3 mb-4">
+          <div class="position-relative">
+            <button
+              type="button"
+              class="btn p-0 border-0 bg-transparent foto-btn"
+              id="btnEscolherFoto"
+              title="{% if user.foto %}Clique para trocar a foto{% else %}Clique para enviar uma foto{% endif %}"
+              aria-label="Escolher foto de perfil"
+            >
+              {% if user.foto %}
+              <img
+                src="{{ url_for('uploaded_file', filename=user.foto) }}"
+                alt="Foto de perfil"
+                class="rounded-circle border object-fit-cover"
+                width="112"
+                height="112"
+              />
+              {% else %}
+              <span
+                class="rounded-circle bg-body-secondary text-secondary d-inline-flex align-items-center justify-content-center fw-semibold"
+                style="width: 112px; height: 112px; font-size: 2rem"
+              >
+                {{ user.nome[:1]|upper }}
+              </span>
+              {% endif %}
+              <span
+                class="position-absolute bottom-0 end-0 rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center"
+                style="width: 32px; height: 32px"
+              >
+                <i class="bi bi-camera-fill small"></i>
+              </span>
+            </button>
+          </div>
+          <div>
+            <h1 class="h4 mb-1">Perfil</h1>
+            <p class="text-body-secondary mb-2">{{ user.nome }} · {{ user.email }}</p>
+            {% if user.foto %}
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-danger"
+              data-bs-toggle="modal"
+              data-bs-target="#modalRemoverFoto"
+            >
+              <i class="bi bi-trash"></i> Remover foto
+            </button>
+            {% endif %}
+          </div>
+        </div>
+
+        {# Form oculto: upload ao selecionar arquivo #}
+        <form id="formFoto" method="POST" enctype="multipart/form-data" class="d-none">
+          <input type="hidden" name="acao" value="foto" />
+          <input type="hidden" name="aba" value="foto" />
+          <input
+            type="file"
+            id="inputFoto"
+            name="foto"
+            accept=".png,.jpg,.jpeg,.gif,.webp,image/*"
+          />
+        </form>
+
+        {# Abas Bootstrap — Navs & tabs #}
+        <ul class="nav nav-tabs" id="perfilTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link {% if aba == 'dados' %}active{% endif %}"
+              id="tab-dados"
+              data-bs-toggle="tab"
+              data-bs-target="#pane-dados"
+              type="button"
+              role="tab"
+              aria-controls="pane-dados"
+              aria-selected="{{ 'true' if aba == 'dados' else 'false' }}"
+            >
+              <i class="bi bi-person"></i> Dados
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link {% if aba == 'senha' %}active{% endif %}"
+              id="tab-senha"
+              data-bs-toggle="tab"
+              data-bs-target="#pane-senha"
+              type="button"
+              role="tab"
+              aria-controls="pane-senha"
+              aria-selected="{{ 'true' if aba == 'senha' else 'false' }}"
+            >
+              <i class="bi bi-shield-lock"></i> Senha
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link {% if aba == 'foto' %}active{% endif %}"
+              id="tab-foto"
+              data-bs-toggle="tab"
+              data-bs-target="#pane-foto"
+              type="button"
+              role="tab"
+              aria-controls="pane-foto"
+              aria-selected="{{ 'true' if aba == 'foto' else 'false' }}"
+            >
+              <i class="bi bi-image"></i> Foto
+            </button>
+          </li>
+        </ul>
+
+        <div class="tab-content border border-top-0 rounded-bottom p-4" id="perfilTabsContent">
+          {# Aba Dados #}
+          <div
+            class="tab-pane fade {% if aba == 'dados' %}show active{% endif %}"
+            id="pane-dados"
+            role="tabpanel"
+            aria-labelledby="tab-dados"
+            tabindex="0"
+          >
+            <form method="POST">
+              <input type="hidden" name="acao" value="dados" />
+              <input type="hidden" name="aba" value="dados" />
+              <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nome"
+                  name="nome"
+                  value="{{ user.nome }}"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">E-mail</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  value="{{ user.email }}"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check-lg"></i> Salvar dados
+              </button>
+            </form>
+          </div>
+
+          {# Aba Senha #}
+          <div
+            class="tab-pane fade {% if aba == 'senha' %}show active{% endif %}"
+            id="pane-senha"
+            role="tabpanel"
+            aria-labelledby="tab-senha"
+            tabindex="0"
+          >
+            <form method="POST">
+              <input type="hidden" name="acao" value="senha" />
+              <input type="hidden" name="aba" value="senha" />
+              <div class="mb-3">
+                <label for="senha_atual" class="form-label">Senha atual</label>
+                <div class="input-group">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="senha_atual"
+                    name="senha_atual"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btn-toggle-senha"
+                    data-target="senha_atual"
+                    title="Mostrar senha"
+                    aria-label="Mostrar senha"
+                  >
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="senha_nova" class="form-label">Nova senha</label>
+                <div class="input-group">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="senha_nova"
+                    name="senha_nova"
+                    minlength="6"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btn-toggle-senha"
+                    data-target="senha_nova"
+                    title="Mostrar senha"
+                    aria-label="Mostrar senha"
+                  >
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="confirmar" class="form-label">Confirmar nova senha</label>
+                <div class="input-group">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="confirmar"
+                    name="confirmar"
+                    minlength="6"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btn-toggle-senha"
+                    data-target="confirmar"
+                    title="Mostrar senha"
+                    aria-label="Mostrar senha"
+                  >
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-warning">
+                <i class="bi bi-key"></i> Trocar senha
+              </button>
+            </form>
+          </div>
+
+          {# Aba Foto — dicas + acoes #}
+          <div
+            class="tab-pane fade {% if aba == 'foto' %}show active{% endif %}"
+            id="pane-foto"
+            role="tabpanel"
+            aria-labelledby="tab-foto"
+            tabindex="0"
+          >
+            <p class="text-body-secondary mb-3">
+              Clique na foto acima para escolher uma imagem. Formatos: png, jpg, jpeg, gif, webp
+              (max. 2 MB).
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+              <button type="button" class="btn btn-success" id="btnEscolherFotoAba">
+                <i class="bi bi-upload"></i>
+                {% if user.foto %}Trocar foto{% else %}Enviar foto{% endif %}
+              </button>
+              {% if user.foto %}
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#modalRemoverFoto"
+              >
+                <i class="bi bi-trash"></i> Remover foto
+              </button>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="{{ url_for('painel') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Voltar ao painel
+      </a>
+    </div>
+  </div>
+</div>
+
+{# Modal Bootstrap — confirmar remocao (sem confirm() do browser) #}
+{% if user.foto %}
+<div
+  class="modal fade"
+  id="modalRemoverFoto"
+  tabindex="-1"
+  aria-labelledby="modalRemoverFotoLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-5" id="modalRemoverFotoLabel">Remover foto?</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        A foto atual sera apagada do servidor e da sua conta. Essa acao nao pode ser desfeita.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <form method="POST">
+          <input type="hidden" name="acao" value="remover_foto" />
+          <input type="hidden" name="aba" value="foto" />
+          <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Remover
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (function () {
+    var input = document.getElementById("inputFoto");
+    var form = document.getElementById("formFoto");
+    function abrirSeletor() {
+      if (input) input.click();
+    }
+    var btn = document.getElementById("btnEscolherFoto");
+    var btnAba = document.getElementById("btnEscolherFotoAba");
+    if (btn) btn.addEventListener("click", abrirSeletor);
+    if (btnAba) btnAba.addEventListener("click", abrirSeletor);
+    if (input && form) {
+      input.addEventListener("change", function () {
+        if (input.files && input.files.length) form.submit();
+      });
+    }
+  })();
+</script>
+{% endblock %}

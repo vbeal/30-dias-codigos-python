@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Painel{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <div class="d-flex align-items-center gap-3 mb-4">
+          {% if user.foto %}
+          <img
+            src="{{ url_for('uploaded_file', filename=user.foto) }}"
+            alt="Foto de perfil"
+            class="rounded-circle border object-fit-cover"
+            width="96"
+            height="96"
+          />
+          {% else %}
+          <span
+            class="rounded-circle bg-body-secondary text-secondary d-inline-flex align-items-center justify-content-center fw-semibold"
+            style="width: 96px; height: 96px; font-size: 2rem"
+          >
+            {{ user.nome[:1]|upper }}
+          </span>
+          {% endif %}
+          <div>
+            <h1 class="h4 mb-1">Ola, {{ user.nome }}</h1>
+            <p class="text-body-secondary mb-0">Voce esta autenticado com sucesso.</p>
+          </div>
+        </div>
+
+        <div class="list-group list-group-flush mb-4">
+          <div class="list-group-item d-flex justify-content-between px-0">
+            <span class="text-body-secondary">E-mail</span>
+            <strong>{{ user.email }}</strong>
+          </div>
+          <div class="list-group-item d-flex justify-content-between px-0">
+            <span class="text-body-secondary">ID no banco</span>
+            <strong>{{ user.id }}</strong>
+          </div>
+          <div class="list-group-item d-flex justify-content-between px-0">
+            <span class="text-body-secondary">Foto</span>
+            <strong>{% if user.foto %}Cadastrada{% else %}Sem foto{% endif %}</strong>
+          </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
+          <a href="{{ url_for('perfil', aba='dados') }}" class="btn btn-primary">
+            <i class="bi bi-person"></i> Editar dados
+          </a>
+          <a href="{{ url_for('perfil', aba='senha') }}" class="btn btn-outline-warning">
+            <i class="bi bi-shield-lock"></i> Trocar senha
+          </a>
+          <a href="{{ url_for('perfil', aba='foto') }}" class="btn btn-outline-success">
+            <i class="bi bi-image"></i> Foto
+          </a>
+        </div>
+
+        <div class="alert alert-info mt-4 mb-0 small">
+          Nos proximos dias vamos integrar aqui a API do Dia 20 (rankings e detalhes).
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,15 +1,40 @@
 # Dependências gerais
+
 # Dependência para o dia 12
+
 qrcode
-Pillow
+
+Pillow>=10.0.1
+
 opencv-python==4.8.1.78
+
 numpy==1.24.3
+
 pyttsx3==2.90
+
 pytubefix==6.3.1
-Pillow==10.0.1
+
+pandas
+
+yfinance
+
+tqdm
+
 requests==2.31.0
+
+beautifulsoup4
+
+# Dias 17–24: Flask (werkzeug vem junto; sqlite3 e padrao do Python)
+
+# Dias 18–20, 23 e 24: requests + beautifulsoup4 (scraper Investidor10)
+
 flask==3.1.0
+
 matplotlib
+
 instaloader
+
 yt-dlp
+
 sounddevice
+

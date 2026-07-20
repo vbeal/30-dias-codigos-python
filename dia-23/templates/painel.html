@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block title %}Painel{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+  <div class="d-flex align-items-center gap-3">
+    {% if user.foto %}
+    <img
+      src="{{ url_for('uploaded_file', filename=user.foto) }}"
+      alt="Foto"
+      class="rounded-circle border object-fit-cover"
+      width="56"
+      height="56"
+    />
+    {% else %}
+    <span
+      class="rounded-circle bg-body-secondary text-secondary d-inline-flex align-items-center justify-content-center fw-semibold"
+      style="width: 56px; height: 56px"
+    >{{ user.nome[:1]|upper }}</span>
+    {% endif %}
+    <div>
+      <h1 class="h4 mb-0">Ola, {{ user.nome }}</h1>
+      <p class="text-body-secondary small mb-0">Top dividendos em tempo real</p>
+    </div>
+  </div>
+  <div class="d-flex flex-wrap gap-2">
+    <a href="{{ url_for('rankings', tipo='fiis') }}" class="btn btn-outline-primary btn-sm">
+      <i class="bi bi-list-ol"></i> Ver todos FIIs
+    </a>
+    <a href="{{ url_for('rankings', tipo='acoes') }}" class="btn btn-outline-success btn-sm">
+      <i class="bi bi-list-ol"></i> Ver todas Ações
+    </a>
+    <a href="{{ url_for('perfil') }}" class="btn btn-outline-secondary btn-sm">
+      <i class="bi bi-person"></i> Perfil
+    </a>
+  </div>
+</div>
+
+<div
+  class="card shadow-sm"
+  id="top10Page"
+  data-api-url="{{ url_for('api_top10') }}"
+>
+  <div class="card-header bg-body d-flex justify-content-between align-items-center">
+    <div>
+      <strong>Top 10 Dividendos</strong>
+      <span class="text-body-secondary small ms-1">(5 FIIs + 5 Ações, ordenados por DY)</span>
+    </div>
+    <button type="button" class="btn btn-sm btn-primary" id="btnAtualizarTop10">
+      <i class="bi bi-arrow-clockwise"></i> Atualizar
+    </button>
+  </div>
+  <div class="card-body">
+    {# Spinner Bootstrap enquanto o scraper roda #}
+    <div id="top10Loading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem">
+        <span class="visually-hidden">Carregando...</span>
+      </div>
+      <p class="mt-3 mb-0 text-body-secondary">Consultando rankings no Investidor10...</p>
+      <p class="small text-body-secondary">Isso pode levar alguns segundos.</p>
+    </div>
+
+    <div id="top10Erro" class="alert alert-danger d-none" role="alert"></div>
+
+    <div id="top10Conteudo" class="d-none">
+      <p class="small text-body-secondary mb-3" id="top10Meta"></p>
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Ativo</th>
+                  <th>Nome</th>
+                  <th class="text-center">Tipo</th>
+                  <th class="text-center">DY</th>
+                  <th class="text-center">DY mensal*</th>
+                </tr>
+              </thead>
+              <tbody id="top10Tabela"></tbody>
+            </table>
+          </div>
+          <p class="small text-body-secondary mt-2 mb-0">* DY mensal estimado = DY anual / 12</p>
+        </div>
+        <div class="col-lg-5">
+          <canvas id="top10Chart" height="260"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+  (function () {
+    var loading = document.getElementById("top10Loading");
+    var erroBox = document.getElementById("top10Erro");
+    var conteudo = document.getElementById("top10Conteudo");
+    var tbody = document.getElementById("top10Tabela");
+    var meta = document.getElementById("top10Meta");
+    var chart = null;
+
+    function showLoading() {
+      loading.classList.remove("d-none");
+      erroBox.classList.add("d-none");
+      conteudo.classList.add("d-none");
+    }
+
+    function renderTable(itens) {
+      tbody.innerHTML = "";
+      itens.forEach(function (item, idx) {
+        var tr = document.createElement("tr");
+        var badge =
+          item.tipo === "FII"
+            ? '<span class="badge text-bg-primary">FII</span>'
+            : '<span class="badge text-bg-success">Ação</span>';
+        tr.innerHTML =
+          "<td>" +
+          (idx + 1) +
+          "</td>" +
+          "<td><strong>" +
+          item.ativo +
+          "</strong></td>" +
+          "<td class=\"small\">" +
+          (item.nome || "-") +
+          "</td>" +
+          "<td class=\"text-center\">" +
+          badge +
+          "</td>" +
+          "<td class=\"text-center\">" +
+          (item.dividend_yield || "-") +
+          "</td>" +
+          "<td class=\"text-center\">" +
+          (item.dy_mensal || "-") +
+          "</td>";
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderChart(itens) {
+      var labels = itens.map(function (i) {
+        return i.ativo;
+      });
+      var valores = itens.map(function (i) {
+        return i.dy_num > 0 ? i.dy_num : 0;
+      });
+      var cores = itens.map(function (i) {
+        return i.tipo === "FII" ? "rgba(13, 110, 253, 0.75)" : "rgba(25, 135, 84, 0.75)";
+      });
+
+      var ctx = document.getElementById("top10Chart");
+      if (chart) chart.destroy();
+      chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Dividend Yield (%)",
+              data: valores,
+              backgroundColor: cores,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            title: { display: true, text: "DY — Top 10 mistos" },
+            tooltip: {
+              callbacks: {
+                title: function (items) {
+                  if (!items.length) return "";
+                  var idx = items[0].dataIndex;
+                  var item = itens[idx];
+                  if (!item) return items[0].label;
+                  return item.ativo + " (" + item.tipo + ")";
+                },
+                label: function (ctx) {
+                  var valor = ctx.parsed.y;
+                  return "DY: " + (valor != null ? valor.toFixed(2).replace(".", ",") : "-") + "%";
+                },
+              },
+            },
+          },
+          scales: {
+            y: { beginAtZero: true, title: { display: true, text: "%" } },
+          },
+        },
+      });
+    }
+
+    function carregarTop10() {
+      showLoading();
+      fetch(document.getElementById("top10Page").getAttribute("data-api-url"))
+        .then(function (r) {
+          return r.json().then(function (data) {
+            return { ok: r.ok, data: data };
+          });
+        })
+        .then(function (res) {
+          loading.classList.add("d-none");
+          if (!res.ok || res.data.erro) {
+            erroBox.textContent = res.data.erro || "Erro ao carregar Top 10.";
+            erroBox.classList.remove("d-none");
+            return;
+          }
+          meta.textContent =
+            "Atualizado em " +
+            res.data.consultado_em +
+            " · Tempo de carregamento: " +
+            (res.data.tempo_carregamento || "-") +
+            " · Fonte: " +
+            res.data.fonte +
+            " · " +
+            res.data.total +
+            " ativos";
+          renderTable(res.data.itens || []);
+          renderChart(res.data.itens || []);
+          conteudo.classList.remove("d-none");
+        })
+        .catch(function (err) {
+          loading.classList.add("d-none");
+          erroBox.textContent = "Falha de rede: " + err;
+          erroBox.classList.remove("d-none");
+        });
+    }
+
+    document.getElementById("btnAtualizarTop10").addEventListener("click", carregarTop10);
+    carregarTop10();
+  })();
+</script>
+{% endblock %}

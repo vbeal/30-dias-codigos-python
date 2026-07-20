@@ -1,0 +1,14 @@
+/* Minimo necessario — layout e utilitarios vem do Bootstrap 5.3 */
+
+body {
+  padding-top: 0.25rem;
+}
+
+.foto-btn {
+  cursor: pointer;
+}
+
+.foto-btn:hover img,
+.foto-btn:hover span.rounded-circle {
+  opacity: 0.9;
+}

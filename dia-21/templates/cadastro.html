@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastro{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-body p-4">
+    <h1 class="h4 mb-3 text-center">Criar conta</h1>
+    <p class="text-muted small text-center mb-4">
+      A senha sera salva com hash — nunca em texto puro no banco.
+    </p>
+
+    <form method="POST">
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nome"
+          name="nome"
+          placeholder="Seu nome"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="seu@email.com"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="senha" class="form-label">Senha</label>
+        <input
+          type="password"
+          class="form-control"
+          id="senha"
+          name="senha"
+          placeholder="Minimo 6 caracteres"
+          minlength="6"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="confirmar" class="form-label">Confirmar senha</label>
+        <input
+          type="password"
+          class="form-control"
+          id="confirmar"
+          name="confirmar"
+          placeholder="Repita a senha"
+          minlength="6"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-success w-100">Cadastrar</button>
+    </form>
+
+    <p class="text-center text-muted small mt-4 mb-0">
+      Ja tem conta?
+      <a href="{{ url_for('login') }}">Faca login</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

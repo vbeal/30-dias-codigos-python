@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Mercado de Ações - Dia 20</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .endpoint-item {
+        border-left: 4px solid #0d6efd;
+        background: #fff;
+      }
+      .endpoint-item.fast {
+        border-left-color: #198754;
+      }
+      .endpoint-url {
+        font-size: 0.8rem;
+        word-break: break-all;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <div class="container py-5" style="max-width: 720px">
+      <div class="text-center mb-4">
+        <h1 class="h3 mb-2">API Mercado de Ações — Dia 20</h1>
+        <p class="text-muted mb-0">
+          Dados em tempo real do Investidor10. Chave de acesso em
+          <code>config.py</code>.
+        </p>
+      </div>
+
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white">
+          <h2 class="h5 mb-0">Rankings</h2>
+          <small class="text-muted">Pode demorar 15–30 segundos</small>
+        </div>
+        <div class="card-body">
+          <div class="endpoint-item rounded p-3 mb-3 shadow-sm">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h3 class="h6 fw-semibold mb-0">
+                Ranking de FIIs — top pagadores de dividendos
+              </h3>
+              <span class="badge text-bg-warning">Lento</span>
+            </div>
+            <p class="text-muted small mb-3">
+              Lista completa dos fundos imobiliários com maior dividend yield,
+              coletada em tempo real do Investidor10.
+            </p>
+            <a
+              href="http://localhost:5000/api/fiis?key={{ api_key }}"
+              class="btn btn-primary btn-sm"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Abrir endpoint</a
+            >
+            <div class="endpoint-url text-muted mt-2">
+              http://localhost:5000/api/fiis?key=***
+            </div>
+          </div>
+
+          <div class="endpoint-item rounded p-3 mb-3 shadow-sm">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h3 class="h6 fw-semibold mb-0">
+                Ranking de Ações — maiores pagadores de dividendos
+              </h3>
+              <span class="badge text-bg-warning">Lento</span>
+            </div>
+            <p class="text-muted small mb-3">
+              Lista completa das ações da B3 com maior dividend yield nos
+              últimos 12 meses.
+            </p>
+            <a
+              href="http://localhost:5000/api/acoes?key={{ api_key }}"
+              class="btn btn-primary btn-sm"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Abrir endpoint</a
+            >
+            <div class="endpoint-url text-muted mt-2">
+              http://localhost:5000/api/acoes?key=***
+            </div>
+          </div>
+
+          <div class="endpoint-item rounded p-3 mb-0 shadow-sm">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h3 class="h6 fw-semibold mb-0">
+                Rankings completos — FIIs e Ações juntos
+              </h3>
+              <span class="badge text-bg-warning">Lento</span>
+            </div>
+            <p class="text-muted small mb-3">
+              Retorna os dois rankings (FIIs + Ações) em um único JSON.
+            </p>
+            <a
+              href="http://localhost:5000/api/rankings?key={{ api_key }}"
+              class="btn btn-primary btn-sm"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Abrir endpoint</a
+            >
+            <div class="endpoint-url text-muted mt-2">
+              http://localhost:5000/api/rankings?key=***
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white">
+          <h2 class="h5 mb-0">Detalhe por ativo</h2>
+          <small class="text-muted">Resposta rápida (1 página)</small>
+        </div>
+        <div class="card-body">
+          <div class="endpoint-item fast rounded p-3 mb-3 shadow-sm">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h3 class="h6 fw-semibold mb-0">
+                Detalhe do FII CACR11 — cotação e informações
+              </h3>
+              <span class="badge text-bg-success">Rápido</span>
+            </div>
+            <p class="text-muted small mb-3">
+              Cotação, DY, P/VP, liquidez, razão social, CNPJ, segmento e último
+              rendimento.
+            </p>
+            <a
+              href="http://localhost:5000/api/fii/CACR11?key={{ api_key }}"
+              class="btn btn-success btn-sm"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Abrir endpoint</a
+            >
+            <div class="endpoint-url text-muted mt-2">
+              http://localhost:5000/api/fii/CACR11?key=***
+            </div>
+          </div>
+
+          <div class="endpoint-item fast rounded p-3 mb-0 shadow-sm">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h3 class="h6 fw-semibold mb-0">
+                Detalhe da Ação SCAR3 — cotação e dados da empresa
+              </h3>
+              <span class="badge text-bg-success">Rápido</span>
+            </div>
+            <p class="text-muted small mb-3">
+              Cotação, P/L, DY, valor de mercado, setor, CNPJ e papéis
+              negociados.
+            </p>
+            <a
+              href="http://localhost:5000/api/acao/SCAR3?key={{ api_key }}"
+              class="btn btn-success btn-sm"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Abrir endpoint</a
+            >
+            <div class="endpoint-url text-muted mt-2">
+              http://localhost:5000/api/acao/SCAR3?key=***
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-light border mb-0 text-center small">
+        Troque <strong>CACR11</strong> ou <strong>SCAR3</strong> na URL para
+        consultar outro ativo. A chave real fica em <code>config.py</code>.
+      </div>
+    </div>
+  </body>
+</html>

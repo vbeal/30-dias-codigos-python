@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Carteiras{% endblock %}
+
+{% block content %}
+{# Sem carteira: cria a primeira (vira padrao automatico) #}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-body text-center py-5 px-4">
+        <i class="bi bi-briefcase display-5 text-primary d-block mb-3"></i>
+        <h1 class="h4 mb-2">Nenhuma carteira ainda</h1>
+        <p class="text-body-secondary mb-4">
+          Crie sua primeira carteira. Ela sera a <strong>padrao</strong> e abrira
+          automaticamente ao clicar em Carteiras (e depois no painel).
+        </p>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#modalNovaCarteira"
+        >
+          <i class="bi bi-plus-lg"></i> Cadastrar carteira
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalNovaCarteira" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="post" action="{{ url_for('carteiras_criar') }}" class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-5">Nova carteira</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <label class="form-label" for="nomeCarteira">Nome</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nomeCarteira"
+          name="nome"
+          maxlength="80"
+          required
+          placeholder="Ex.: Carteira principal"
+          value="Carteira principal"
+        />
+        <div class="form-text">Esta sera marcada como padrao.</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary">Criar</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

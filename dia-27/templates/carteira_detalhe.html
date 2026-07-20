@@ -1,0 +1,837 @@
+{% extends "base.html" %}
+{% block title %}{{ carteira.nome }}{% endblock %}
+
+{% block content %}
+{# Novidade Dia 26: lancamentos (compra/venda) da carteira #}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+  <div>
+    <div class="d-flex flex-wrap align-items-center gap-2">
+      <h1 class="h4 mb-0">{{ carteira.nome }}</h1>
+      {% if carteira.eh_padrao %}
+      <span class="badge text-bg-warning">Padrao</span>
+      {% endif %}
+    </div>
+    {% if carteiras|length > 1 %}
+    <div class="mt-2">
+      <label class="form-label small text-body-secondary mb-1" for="trocarCarteira">Trocar carteira</label>
+      <select class="form-select form-select-sm" id="trocarCarteira" style="max-width: 16rem">
+        {% for c in carteiras %}
+        <option
+          value="{{ url_for('carteira_detalhe', carteira_id=c.id) }}"
+          {% if c.id == carteira.id %}selected{% endif %}
+        >
+          {{ c.nome }}{% if c.eh_padrao %} ★{% endif %}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    {% endif %}
+  </div>
+  <div class="d-flex flex-wrap gap-2">
+    <button
+      type="button"
+      class="btn btn-outline-success btn-sm"
+      id="btnAtualizarCotacoes"
+    >
+      <i class="bi bi-arrow-clockwise"></i> Atualizar cotacoes
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary btn-sm"
+      data-bs-toggle="modal"
+      data-bs-target="#modalLancamento"
+    >
+      <i class="bi bi-plus-lg"></i> Adicionar lancamento
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-primary btn-sm"
+      data-bs-toggle="modal"
+      data-bs-target="#modalNovaCarteira"
+    >
+      <i class="bi bi-plus-lg"></i> Nova carteira
+    </button>
+    {% if not carteira.eh_padrao %}
+    <form method="post" action="{{ url_for('carteira_definir_padrao', carteira_id=carteira.id) }}">
+      <button type="submit" class="btn btn-outline-warning btn-sm" title="Abrir esta ao clicar em Carteiras">
+        <i class="bi bi-star"></i> Definir como padrao
+      </button>
+    </form>
+    {% endif %}
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-sm"
+      data-bs-toggle="modal"
+      data-bs-target="#modalRenomear"
+    >
+      Renomear
+    </button>
+    <form
+      method="post"
+      action="{{ url_for('carteira_apagar', carteira_id=carteira.id) }}"
+      data-confirm="Apagar esta carteira e todos os lancamentos? Essa acao nao pode ser desfeita."
+      data-confirm-title="Apagar carteira"
+      data-confirm-ok="Apagar carteira"
+    >
+      <button type="submit" class="btn btn-outline-danger btn-sm">Apagar</button>
+    </form>
+  </div>
+</div>
+
+{# --- Dia 27: resumo + grafico + posicoes --- #}
+<div id="cartAcompMeta" data-carteira-id="{{ carteira.id }}" hidden></div>
+
+<div class="row g-3 mb-4" id="cartResumoCards">
+  <div class="col-6 col-lg-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <div class="text-body-secondary small">Patrimonio</div>
+        <div class="fs-5 fw-semibold" id="cartPatrimonio">—</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <div class="text-body-secondary small">Valor investido</div>
+        <div class="fs-5 fw-semibold" id="cartInvestido">—</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <div class="text-body-secondary small">Lucro / prejuizo</div>
+        <div class="fs-5 fw-semibold" id="cartLucro">—</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <div class="text-body-secondary small">Rentabilidade</div>
+        <div class="fs-5 fw-semibold" id="cartRent">—</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span class="fw-semibold">Evolucao do patrimonio</span>
+    <span class="small text-body-secondary" id="cartAtualizadoEm"></span>
+  </div>
+  <div class="card-body">
+    <div id="cartGraficoLoading" class="text-center py-4">
+      <div class="spinner-border text-primary spinner-border-sm" role="status"></div>
+      <span class="ms-2 text-body-secondary small">Carregando cotacoes Yahoo...</span>
+    </div>
+    <div id="cartGraficoVazio" class="text-center text-body-secondary py-4 d-none">
+      Sem dados para o grafico. Adicione lancamentos.
+    </div>
+    <div id="cartGraficoWrap" class="d-none" style="min-height: 240px">
+      <canvas id="cartChart" height="100"></canvas>
+    </div>
+    <div id="cartGraficoErro" class="alert alert-danger d-none mb-0"></div>
+  </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-header fw-semibold">Posicoes</div>
+  <div class="card-body p-0">
+    <div id="cartPosicoesVazio" class="text-center text-body-secondary py-4 d-none">
+      Nenhuma posicao aberta.
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover mb-0 align-middle" id="cartPosicoesTabela">
+        <thead class="table-light">
+          <tr>
+            <th>Ativo</th>
+            <th class="text-end">Qtd</th>
+            <th class="text-end">Preco medio</th>
+            <th class="text-end">Preco atual</th>
+            <th class="text-end">Investido</th>
+            <th class="text-end">Saldo</th>
+            <th class="text-end">Var. %</th>
+          </tr>
+        </thead>
+        <tbody id="cartPosicoesBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-header fw-semibold">Lancamentos</div>
+  <div class="card-body p-0">
+    {% if not lancamentos %}
+    <p class="text-body-secondary text-center py-5 mb-0">
+      Nenhum lancamento. Clique em <strong>Adicionar lancamento</strong>.
+    </p>
+    {% else %}
+    <div class="table-responsive">
+      <table class="table table-hover mb-0 align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Data</th>
+            <th>Op.</th>
+            <th>Ativo</th>
+            <th class="text-end">Qtd</th>
+            <th class="text-end">Preco</th>
+            <th class="text-end">Custos</th>
+            <th class="text-end">Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for l in lancamentos %}
+          <tr>
+            <td>
+              {% if l.data_transacao and l.data_transacao|length >= 10 %}
+              {{ l.data_transacao[8:10] }}/{{ l.data_transacao[5:7] }}/{{ l.data_transacao[0:4] }}
+              {% else %}
+              {{ l.data_transacao }}
+              {% endif %}
+            </td>
+            <td>
+              {% if l.operacao == 'compra' %}
+              <span class="badge text-bg-success">Compra</span>
+              {% else %}
+              <span class="badge text-bg-danger">Venda</span>
+              {% endif %}
+            </td>
+            <td>
+              <strong>{{ l.ticker }}</strong>
+              <span class="text-body-secondary small">
+                · {{ 'FII' if l.tipo_ativo == 'fii' else 'Ação' }}
+              </span>
+            </td>
+            <td class="text-end">{{ '%.4g'|format(l.quantidade) }}</td>
+            <td class="text-end">R$ {{ '%.2f'|format(l.preco) }}</td>
+            <td class="text-end">R$ {{ '%.2f'|format(l.outros_custos) }}</td>
+            <td class="text-end">R$ {{ '%.2f'|format(l.valor_total) }}</td>
+            <td class="text-end">
+              <form
+                method="post"
+                action="{{ url_for('lancamento_apagar', carteira_id=carteira.id, lancamento_id=l.id) }}"
+                data-confirm="Remover este lancamento? Essa acao nao pode ser desfeita."
+                data-confirm-title="Remover lancamento"
+                data-confirm-ok="Remover"
+              >
+                <button type="submit" class="btn btn-sm btn-outline-danger" title="Remover">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{# Modal: novo lancamento #}
+<div class="modal fade" id="modalLancamento" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form
+      method="post"
+      action="{{ url_for('lancamento_criar', carteira_id=carteira.id) }}"
+      class="modal-content"
+      id="formLancamento"
+    >
+      <div class="modal-header">
+        <h2 class="modal-title fs-5">Adicionar lancamento</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="btn-group w-100 mb-3" role="group">
+          <input type="radio" class="btn-check" name="operacao" id="opCompra" value="compra" checked />
+          <label class="btn btn-outline-success" for="opCompra">Compra</label>
+          <input type="radio" class="btn-check" name="operacao" id="opVenda" value="venda" />
+          <label class="btn btn-outline-danger" for="opVenda">Venda</label>
+        </div>
+
+        <div class="mb-3 position-relative">
+          <label class="form-label" for="lancBusca">Ativo</label>
+          <input type="hidden" name="ticker" id="lancTicker" required />
+          <input
+            type="search"
+            class="form-control"
+            id="lancBusca"
+            placeholder="Digite ou role a lista completa..."
+            autocomplete="off"
+            required
+          />
+          <div
+            id="lancLista"
+            class="list-group shadow busca-ativo-lista"
+            style="z-index: 1080"
+            hidden
+          ></div>
+          <div class="form-text" id="lancHint">Escolha um ativo da lista (FIIs e Ações).</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="dataTx">Data da transacao</label>
+          <input type="date" class="form-control" id="dataTx" name="data_transacao" required />
+          <div class="form-text" id="precoHint">Ao selecionar ativo/data, buscamos o preco (Yahoo).</div>
+        </div>
+
+        <div class="row g-2 mb-3">
+          <div class="col-4">
+            <label class="form-label" for="qtd">Quantidade</label>
+            <input type="number" class="form-control" id="qtd" name="quantidade" min="0.0001" step="any" value="1" required />
+          </div>
+          <div class="col-4">
+            <label class="form-label" for="preco">Preco (R$)</label>
+            <input type="text" class="form-control" id="preco" name="preco" inputmode="decimal" value="0,00" required />
+          </div>
+          <div class="col-4">
+            <label class="form-label" for="custos">Outros custos</label>
+            <input type="text" class="form-control" id="custos" name="outros_custos" inputmode="decimal" value="0,00" />
+          </div>
+        </div>
+
+        <div class="alert alert-secondary mb-0 py-2">
+          Valor total: <strong id="lancTotal">R$ 0,00</strong>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">+ Adicionar lancamento</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{# Modal: renomear #}
+<div class="modal fade" id="modalRenomear" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form
+      method="post"
+      action="{{ url_for('carteira_renomear', carteira_id=carteira.id) }}"
+      class="modal-content"
+    >
+      <div class="modal-header">
+        <h2 class="modal-title fs-5">Renomear carteira</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <label class="form-label" for="novoNome">Nome</label>
+        <input
+          type="text"
+          class="form-control"
+          id="novoNome"
+          name="nome"
+          value="{{ carteira.nome }}"
+          maxlength="80"
+          required
+        />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{# Modal: nova carteira (extra, alem da padrao) #}
+<div class="modal fade" id="modalNovaCarteira" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="post" action="{{ url_for('carteiras_criar') }}" class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-5">Nova carteira</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <label class="form-label" for="nomeNovaCarteira">Nome</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nomeNovaCarteira"
+          name="nome"
+          maxlength="80"
+          required
+          placeholder="Ex.: FIIs de logistica"
+        />
+        <div class="form-text">
+          A carteira <strong>padrao</strong> continua sendo a atual (com estrela),
+          a menos que voce defina outra depois.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Criar</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+  (function () {
+    var sel = document.getElementById("trocarCarteira");
+    if (sel) {
+      sel.addEventListener("change", function () {
+        if (sel.value) window.location.href = sel.value;
+      });
+    }
+  })();
+</script>
+<script>
+  (function () {
+    var meta = document.getElementById("cartAcompMeta");
+    if (!meta) return;
+    var carteiraId = meta.getAttribute("data-carteira-id");
+    var chart = null;
+
+    function dinheiro(n) {
+      if (n === null || n === undefined || isNaN(n)) return "—";
+      return (
+        "R$ " +
+        Number(n).toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      );
+    }
+
+    function pct(n) {
+      if (n === null || n === undefined || isNaN(n)) return "—";
+      var s = Number(n).toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+      return (n > 0 ? "+" : "") + s + "%";
+    }
+
+    function corLucro(n) {
+      if (n === null || n === undefined) return "";
+      if (n > 0) return "text-success";
+      if (n < 0) return "text-danger";
+      return "";
+    }
+
+    function setLoading(on) {
+      document.getElementById("cartGraficoLoading").classList.toggle("d-none", !on);
+    }
+
+    function renderResumo(r) {
+      document.getElementById("cartPatrimonio").textContent = dinheiro(r.patrimonio);
+      document.getElementById("cartInvestido").textContent = dinheiro(r.valor_investido);
+      var lucroEl = document.getElementById("cartLucro");
+      lucroEl.textContent = dinheiro(r.lucro);
+      lucroEl.className = "fs-5 fw-semibold " + corLucro(r.lucro);
+      var rentEl = document.getElementById("cartRent");
+      rentEl.textContent = pct(r.rentabilidade_pct);
+      rentEl.className = "fs-5 fw-semibold " + corLucro(r.rentabilidade_pct);
+      document.getElementById("cartAtualizadoEm").textContent = r.atualizado_em
+        ? "Atualizado em " + r.atualizado_em
+        : "";
+    }
+
+    function renderPosicoes(posicoes) {
+      var body = document.getElementById("cartPosicoesBody");
+      var vazio = document.getElementById("cartPosicoesVazio");
+      var tabela = document.getElementById("cartPosicoesTabela");
+      body.innerHTML = "";
+      if (!posicoes || !posicoes.length) {
+        vazio.classList.remove("d-none");
+        tabela.classList.add("d-none");
+        return;
+      }
+      vazio.classList.add("d-none");
+      tabela.classList.remove("d-none");
+      posicoes.forEach(function (p) {
+        var tipo = p.tipo_ativo === "fii" ? "FII" : "Ação";
+        var tr = document.createElement("tr");
+        tr.innerHTML =
+          "<td><strong>" +
+          p.ticker +
+          '</strong> <span class="small text-body-secondary">· ' +
+          tipo +
+          "</span></td>" +
+          '<td class="text-end">' +
+          Number(p.quantidade).toLocaleString("pt-BR", { maximumFractionDigits: 4 }) +
+          "</td>" +
+          '<td class="text-end">' +
+          dinheiro(p.preco_medio) +
+          "</td>" +
+          '<td class="text-end">' +
+          dinheiro(p.preco_atual) +
+          "</td>" +
+          '<td class="text-end">' +
+          dinheiro(p.valor_investido) +
+          "</td>" +
+          '<td class="text-end ' +
+          corLucro(p.lucro) +
+          '">' +
+          dinheiro(p.saldo_atual) +
+          "</td>" +
+          '<td class="text-end ' +
+          corLucro(p.variacao_pct) +
+          '">' +
+          pct(p.variacao_pct) +
+          "</td>";
+        body.appendChild(tr);
+      });
+    }
+
+    function renderGrafico(evolucao) {
+      var wrap = document.getElementById("cartGraficoWrap");
+      var vazio = document.getElementById("cartGraficoVazio");
+      var erro = document.getElementById("cartGraficoErro");
+      erro.classList.add("d-none");
+
+      if (!evolucao || !evolucao.length) {
+        wrap.classList.add("d-none");
+        vazio.classList.remove("d-none");
+        if (chart) {
+          chart.destroy();
+          chart = null;
+        }
+        return;
+      }
+      vazio.classList.add("d-none");
+      wrap.classList.remove("d-none");
+
+      var labels = evolucao.map(function (p) {
+        return p.mes;
+      });
+      var aplicado = evolucao.map(function (p) {
+        return p.valor_aplicado;
+      });
+      var patrimonio = evolucao.map(function (p) {
+        return p.patrimonio;
+      });
+
+      var ctx = document.getElementById("cartChart");
+      if (chart) chart.destroy();
+      chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Valor aplicado",
+              data: aplicado,
+              backgroundColor: "rgba(33, 37, 41, 0.75)",
+            },
+            {
+              label: "Patrimonio",
+              data: patrimonio,
+              backgroundColor: "rgba(25, 135, 84, 0.65)",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: { position: "bottom" },
+            tooltip: {
+              callbacks: {
+                label: function (ctx) {
+                  return ctx.dataset.label + ": " + dinheiro(ctx.parsed.y);
+                },
+              },
+            },
+          },
+          scales: {
+            y: {
+              ticks: {
+                callback: function (v) {
+                  return "R$ " + Number(v).toLocaleString("pt-BR");
+                },
+              },
+            },
+          },
+        },
+      });
+    }
+
+    function carregar(comOverlay) {
+      setLoading(true);
+      document.getElementById("cartGraficoErro").classList.add("d-none");
+      if (comOverlay && window.AppLoading) window.AppLoading.show("Atualizando cotacoes...");
+
+      fetch("/api/carteiras/" + carteiraId + "/acompanhamento")
+        .then(function (r) {
+          return r.json().then(function (j) {
+            return { ok: r.ok, j: j };
+          });
+        })
+        .then(function (res) {
+          setLoading(false);
+          if (comOverlay && window.AppLoading) window.AppLoading.hide();
+          if (!res.ok) {
+            var er = document.getElementById("cartGraficoErro");
+            er.textContent = res.j.erro || "Falha ao carregar acompanhamento.";
+            er.classList.remove("d-none");
+            return;
+          }
+          renderResumo(res.j.resumo || {});
+          renderPosicoes(res.j.posicoes || []);
+          renderGrafico(res.j.evolucao || []);
+        })
+        .catch(function () {
+          setLoading(false);
+          if (comOverlay && window.AppLoading) window.AppLoading.hide();
+          var er = document.getElementById("cartGraficoErro");
+          er.textContent = "Falha de rede ao consultar Yahoo.";
+          er.classList.remove("d-none");
+        });
+    }
+
+    var btn = document.getElementById("btnAtualizarCotacoes");
+    if (btn) btn.addEventListener("click", function () { carregar(true); });
+    carregar(false);
+  })();
+</script>
+<script>
+  (function () {
+    var ativos = [];
+    try {
+      var el = document.getElementById("ativosData");
+      ativos = el ? JSON.parse(el.textContent || "[]") : [];
+    } catch (e) {
+      ativos = [];
+    }
+
+    var busca = document.getElementById("lancBusca");
+    var lista = document.getElementById("lancLista");
+    var tickerEl = document.getElementById("lancTicker");
+    var hint = document.getElementById("lancHint");
+    var precoHint = document.getElementById("precoHint");
+    var qtd = document.getElementById("qtd");
+    var preco = document.getElementById("preco");
+    var custos = document.getElementById("custos");
+    var totalEl = document.getElementById("lancTotal");
+    var dataTx = document.getElementById("dataTx");
+    var fetchSeq = 0;
+
+    if (dataTx && !dataTx.value) {
+      dataTx.value = new Date().toISOString().slice(0, 10);
+    }
+
+    function parseMoney(txt) {
+      var s = String(txt || "")
+        .replace(/R\$/gi, "")
+        .replace(/\s/g, "")
+        .trim();
+      if (!s) return 0;
+      if (s.indexOf(",") >= 0 && s.indexOf(".") >= 0) {
+        s = s.replace(/\./g, "").replace(",", ".");
+      } else if (s.indexOf(",") >= 0) {
+        s = s.replace(",", ".");
+      }
+      var n = parseFloat(s);
+      return isNaN(n) ? 0 : n;
+    }
+
+    function formatMoney(n) {
+      return (Number(n) || 0).toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+    }
+
+    function dinheiro(n) {
+      return "R$ " + formatMoney(n);
+    }
+
+    function maskMoneyInput(el) {
+      // Digitos -> centavos (estilo mascara real): 1234 -> 12,34
+      var digits = String(el.value || "").replace(/\D/g, "");
+      if (!digits) {
+        el.value = "0,00";
+        return;
+      }
+      // limite razoavel
+      if (digits.length > 12) digits = digits.slice(-12);
+      var cents = parseInt(digits, 10);
+      el.value = formatMoney(cents / 100);
+    }
+
+    function atualizarTotal() {
+      var t = (parseFloat(qtd.value) || 0) * parseMoney(preco.value) + parseMoney(custos.value);
+      totalEl.textContent = dinheiro(t);
+    }
+
+    function onMoneyInput(ev) {
+      maskMoneyInput(ev.target);
+      atualizarTotal();
+    }
+
+    preco.addEventListener("input", onMoneyInput);
+    custos.addEventListener("input", onMoneyInput);
+    qtd.addEventListener("input", atualizarTotal);
+    maskMoneyInput(preco);
+    maskMoneyInput(custos);
+    atualizarTotal();
+
+    function filtrar() {
+      var q = (busca.value || "").trim().toLowerCase();
+      // Se ja selecionou, nao reabre lista ate digitar de novo
+      var itens;
+      if (!q) {
+        itens = ativos.slice();
+      } else {
+        itens = [];
+        for (var i = 0; i < ativos.length; i++) {
+          var a = ativos[i];
+          if (
+            (a.ticker || "").toLowerCase().indexOf(q) !== -1 ||
+            (a.nome || "").toLowerCase().indexOf(q) !== -1
+          ) {
+            itens.push(a);
+          }
+        }
+      }
+      itens.sort(function (a, b) {
+        return (a.ticker || "").localeCompare(b.ticker || "", "pt-BR");
+      });
+
+      lista.innerHTML = "";
+      if (!itens.length) {
+        lista.innerHTML =
+          '<div class="list-group-item text-body-secondary small">Nenhum ativo</div>';
+        lista.hidden = false;
+        return;
+      }
+
+      var head = document.createElement("div");
+      head.className = "list-group-item list-group-item-secondary small py-1 sticky-top";
+      head.textContent = itens.length + " ativo(s) — role para ver todos";
+      lista.appendChild(head);
+
+      itens.forEach(function (a) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className =
+          "list-group-item list-group-item-action d-flex justify-content-between align-items-start gap-2";
+        btn.dataset.ticker = a.ticker;
+        btn.dataset.nome = a.nome || "";
+        btn.dataset.tipo = a.tipo;
+        var badge =
+          a.tipo === "fii"
+            ? '<span class="badge text-bg-info">FII</span>'
+            : '<span class="badge text-bg-success">Ação</span>';
+        btn.innerHTML =
+          '<div class="text-start min-w-0"><strong>' +
+          a.ticker +
+          "</strong> " +
+          badge +
+          '<div class="small text-body-secondary text-truncate">' +
+          (a.nome || "") +
+          "</div></div>";
+        lista.appendChild(btn);
+      });
+      lista.hidden = false;
+    }
+
+    function buscarPreco() {
+      var ticker = tickerEl.value;
+      var data = dataTx.value;
+      if (!ticker || !data) return;
+      var seq = ++fetchSeq;
+      precoHint.textContent = "Buscando preco no Yahoo...";
+      precoHint.classList.remove("text-danger");
+
+      fetch(
+        "/api/preco-ativo?ticker=" +
+          encodeURIComponent(ticker) +
+          "&data=" +
+          encodeURIComponent(data)
+      )
+        .then(function (r) {
+          return r.json().then(function (j) {
+            return { ok: r.ok, j: j };
+          });
+        })
+        .then(function (res) {
+          if (seq !== fetchSeq) return;
+          if (!res.ok) {
+            precoHint.textContent = res.j.erro || "Falha ao buscar preco.";
+            precoHint.classList.add("text-danger");
+            return;
+          }
+          preco.value = formatMoney(res.j.preco);
+          atualizarTotal();
+          var extra =
+            res.j.data_cotacao !== res.j.data_pedida
+              ? " (cotacao de " + res.j.data_cotacao + ")"
+              : "";
+          precoHint.textContent =
+            "Preco Yahoo: R$ " + formatMoney(res.j.preco) + extra + " — voce pode editar.";
+          precoHint.classList.remove("text-danger");
+        })
+        .catch(function () {
+          if (seq !== fetchSeq) return;
+          precoHint.textContent = "Falha de rede ao buscar preco.";
+          precoHint.classList.add("text-danger");
+        });
+    }
+
+    function escolher(ticker, nome) {
+      tickerEl.value = ticker;
+      busca.value = ticker + " — " + nome;
+      hint.textContent = "Selecionado: " + ticker;
+      hint.classList.remove("text-danger");
+      lista.hidden = true;
+      buscarPreco();
+    }
+
+    busca.addEventListener("focus", function () {
+      // Com ativo ja escolhido: abre lista completa para trocar
+      if (tickerEl.value) {
+        var saved = busca.value;
+        busca.value = "";
+        filtrar();
+        busca.value = saved;
+      } else {
+        filtrar();
+      }
+    });
+
+    busca.addEventListener("input", function () {
+      tickerEl.value = "";
+      hint.textContent = "Escolha um ativo da lista (FIIs e Ações).";
+      filtrar();
+    });
+
+    lista.addEventListener("click", function (ev) {
+      var btn = ev.target.closest("[data-ticker]");
+      if (!btn) return;
+      escolher(btn.getAttribute("data-ticker"), btn.getAttribute("data-nome") || "");
+    });
+
+    dataTx.addEventListener("change", function () {
+      if (tickerEl.value) buscarPreco();
+    });
+
+    document.addEventListener("click", function (ev) {
+      if (!ev.target.closest("#lancBusca") && !ev.target.closest("#lancLista")) {
+        lista.hidden = true;
+      }
+    });
+
+    document.getElementById("formLancamento").addEventListener("submit", function (ev) {
+      if (!tickerEl.value) {
+        ev.preventDefault();
+        hint.textContent = "Selecione um ativo da lista.";
+        hint.classList.add("text-danger");
+        return;
+      }
+      // Normaliza mascara para o backend (aceita virgula)
+      preco.value = formatMoney(parseMoney(preco.value));
+      custos.value = formatMoney(parseMoney(custos.value));
+    });
+  })();
+</script>
+{% endblock %}

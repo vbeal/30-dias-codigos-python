@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="pt-BR" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InvestidorWeb - {% block title %}Inicio{% endblock %}</title>
+    {# Favicon / icone da aba do navegador #}
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='imagens/icon_logo.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="{{ url_for('static', filename='imagens/icon_logo.png') }}"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/app.css') }}"
+    />
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container">
+          <a
+            class="navbar-brand d-flex align-items-center py-1"
+            href="{{ url_for('index') }}"
+          >
+            <img
+              src="{{ url_for('static', filename='imagens/logo.png') }}"
+              alt="Investidor Web"
+              class="brand-logo"
+              height="42"
+            />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Abrir menu"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              {% if session.get('user_id') %}
+              <li class="nav-item">
+                <a
+                  class="nav-link {% if request.endpoint == 'painel' %}active{% endif %}"
+                  href="{{ url_for('painel') }}"
+                  >Painel</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link {% if request.endpoint == 'rankings' and request.view_args and request.view_args.get('tipo') == 'fiis' %}active{% endif %}"
+                  href="{{ url_for('rankings', tipo='fiis') }}"
+                  >FIIs</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link {% if request.endpoint == 'rankings' and request.view_args and request.view_args.get('tipo') == 'acoes' %}active{% endif %}"
+                  href="{{ url_for('rankings', tipo='acoes') }}"
+                  >Ações</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link {% if request.endpoint == 'calculadora' %}active{% endif %}"
+                  href="{{ url_for('calculadora') }}"
+                  >Calculadora</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link {% if request.endpoint and request.endpoint.startswith('carteira') %}active{% endif %}"
+                  href="{{ url_for('carteiras') }}"
+                  >Carteiras</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link {% if request.endpoint == 'perfil' %}active{% endif %}"
+                  href="{{ url_for('perfil') }}"
+                  >Perfil</a
+                >
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a
+                  class="nav-link {% if request.endpoint == 'login' %}active{% endif %}"
+                  href="{{ url_for('login') }}"
+                  >Entrar</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link {% if request.endpoint == 'cadastro' %}active{% endif %}"
+                  href="{{ url_for('cadastro') }}"
+                  >Cadastrar</a
+                >
+              </li>
+              {% endif %}
+            </ul>
+
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+              {% if session.get('user_id') %} {# Novidade Dia 25: busca com
+              lista fixa (digita + filtra + seleciona) #}
+              <div class="busca-ativo position-relative" id="buscaAtivo">
+                <div class="input-group input-group-sm">
+                  <span
+                    class="input-group-text bg-dark text-white border-secondary"
+                  >
+                    <i class="bi bi-search"></i>
+                  </span>
+                  <input
+                    type="search"
+                    class="form-control form-control-sm"
+                    id="buscaAtivoInput"
+                    placeholder="Buscar FII ou Ação..."
+                    autocomplete="off"
+                    aria-label="Buscar ativo"
+                    aria-autocomplete="list"
+                    aria-controls="buscaAtivoLista"
+                  />
+                </div>
+                <div
+                  id="buscaAtivoLista"
+                  class="busca-ativo-lista list-group shadow"
+                  role="listbox"
+                  hidden
+                ></div>
+              </div>
+              {% if session.get('user_foto') %}
+              <img
+                src="{{ url_for('uploaded_file', filename=session.get('user_foto')) }}"
+                alt="Foto"
+                class="rounded-circle border border-light object-fit-cover"
+                width="36"
+                height="36"
+              />
+              {% endif %}
+              <span class="navbar-text text-white-50 small me-2">
+                Ola, {{ session.get('user_nome') }}
+              </span>
+              <a
+                class="btn btn-outline-light btn-sm"
+                href="{{ url_for('logout') }}"
+                >Sair</a
+              >
+              {% else %}
+              <a
+                class="btn btn-outline-light btn-sm"
+                href="{{ url_for('login') }}"
+                >Entrar</a
+              >
+              <a class="btn btn-warning btn-sm" href="{{ url_for('cadastro') }}"
+                >Criar conta</a
+              >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    {# Toasts Bootstrap 5.3 — mensagens flash (5s) #}
+    <div class="toast-container position-fixed top-0 end-0 p-3 mt-5" style="z-index: 1100">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %} {% set bg = {
+      'success': 'text-bg-success', 'danger': 'text-bg-danger', 'warning':
+      'text-bg-warning', 'info': 'text-bg-info', 'primary': 'text-bg-primary'
+      }.get(category, 'text-bg-secondary') %}
+      <div
+        class="toast align-items-center {{ bg }} border-0"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        data-bs-autohide="true"
+        data-bs-delay="5000"
+      >
+        <div class="d-flex">
+          <div class="toast-body">{{ message }}</div>
+          <button
+            type="button"
+            class="btn-close {% if category in ['success', 'danger', 'primary', 'info'] %}btn-close-white{% endif %} me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Fechar"
+          ></button>
+        </div>
+      </div>
+      {% endfor %} {% endif %} {% endwith %}
+    </div>
+
+    {# Loading global (navegacao + formularios) #}
+    <div id="pageLoading" class="page-loading" hidden aria-live="polite" aria-busy="true">
+      <div class="page-loading-box text-center">
+        <div class="spinner-border text-primary" role="status" style="width: 2.5rem; height: 2.5rem">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p class="mt-3 mb-0 small fw-semibold" id="pageLoadingText">Carregando...</p>
+      </div>
+    </div>
+
+    {# Modal padrao de confirmacao (substitui confirm() do navegador) #}
+    <div
+      class="modal fade"
+      id="modalConfirmPadrao"
+      tabindex="-1"
+      aria-labelledby="modalConfirmPadraoTitulo"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5" id="modalConfirmPadraoTitulo">Confirmar</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body" id="modalConfirmPadraoCorpo">Tem certeza?</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-danger" id="modalConfirmPadraoOk">
+              <i class="bi bi-trash"></i> Confirmar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if session.get('user_id') %}
+    {# Dia 28: modal global — inserir ativo na carteira #}
+    <div class="modal fade" id="modalAddCarteira" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <form method="post" action="{{ url_for('lancamento_rapido') }}" class="modal-content" id="formAddCarteira">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5">Inserir na carteira</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="ticker" id="addCartTicker" />
+            <p class="mb-3">
+              Ativo: <strong id="addCartTickerLabel">—</strong>
+              <span class="text-body-secondary small" id="addCartNome"></span>
+            </p>
+
+            {% if carteiras_usuario|length == 0 %}
+            <div class="alert alert-warning mb-0">
+              Voce ainda nao tem carteira.
+              <a href="{{ url_for('carteiras') }}">Criar agora</a>
+            </div>
+            {% else %}
+              {% if carteiras_usuario|length > 1 %}
+              <div class="mb-3">
+                <label class="form-label" for="addCartCarteira">Carteira</label>
+                <select class="form-select" name="carteira_id" id="addCartCarteira" required>
+                  {% for c in carteiras_usuario %}
+                  <option value="{{ c.id }}" {% if c.eh_padrao %}selected{% endif %}>
+                    {{ c.nome }}{% if c.eh_padrao %} ★{% endif %}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+              {% else %}
+              <input type="hidden" name="carteira_id" value="{{ carteiras_usuario[0].id }}" />
+              <p class="small text-body-secondary">Carteira: <strong>{{ carteiras_usuario[0].nome }}</strong></p>
+              {% endif %}
+
+              <div class="mb-3">
+                <label class="form-label" for="addCartData">Data da compra</label>
+                <input type="date" class="form-control" name="data_transacao" id="addCartData" required />
+                <div class="form-text" id="addCartPrecoHint">O preco sera buscado no Yahoo nesta data.</div>
+              </div>
+              <div class="row g-2">
+                <div class="col-6">
+                  <label class="form-label" for="addCartQtd">Quantidade</label>
+                  <input type="number" class="form-control" name="quantidade" id="addCartQtd" min="0.0001" step="any" value="1" required />
+                </div>
+                <div class="col-6">
+                  <label class="form-label" for="addCartPreco">Preco (R$)</label>
+                  <input type="text" class="form-control" name="preco" id="addCartPreco" inputmode="decimal" value="0,00" required />
+                </div>
+              </div>
+              <div class="alert alert-secondary mb-0 mt-3 py-2">
+                Valor total: <strong id="addCartTotal">R$ 0,00</strong>
+              </div>
+              <input type="hidden" name="outros_custos" value="0" />
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+            {% if carteiras_usuario|length > 0 %}
+            <button type="submit" class="btn btn-primary">+ Adicionar</button>
+            {% endif %}
+          </div>
+        </form>
+      </div>
+    </div>
+    {% endif %}
+
+    <main class="flex-grow-1 pt-5">
+      <div class="container py-4">{% block content %}{% endblock %}</div>
+    </main>
+
+    <footer class="border-top py-3 mt-auto bg-body">
+      <div
+        class="container d-flex justify-content-between align-items-center gap-3"
+      >
+        <div class="text-body-secondary small">
+          <p class="mb-1">
+            &copy; {{ current_year }} | InvestidorWeb &middot; Desafio
+            30 dias com Python por Victor Beal
+          </p>
+          <p class="mb-0">
+            Componentes:
+            <a
+              href="https://getbootstrap.com/docs/5.3/components/navs-tabs/"
+              target="_blank"
+              rel="noopener"
+              >Tabs</a
+            >,
+            <a
+              href="https://getbootstrap.com/docs/5.3/components/modal/"
+              target="_blank"
+              rel="noopener"
+              >Modal</a
+            >,
+            <a
+              href="https://getbootstrap.com/docs/5.3/components/toasts/"
+              target="_blank"
+              rel="noopener"
+              >Toasts</a
+            >
+            | Projeto completo:
+            <a href="https://github.com/vbeal" target="_blank" rel="noopener"
+              >github.com/vbeal</a
+            >
+          </p>
+        </div>
+        <a
+          href="#"
+          class="fs-3 text-primary text-decoration-none"
+          title="Voltar ao topo"
+          aria-label="Voltar ao topo"
+        >
+          <i class="bi bi-arrow-up-circle-fill"></i>
+        </a>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    {# JSON fora do JS — evita falso erro do linter no editor #}
+    <script type="application/json" id="ativosData">{{ ativos_json|safe }}</script>
+    <script>
+      // --- Padrao site: toasts 5s + loading global ---
+      (function () {
+        var overlay = document.getElementById("pageLoading");
+        var overlayText = document.getElementById("pageLoadingText");
+
+        function showLoading(texto) {
+          if (!overlay) return;
+          if (overlayText) overlayText.textContent = texto || "Carregando...";
+          overlay.hidden = false;
+          document.body.classList.add("is-loading");
+        }
+
+        function hideLoading() {
+          if (!overlay) return;
+          overlay.hidden = true;
+          document.body.classList.remove("is-loading");
+        }
+
+        window.AppLoading = { show: showLoading, hide: hideLoading };
+
+        // Modal de confirmacao (padrao do site — sem alert/confirm nativo)
+        var confirmModalEl = document.getElementById("modalConfirmPadrao");
+        var confirmTitulo = document.getElementById("modalConfirmPadraoTitulo");
+        var confirmCorpo = document.getElementById("modalConfirmPadraoCorpo");
+        var confirmOkBtn = document.getElementById("modalConfirmPadraoOk");
+        var confirmModal = confirmModalEl
+          ? bootstrap.Modal.getOrCreateInstance(confirmModalEl)
+          : null;
+        var confirmResolve = null;
+
+        function pedirConfirmacao(opcoes) {
+          opcoes = opcoes || {};
+          return new Promise(function (resolve) {
+            if (!confirmModal) {
+              resolve(false);
+              return;
+            }
+            confirmResolve = resolve;
+            confirmTitulo.textContent = opcoes.titulo || "Confirmar";
+            confirmCorpo.textContent = opcoes.mensagem || "Tem certeza?";
+            confirmOkBtn.innerHTML =
+              '<i class="bi bi-trash"></i> ' + (opcoes.textoOk || "Confirmar");
+            confirmOkBtn.className = "btn " + (opcoes.classeOk || "btn-danger");
+            confirmModal.show();
+          });
+        }
+
+        if (confirmOkBtn) {
+          confirmOkBtn.addEventListener("click", function () {
+            if (confirmModal) confirmModal.hide();
+            if (confirmResolve) {
+              var r = confirmResolve;
+              confirmResolve = null;
+              r(true);
+            }
+          });
+        }
+        if (confirmModalEl) {
+          confirmModalEl.addEventListener("hidden.bs.modal", function () {
+            if (confirmResolve) {
+              var r = confirmResolve;
+              confirmResolve = null;
+              r(false);
+            }
+          });
+        }
+
+        window.AppConfirm = { ask: pedirConfirmacao };
+
+        // Forms com data-confirm="mensagem" usam o modal padrao
+        document.addEventListener(
+          "submit",
+          function (ev) {
+            var form = ev.target;
+            if (!form || form.tagName !== "FORM") return;
+            var msg = form.getAttribute("data-confirm");
+            if (!msg) return;
+            if (form.dataset.confirmAccepted === "1") {
+              form.dataset.confirmAccepted = "";
+              return;
+            }
+            ev.preventDefault();
+            ev.stopImmediatePropagation();
+            pedirConfirmacao({
+              titulo: form.getAttribute("data-confirm-title") || "Confirmar exclusao",
+              mensagem: msg,
+              textoOk: form.getAttribute("data-confirm-ok") || "Excluir",
+            }).then(function (ok) {
+              if (!ok) return;
+              form.dataset.confirmAccepted = "1";
+              if (typeof form.requestSubmit === "function") {
+                form.requestSubmit();
+              } else {
+                form.submit();
+              }
+            });
+          },
+          true
+        );
+
+        // Toasts: 5 segundos
+        document.querySelectorAll(".toast").forEach(function (el) {
+          bootstrap.Toast.getOrCreateInstance(el, {
+            autohide: true,
+            delay: 5000,
+          }).show();
+        });
+
+        // Esconde loading ao terminar de carregar a pagina (inclui voltar do historico)
+        window.addEventListener("pageshow", hideLoading);
+        document.addEventListener("DOMContentLoaded", hideLoading);
+
+        // Clique em link interno -> loading
+        document.addEventListener("click", function (ev) {
+          var a = ev.target.closest("a[href]");
+          if (!a || ev.defaultPrevented || ev.button !== 0) return;
+          if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+          if (a.target === "_blank" || a.hasAttribute("download")) return;
+          if (a.dataset.noLoading === "1") return;
+          var href = a.getAttribute("href") || "";
+          if (!href || href.charAt(0) === "#" || href.indexOf("javascript:") === 0)
+            return;
+          // so mesma origem / caminhos relativos
+          try {
+            var url = new URL(a.href, window.location.href);
+            if (url.origin !== window.location.origin) return;
+          } catch (e) {
+            return;
+          }
+          showLoading("Carregando...");
+        });
+
+        // Submit de formulario -> loading + botao "Salvando..."
+        document.addEventListener("submit", function (ev) {
+          var form = ev.target;
+          if (!form || form.tagName !== "FORM") return;
+          if (form.dataset.noLoading === "1") return;
+          if (ev.defaultPrevented) return;
+
+          var btn =
+            form.querySelector('[type="submit"]:focus') ||
+            document.activeElement;
+          if (!btn || !form.contains(btn) || btn.type !== "submit") {
+            btn = form.querySelector('[type="submit"]');
+          }
+          if (btn && !btn.disabled) {
+            btn.disabled = true;
+            btn.dataset.originalHtml = btn.innerHTML;
+            btn.innerHTML =
+              '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Salvando...';
+          }
+          showLoading("Salvando...");
+        });
+      })();
+
+      // Olhinho mostrar/ocultar senha
+      document.querySelectorAll(".btn-toggle-senha").forEach(function (botao) {
+        botao.addEventListener("click", function () {
+          var campo = document.getElementById(botao.getAttribute("data-target"));
+          var icone = botao.querySelector("i");
+          if (!campo || !icone) return;
+
+          if (campo.type === "password") {
+            campo.type = "text";
+            icone.classList.replace("bi-eye", "bi-eye-slash");
+            botao.setAttribute("title", "Ocultar senha");
+            botao.setAttribute("aria-label", "Ocultar senha");
+          } else {
+            campo.type = "password";
+            icone.classList.replace("bi-eye-slash", "bi-eye");
+            botao.setAttribute("title", "Mostrar senha");
+            botao.setAttribute("aria-label", "Mostrar senha");
+          }
+        });
+      });
+
+      // --- Novidade Dia 25: busca com lista fixa ---
+      (function () {
+        var wrap = document.getElementById("buscaAtivo");
+        var input = document.getElementById("buscaAtivoInput");
+        var lista = document.getElementById("buscaAtivoLista");
+        if (!wrap || !input || !lista) return;
+
+        var ativos = [];
+        try {
+          var elDados = document.getElementById("ativosData");
+          ativos = elDados ? JSON.parse(elDados.textContent || "[]") : [];
+        } catch (e) {
+          ativos = [];
+        }
+
+        var destaque = -1;
+
+        function esconder() {
+          lista.hidden = true;
+          lista.innerHTML = "";
+          destaque = -1;
+        }
+
+        function irPara(item) {
+          if (!item) return;
+          window.location.href = "/ativo/" + item.tipo + "/" + item.ticker;
+        }
+
+        function filtrar(q) {
+          q = (q || "").trim().toLowerCase();
+          var out;
+          // Sem texto: lista COMPLETA (460 ativos) para olhar e selecionar
+          if (!q) {
+            out = ativos.slice();
+          } else {
+            out = [];
+            for (var i = 0; i < ativos.length; i++) {
+              var a = ativos[i];
+              var ticker = (a.ticker || "").toLowerCase();
+              var nome = (a.nome || "").toLowerCase();
+              if (ticker.indexOf(q) !== -1 || nome.indexOf(q) !== -1) {
+                out.push(a);
+              }
+            }
+          }
+          // Sempre ordem alfabetica por ticker
+          out.sort(function (a, b) {
+            return (a.ticker || "").localeCompare(b.ticker || "", "pt-BR");
+          });
+          return out;
+        }
+
+        function render(itens) {
+          lista.innerHTML = "";
+          destaque = -1;
+          if (!itens.length) {
+            lista.innerHTML =
+              '<div class="list-group-item list-group-item-secondary small">Nenhum ativo encontrado</div>';
+            lista.hidden = false;
+            return;
+          }
+          // Cabecalho com contagem
+          var head = document.createElement("div");
+          head.className =
+            "list-group-item list-group-item-secondary small py-1 sticky-top";
+          head.textContent = itens.length + " ativo(s) — role para ver todos";
+          lista.appendChild(head);
+
+          itens.forEach(function (item, idx) {
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "list-group-item list-group-item-action busca-ativo-item d-flex justify-content-between align-items-start gap-2";
+            btn.setAttribute("role", "option");
+            btn.dataset.index = String(idx);
+            var badge =
+              item.tipo === "fii"
+                ? '<span class="badge text-bg-info">FII</span>'
+                : '<span class="badge text-bg-success">Ação</span>';
+            btn.innerHTML =
+              "<div class=\"text-start min-w-0\">" +
+              "<strong>" +
+              item.ticker +
+              "</strong> " +
+              badge +
+              '<div class="small text-body-secondary text-truncate">' +
+              (item.nome || "") +
+              "</div></div>" +
+              '<div class="d-flex gap-1 flex-shrink-0">' +
+              '<a href="/calculadora?ticker=' +
+              encodeURIComponent(item.ticker) +
+              "&tipo=" +
+              item.tipo +
+              '" class="btn btn-sm btn-outline-warning" title="Calculadora" onclick="event.stopPropagation();">' +
+              '<i class="bi bi-calculator"></i></a></div>';
+            btn.addEventListener("mousedown", function (ev) {
+              // Clique na calculadora nao abre o detalhe
+              if (ev.target.closest && ev.target.closest("a")) return;
+              ev.preventDefault();
+              irPara(item);
+            });
+            lista.appendChild(btn);
+          });
+          lista.hidden = false;
+        }
+
+        function atualizarDestaque(itens) {
+          var nodes = lista.querySelectorAll(".busca-ativo-item");
+          nodes.forEach(function (n, i) {
+            n.classList.toggle("active", i === destaque);
+          });
+        }
+
+        input.addEventListener("focus", function () {
+          render(filtrar(input.value));
+        });
+
+        input.addEventListener("input", function () {
+          render(filtrar(input.value));
+        });
+
+        input.addEventListener("keydown", function (ev) {
+          var itens = filtrar(input.value);
+          if (lista.hidden && (ev.key === "ArrowDown" || ev.key === "Enter")) {
+            render(itens);
+          }
+          if (ev.key === "ArrowDown") {
+            ev.preventDefault();
+            if (!itens.length) return;
+            destaque = (destaque + 1) % itens.length;
+            atualizarDestaque(itens);
+          } else if (ev.key === "ArrowUp") {
+            ev.preventDefault();
+            if (!itens.length) return;
+            destaque = destaque <= 0 ? itens.length - 1 : destaque - 1;
+            atualizarDestaque(itens);
+          } else if (ev.key === "Enter") {
+            ev.preventDefault();
+            if (destaque >= 0 && itens[destaque]) {
+              irPara(itens[destaque]);
+            } else if (itens.length === 1) {
+              irPara(itens[0]);
+            } else if (itens.length > 0) {
+              // Match exato de ticker
+              var q = (input.value || "").trim().toUpperCase();
+              var exato = itens.find(function (a) {
+                return a.ticker === q;
+              });
+              if (exato) irPara(exato);
+            }
+          } else if (ev.key === "Escape") {
+            esconder();
+            input.blur();
+          }
+        });
+
+        document.addEventListener("click", function (ev) {
+          if (!wrap.contains(ev.target)) esconder();
+        });
+      })();
+
+      // Dia 28: modal inserir na carteira (atalho global)
+      (function () {
+        var modalEl = document.getElementById("modalAddCarteira");
+        if (!modalEl) return;
+        var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+        var tickerEl = document.getElementById("addCartTicker");
+        var labelEl = document.getElementById("addCartTickerLabel");
+        var nomeEl = document.getElementById("addCartNome");
+        var dataEl = document.getElementById("addCartData");
+        var qtdEl = document.getElementById("addCartQtd");
+        var precoEl = document.getElementById("addCartPreco");
+        var totalEl = document.getElementById("addCartTotal");
+        var hintEl = document.getElementById("addCartPrecoHint");
+        var fetchSeq = 0;
+
+        function formatMoney(n) {
+          return (Number(n) || 0).toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
+        }
+
+        function formatDataBR(iso) {
+          if (!iso || String(iso).length < 10) return iso || "";
+          var p = String(iso).slice(0, 10).split("-");
+          if (p.length !== 3) return iso;
+          return p[2] + "/" + p[1] + "/" + p[0];
+        }
+
+        function parseMoney(s) {
+          return Number(String(s || "0").replace(/\./g, "").replace(",", ".")) || 0;
+        }
+
+        function atualizarTotal() {
+          if (!totalEl || !qtdEl || !precoEl) return;
+          var t = (Number(qtdEl.value) || 0) * parseMoney(precoEl.value);
+          totalEl.textContent = "R$ " + formatMoney(t);
+        }
+
+        function buscarPreco() {
+          if (!tickerEl || !dataEl || !precoEl) return;
+          var ticker = tickerEl.value;
+          var data = dataEl.value;
+          if (!ticker || !data) return;
+          var seq = ++fetchSeq;
+          if (hintEl) hintEl.textContent = "Buscando preco...";
+          fetch(
+            "/api/preco-ativo?ticker=" +
+              encodeURIComponent(ticker) +
+              "&data=" +
+              encodeURIComponent(data)
+          )
+            .then(function (r) {
+              return r.json().then(function (j) {
+                return { ok: r.ok, j: j };
+              });
+            })
+            .then(function (res) {
+              if (seq !== fetchSeq) return;
+              if (!res.ok) {
+                if (hintEl) hintEl.textContent = res.j.erro || "Falha no preco.";
+                return;
+              }
+              precoEl.value = formatMoney(res.j.preco);
+              atualizarTotal();
+              if (hintEl) {
+                var extra =
+                  res.j.data_cotacao && res.j.data_cotacao !== res.j.data_pedida
+                    ? " (cotacao do pregao " +
+                      formatDataBR(res.j.data_cotacao) +
+                      " — sem pregao na data)"
+                    : "";
+                hintEl.textContent =
+                  "Preco Yahoo: R$ " + formatMoney(res.j.preco) + extra;
+              }
+            })
+            .catch(function () {
+              if (seq !== fetchSeq) return;
+              if (hintEl) hintEl.textContent = "Falha de rede.";
+            });
+        }
+
+        window.abrirModalAddCarteira = function (ticker, tipo, nome) {
+          if (!tickerEl) return;
+          tickerEl.value = ticker || "";
+          if (labelEl) labelEl.textContent = ticker || "—";
+          if (nomeEl) nomeEl.textContent = nome ? " · " + nome : "";
+          if (dataEl && !dataEl.value) {
+            dataEl.value = new Date().toISOString().slice(0, 10);
+          }
+          if (qtdEl && !qtdEl.value) qtdEl.value = "1";
+          modal.show();
+          buscarPreco();
+          atualizarTotal();
+        };
+
+        document.addEventListener("click", function (ev) {
+          var btn = ev.target.closest(".btn-add-carteira");
+          if (!btn) return;
+          ev.preventDefault();
+          ev.stopPropagation();
+          window.abrirModalAddCarteira(
+            btn.getAttribute("data-ticker"),
+            btn.getAttribute("data-tipo"),
+            btn.getAttribute("data-nome")
+          );
+        });
+
+        if (dataEl) dataEl.addEventListener("change", buscarPreco);
+        if (qtdEl) qtdEl.addEventListener("input", atualizarTotal);
+        if (precoEl) {
+          precoEl.addEventListener("input", atualizarTotal);
+          precoEl.addEventListener("blur", function () {
+            precoEl.value = formatMoney(parseMoney(precoEl.value));
+            atualizarTotal();
+          });
+        }
+      })();
+    </script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

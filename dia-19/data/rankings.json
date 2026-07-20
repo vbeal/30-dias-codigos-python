@@ -1,0 +1,3394 @@
+{
+  "atualizado_em": "2026-07-12T09:48:36",
+  "fonte": "investidor10.com.br",
+  "total_fiis": 240,
+  "total_acoes": 183,
+  "fiis": [
+    {
+      "ativo": "CACR11",
+      "dividend_yield": "54,36%",
+      "patrimonio_liquido": "471,93 M",
+      "pvp": "0,22",
+      "variacao_12m": "-74,27%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "PFIN11",
+      "dividend_yield": "50,22%",
+      "patrimonio_liquido": "1,83 B",
+      "pvp": "0,57",
+      "variacao_12m": "24,39%",
+      "segmento": "Fundo de Investimentos em Participações (FIP)"
+    },
+    {
+      "ativo": "HRES11",
+      "dividend_yield": "43,34%",
+      "patrimonio_liquido": "52,56 M",
+      "pvp": "0,81",
+      "variacao_12m": "8,54%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "KOPA11",
+      "dividend_yield": "33,75%",
+      "patrimonio_liquido": "140,16 M",
+      "pvp": "0,87",
+      "variacao_12m": "27,46%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "VIUR11",
+      "dividend_yield": "28,03%",
+      "patrimonio_liquido": "94,66 M",
+      "pvp": "0,64",
+      "variacao_12m": "-53,03%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "MFII11",
+      "dividend_yield": "24,22%",
+      "patrimonio_liquido": "656,91 M",
+      "pvp": "0,53",
+      "variacao_12m": "-24,67%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "VGRI11",
+      "dividend_yield": "23,51%",
+      "patrimonio_liquido": "304,82 M",
+      "pvp": "0,62",
+      "variacao_12m": "-24,15%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "SMRE11",
+      "dividend_yield": "23,31%",
+      "patrimonio_liquido": "104,11 M",
+      "pvp": "0,51",
+      "variacao_12m": "-19,61%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "DEVA11",
+      "dividend_yield": "22,61%",
+      "patrimonio_liquido": "1,33 B",
+      "pvp": "0,19",
+      "variacao_12m": "-37,11%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "URPR11",
+      "dividend_yield": "21,39%",
+      "patrimonio_liquido": "983,74 M",
+      "pvp": "0,23",
+      "variacao_12m": "-43,55%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "ARRI11",
+      "dividend_yield": "21,28%",
+      "patrimonio_liquido": "174,65 M",
+      "pvp": "0,56",
+      "variacao_12m": "-21,40%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "LIFE11",
+      "dividend_yield": "20,81%",
+      "patrimonio_liquido": "383,77 M",
+      "pvp": "0,72",
+      "variacao_12m": "-8,59%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "HCTR11",
+      "dividend_yield": "20,78%",
+      "patrimonio_liquido": "2,22 B",
+      "pvp": "0,17",
+      "variacao_12m": "-19,80%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "TGAR11",
+      "dividend_yield": "20,26%",
+      "patrimonio_liquido": "2,56 B",
+      "pvp": "0,47",
+      "variacao_12m": "-36,02%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "OUJP11",
+      "dividend_yield": "19,69%",
+      "patrimonio_liquido": "325,17 M",
+      "pvp": "0,70",
+      "variacao_12m": "3,67%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "ICNE11",
+      "dividend_yield": "19,65%",
+      "patrimonio_liquido": "73,72 M",
+      "pvp": "1,14",
+      "variacao_12m": "27,41%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "VCRA11",
+      "dividend_yield": "19,53%",
+      "patrimonio_liquido": "471,64 M",
+      "pvp": "0,58",
+      "variacao_12m": "15,53%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "TRXB11",
+      "dividend_yield": "19,49%",
+      "patrimonio_liquido": "402,56 M",
+      "pvp": "1,89",
+      "variacao_12m": "73,24%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "EGAF11",
+      "dividend_yield": "19,22%",
+      "patrimonio_liquido": "310,13 M",
+      "pvp": "0,89",
+      "variacao_12m": "13,59%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "AAZQ11",
+      "dividend_yield": "18,97%",
+      "patrimonio_liquido": "206,93 M",
+      "pvp": "0,79",
+      "variacao_12m": "7,30%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "JGPX11",
+      "dividend_yield": "18,93%",
+      "patrimonio_liquido": "203,79 M",
+      "pvp": "0,65",
+      "variacao_12m": "14,77%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "AZIN11",
+      "dividend_yield": "18,61%",
+      "patrimonio_liquido": "417,40 M",
+      "pvp": "1,04",
+      "variacao_12m": "26,32%",
+      "segmento": "Fundo de Investimentos em Participações (FIP)"
+    },
+    {
+      "ativo": "KIVO11",
+      "dividend_yield": "18,39%",
+      "patrimonio_liquido": "187,57 M",
+      "pvp": "0,69",
+      "variacao_12m": "1,07%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "NSLU11",
+      "dividend_yield": "17,95%",
+      "patrimonio_liquido": "223,63 M",
+      "pvp": "0,99",
+      "variacao_12m": "34,90%",
+      "segmento": "Hospitalar"
+    },
+    {
+      "ativo": "GZIT11",
+      "dividend_yield": "17,79%",
+      "patrimonio_liquido": "2,03 B",
+      "pvp": "0,49",
+      "variacao_12m": "9,68%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "OIAG11",
+      "dividend_yield": "17,66%",
+      "patrimonio_liquido": "89,22 M",
+      "pvp": "0,81",
+      "variacao_12m": "25,00%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "RZAG11",
+      "dividend_yield": "17,65%",
+      "patrimonio_liquido": "663,77 M",
+      "pvp": "0,87",
+      "variacao_12m": "12,33%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "AGRX11",
+      "dividend_yield": "17,61%",
+      "patrimonio_liquido": "185,86 M",
+      "pvp": "0,80",
+      "variacao_12m": "22,81%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "IAAG11",
+      "dividend_yield": "17,37%",
+      "patrimonio_liquido": "100,62 M",
+      "pvp": "0,86",
+      "variacao_12m": "34,58%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "RBHY11",
+      "dividend_yield": "17,36%",
+      "patrimonio_liquido": "175,94 M",
+      "pvp": "0,78",
+      "variacao_12m": "7,96%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "KORE11",
+      "dividend_yield": "17,28%",
+      "patrimonio_liquido": "1,02 B",
+      "pvp": "0,61",
+      "variacao_12m": "-6,05%",
+      "segmento": "Lajes Corporativas"
+    },
+    {
+      "ativo": "TRBL11",
+      "dividend_yield": "17,06%",
+      "patrimonio_liquido": "615,59 M",
+      "pvp": "0,75",
+      "variacao_12m": "17,25%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "FGAA11",
+      "dividend_yield": "16,95%",
+      "patrimonio_liquido": "425,48 M",
+      "pvp": "0,88",
+      "variacao_12m": "12,94%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "BDIV11",
+      "dividend_yield": "16,89%",
+      "patrimonio_liquido": "416,86 M",
+      "pvp": "0,97",
+      "variacao_12m": "11,34%",
+      "segmento": "Fundo de Investimentos em Participações (FIP)"
+    },
+    {
+      "ativo": "JMBI11",
+      "dividend_yield": "16,89%",
+      "patrimonio_liquido": "440,87 M",
+      "pvp": "0,85",
+      "variacao_12m": "18,22%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "BINC11",
+      "dividend_yield": "16,81%",
+      "patrimonio_liquido": "481,10 M",
+      "pvp": "1,02",
+      "variacao_12m": "33,73%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "VGIA11",
+      "dividend_yield": "16,77%",
+      "patrimonio_liquido": "1,03 B",
+      "pvp": "1,01",
+      "variacao_12m": "26,58%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "XPCA11",
+      "dividend_yield": "16,77%",
+      "patrimonio_liquido": "487,33 M",
+      "pvp": "0,73",
+      "variacao_12m": "15,70%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "VGIR11",
+      "dividend_yield": "16,67%",
+      "patrimonio_liquido": "1,43 B",
+      "pvp": "1,00",
+      "variacao_12m": "22,72%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "EDGE11",
+      "dividend_yield": "16,56%",
+      "patrimonio_liquido": "14,11 M",
+      "pvp": "0,77",
+      "variacao_12m": "-0,02%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "JPPA11",
+      "dividend_yield": "16,53%",
+      "patrimonio_liquido": "90,64 M",
+      "pvp": "0,83",
+      "variacao_12m": "23,57%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "TRXY11",
+      "dividend_yield": "16,50%",
+      "patrimonio_liquido": "307,57 M",
+      "pvp": "0,95",
+      "variacao_12m": "-1,32%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "CPTR11",
+      "dividend_yield": "16,48%",
+      "patrimonio_liquido": "198,07 M",
+      "pvp": "0,81",
+      "variacao_12m": "27,29%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "BCRI11",
+      "dividend_yield": "16,36%",
+      "patrimonio_liquido": "529,08 M",
+      "pvp": "0,70",
+      "variacao_12m": "6,13%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "RURA11",
+      "dividend_yield": "16,34%",
+      "patrimonio_liquido": "1,64 B",
+      "pvp": "0,80",
+      "variacao_12m": "18,10%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "CDII11",
+      "dividend_yield": "16,34%",
+      "patrimonio_liquido": "2,78 B",
+      "pvp": "1,02",
+      "variacao_12m": "12,71%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "LSAG11",
+      "dividend_yield": "16,33%",
+      "patrimonio_liquido": "98,79 M",
+      "pvp": "0,81",
+      "variacao_12m": "24,10%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "RBIR11",
+      "dividend_yield": "16,31%",
+      "patrimonio_liquido": "120,41 M",
+      "pvp": "0,94",
+      "variacao_12m": "13,77%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "RZAK11",
+      "dividend_yield": "16,22%",
+      "patrimonio_liquido": "777,62 M",
+      "pvp": "0,93",
+      "variacao_12m": "16,56%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "EXES11",
+      "dividend_yield": "16,15%",
+      "patrimonio_liquido": "138,14 M",
+      "pvp": "0,99",
+      "variacao_12m": "20,30%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "HABT11",
+      "dividend_yield": "16,08%",
+      "patrimonio_liquido": "772,91 M",
+      "pvp": "0,76",
+      "variacao_12m": "3,87%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "ALZC11",
+      "dividend_yield": "16,07%",
+      "patrimonio_liquido": "183,00 M",
+      "pvp": "0,80",
+      "variacao_12m": "4,61%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "SAPI11",
+      "dividend_yield": "15,88%",
+      "patrimonio_liquido": "297,52 M",
+      "pvp": "0,90",
+      "variacao_12m": "24,55%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "BBGO11",
+      "dividend_yield": "15,85%",
+      "patrimonio_liquido": "379,75 M",
+      "pvp": "0,71",
+      "variacao_12m": "18,42%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "GCRA11",
+      "dividend_yield": "15,85%",
+      "patrimonio_liquido": "152,80 M",
+      "pvp": "0,59",
+      "variacao_12m": "15,28%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "IFRI11",
+      "dividend_yield": "15,83%",
+      "patrimonio_liquido": "997,45 M",
+      "pvp": "1,03",
+      "variacao_12m": "24,24%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "RBRY11",
+      "dividend_yield": "15,78%",
+      "patrimonio_liquido": "1,29 B",
+      "pvp": "0,86",
+      "variacao_12m": "7,12%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "CRAA11",
+      "dividend_yield": "15,77%",
+      "patrimonio_liquido": "239,77 M",
+      "pvp": "0,91",
+      "variacao_12m": "12,79%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "SNAG11",
+      "dividend_yield": "15,74%",
+      "patrimonio_liquido": "906,92 M",
+      "pvp": "0,98",
+      "variacao_12m": "18,71%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "BODB11",
+      "dividend_yield": "15,69%",
+      "patrimonio_liquido": "536,69 M",
+      "pvp": "0,91",
+      "variacao_12m": "25,83%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "SNME11",
+      "dividend_yield": "15,69%",
+      "patrimonio_liquido": "69,98 M",
+      "pvp": "1,00",
+      "variacao_12m": "13,82%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "VRTM11",
+      "dividend_yield": "15,45%",
+      "patrimonio_liquido": "444,79 M",
+      "pvp": "0,74",
+      "variacao_12m": "15,16%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "BIDB11",
+      "dividend_yield": "15,40%",
+      "patrimonio_liquido": "195,71 M",
+      "pvp": "1,00",
+      "variacao_12m": "19,72%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "EMET11",
+      "dividend_yield": "15,40%",
+      "patrimonio_liquido": "47,17 M",
+      "pvp": "0,95",
+      "variacao_12m": "9,27%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "RPRI11",
+      "dividend_yield": "15,39%",
+      "patrimonio_liquido": "349,99 M",
+      "pvp": "0,76",
+      "variacao_12m": "1,70%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "RBHG11",
+      "dividend_yield": "15,37%",
+      "patrimonio_liquido": "187,71 M",
+      "pvp": "0,73",
+      "variacao_12m": "9,38%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "VHFA11",
+      "dividend_yield": "15,37%",
+      "patrimonio_liquido": "95,09 M",
+      "pvp": "1,08",
+      "variacao_12m": "15,76%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "TOPP11",
+      "dividend_yield": "15,27%",
+      "patrimonio_liquido": "478,48 M",
+      "pvp": "0,62",
+      "variacao_12m": "7,91%",
+      "segmento": "Lajes Corporativas"
+    },
+    {
+      "ativo": "BBIG11",
+      "dividend_yield": "15,24%",
+      "patrimonio_liquido": "949,68 M",
+      "pvp": "0,60",
+      "variacao_12m": "-8,20%",
+      "segmento": "Shoppings / Varejo"
+    },
+    {
+      "ativo": "BPML11",
+      "dividend_yield": "15,23%",
+      "patrimonio_liquido": "921,88 M",
+      "pvp": "0,70",
+      "variacao_12m": "26,24%",
+      "segmento": "Shoppings / Varejo"
+    },
+    {
+      "ativo": "IRIM11",
+      "dividend_yield": "15,20%",
+      "patrimonio_liquido": "2,95 B",
+      "pvp": "0,79",
+      "variacao_12m": "12,11%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "VCRI11",
+      "dividend_yield": "15,19%",
+      "patrimonio_liquido": "195,79 M",
+      "pvp": "0,76",
+      "variacao_12m": "13,36%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "SPXS11",
+      "dividend_yield": "15,04%",
+      "patrimonio_liquido": "190,09 M",
+      "pvp": "0,86",
+      "variacao_12m": "9,51%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "CPTI11",
+      "dividend_yield": "14,99%",
+      "patrimonio_liquido": "1,23 B",
+      "pvp": "0,95",
+      "variacao_12m": "21,07%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "TMPS11",
+      "dividend_yield": "14,97%",
+      "patrimonio_liquido": "79,94 M",
+      "pvp": "0,91",
+      "variacao_12m": "23,77%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "KNDI11",
+      "dividend_yield": "14,97%",
+      "patrimonio_liquido": "905,00 M",
+      "pvp": "1,02",
+      "variacao_12m": "17,50%",
+      "segmento": "Fundo de Investimentos em Participações (FIP)"
+    },
+    {
+      "ativo": "VGHF11",
+      "dividend_yield": "14,96%",
+      "patrimonio_liquido": "1,38 B",
+      "pvp": "0,71",
+      "variacao_12m": "-12,68%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "GCRI11",
+      "dividend_yield": "14,96%",
+      "patrimonio_liquido": "135,76 M",
+      "pvp": "0,72",
+      "variacao_12m": "16,75%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "BLMG11",
+      "dividend_yield": "14,92%",
+      "patrimonio_liquido": "217,99 M",
+      "pvp": "0,66",
+      "variacao_12m": "-5,95%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "RBIF11",
+      "dividend_yield": "14,90%",
+      "patrimonio_liquido": "73,95 M",
+      "pvp": "0,88",
+      "variacao_12m": "22,10%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "FYTO11",
+      "dividend_yield": "14,80%",
+      "patrimonio_liquido": "152,46 M",
+      "pvp": "0,82",
+      "variacao_12m": "13,63%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "KNCA11",
+      "dividend_yield": "14,70%",
+      "patrimonio_liquido": "2,18 B",
+      "pvp": "0,89",
+      "variacao_12m": "8,88%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "MANA11",
+      "dividend_yield": "14,65%",
+      "patrimonio_liquido": "351,26 M",
+      "pvp": "0,98",
+      "variacao_12m": "21,43%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "ITIP11",
+      "dividend_yield": "14,64%",
+      "patrimonio_liquido": "51,25 M",
+      "pvp": "0,85",
+      "variacao_12m": "1,81%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "HSAF11",
+      "dividend_yield": "14,62%",
+      "patrimonio_liquido": "225,48 M",
+      "pvp": "0,87",
+      "variacao_12m": "13,73%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "XPIN11",
+      "dividend_yield": "14,60%",
+      "patrimonio_liquido": "534,69 M",
+      "pvp": "0,83",
+      "variacao_12m": "-0,47%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "VCJR11",
+      "dividend_yield": "14,59%",
+      "patrimonio_liquido": "1,38 B",
+      "pvp": "0,80",
+      "variacao_12m": "5,02%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "BTML11",
+      "dividend_yield": "14,59%",
+      "patrimonio_liquido": "145,48 M",
+      "pvp": "0,65",
+      "variacao_12m": "-",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "DIVS11",
+      "dividend_yield": "14,55%",
+      "patrimonio_liquido": "999,37 M",
+      "pvp": "1,02",
+      "variacao_12m": "8,60%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "PMIS11",
+      "dividend_yield": "14,54%",
+      "patrimonio_liquido": "139,22 M",
+      "pvp": "0,83",
+      "variacao_12m": "11,59%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "CYCR11",
+      "dividend_yield": "14,52%",
+      "patrimonio_liquido": "345,05 M",
+      "pvp": "0,93",
+      "variacao_12m": "15,72%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "JSCR11",
+      "dividend_yield": "14,49%",
+      "patrimonio_liquido": "209,61 M",
+      "pvp": "0,85",
+      "variacao_12m": "14,27%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "RECT11",
+      "dividend_yield": "14,47%",
+      "patrimonio_liquido": "766,59 M",
+      "pvp": "0,40",
+      "variacao_12m": "29,48%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "TEPP11",
+      "dividend_yield": "14,37%",
+      "patrimonio_liquido": "475,02 M",
+      "pvp": "0,83",
+      "variacao_12m": "8,64%",
+      "segmento": "Lajes Corporativas"
+    },
+    {
+      "ativo": "MCRE11",
+      "dividend_yield": "14,36%",
+      "patrimonio_liquido": "1,14 B",
+      "pvp": "0,90",
+      "variacao_12m": "23,52%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "BBFO11",
+      "dividend_yield": "14,27%",
+      "patrimonio_liquido": "297,12 M",
+      "pvp": "0,93",
+      "variacao_12m": "26,11%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "SNEL11",
+      "dividend_yield": "14,27%",
+      "patrimonio_liquido": "883,62 M",
+      "pvp": "1,05",
+      "variacao_12m": "14,44%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "RZAT11",
+      "dividend_yield": "14,26%",
+      "patrimonio_liquido": "439,72 M",
+      "pvp": "0,91",
+      "variacao_12m": "17,63%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "KNUQ11",
+      "dividend_yield": "14,18%",
+      "patrimonio_liquido": "2,18 B",
+      "pvp": "1,04",
+      "variacao_12m": "15,74%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "CPTS11",
+      "dividend_yield": "14,12%",
+      "patrimonio_liquido": "3,20 B",
+      "pvp": "0,86",
+      "variacao_12m": "17,08%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "RELG11",
+      "dividend_yield": "14,12%",
+      "patrimonio_liquido": "33,92 M",
+      "pvp": "0,72",
+      "variacao_12m": "8,40%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "CXCI11",
+      "dividend_yield": "14,05%",
+      "patrimonio_liquido": "171,10 M",
+      "pvp": "0,79",
+      "variacao_12m": "11,75%",
+      "segmento": "Fundo de Fundos"
+    },
+    {
+      "ativo": "VRTA11",
+      "dividend_yield": "13,99%",
+      "patrimonio_liquido": "1,31 B",
+      "pvp": "0,87",
+      "variacao_12m": "5,39%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "PORD11",
+      "dividend_yield": "13,98%",
+      "patrimonio_liquido": "355,95 M",
+      "pvp": "0,89",
+      "variacao_12m": "17,66%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "AFHF11",
+      "dividend_yield": "13,88%",
+      "patrimonio_liquido": "51,11 M",
+      "pvp": "0,98",
+      "variacao_12m": "10,68%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "TVRI11",
+      "dividend_yield": "13,79%",
+      "patrimonio_liquido": "1,66 B",
+      "pvp": "0,88",
+      "variacao_12m": "11,67%",
+      "segmento": "Agências Bancárias"
+    },
+    {
+      "ativo": "SNCI11",
+      "dividend_yield": "13,78%",
+      "patrimonio_liquido": "407,11 M",
+      "pvp": "0,90",
+      "variacao_12m": "11,87%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "VGIP11",
+      "dividend_yield": "13,75%",
+      "patrimonio_liquido": "1,08 B",
+      "pvp": "0,90",
+      "variacao_12m": "11,85%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "PSEC11",
+      "dividend_yield": "13,74%",
+      "patrimonio_liquido": "1,36 B",
+      "pvp": "0,76",
+      "variacao_12m": "-1,11%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "PRIF11",
+      "dividend_yield": "13,69%",
+      "patrimonio_liquido": "34,49 M",
+      "pvp": "0,94",
+      "variacao_12m": "7,72%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "RZTR11",
+      "dividend_yield": "13,68%",
+      "patrimonio_liquido": "1,73 B",
+      "pvp": "0,95",
+      "variacao_12m": "5,61%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "XPIE11",
+      "dividend_yield": "13,62%",
+      "patrimonio_liquido": "1,07 B",
+      "pvp": "0,60",
+      "variacao_12m": "-7,04%",
+      "segmento": "Fundo de Investimentos em Participações (FIP)"
+    },
+    {
+      "ativo": "WHGR11",
+      "dividend_yield": "13,59%",
+      "patrimonio_liquido": "301,60 M",
+      "pvp": "0,93",
+      "variacao_12m": "18,21%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "MCCI11",
+      "dividend_yield": "13,56%",
+      "patrimonio_liquido": "1,61 B",
+      "pvp": "1,00",
+      "variacao_12m": "24,54%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "SNFF11",
+      "dividend_yield": "13,50%",
+      "patrimonio_liquido": "345,16 M",
+      "pvp": "0,85",
+      "variacao_12m": "13,74%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "RZLC11",
+      "dividend_yield": "13,47%",
+      "patrimonio_liquido": "161,32 M",
+      "pvp": "1,01",
+      "variacao_12m": "14,35%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "GAME11",
+      "dividend_yield": "13,45%",
+      "patrimonio_liquido": "272,39 M",
+      "pvp": "0,91",
+      "variacao_12m": "16,94%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "GTWR11",
+      "dividend_yield": "13,40%",
+      "patrimonio_liquido": "1,22 B",
+      "pvp": "0,79",
+      "variacao_12m": "21,61%",
+      "segmento": "Lajes Corporativas"
+    },
+    {
+      "ativo": "JSAF11",
+      "dividend_yield": "13,40%",
+      "patrimonio_liquido": "719,65 M",
+      "pvp": "0,79",
+      "variacao_12m": "9,52%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "KNCR11",
+      "dividend_yield": "13,38%",
+      "patrimonio_liquido": "10,96 B",
+      "pvp": "1,05",
+      "variacao_12m": "19,75%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "BTAL11",
+      "dividend_yield": "13,37%",
+      "patrimonio_liquido": "688,04 M",
+      "pvp": "0,75",
+      "variacao_12m": "20,35%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "CLIN11",
+      "dividend_yield": "13,35%",
+      "patrimonio_liquido": "428,91 M",
+      "pvp": "0,92",
+      "variacao_12m": "12,93%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "AZPL11",
+      "dividend_yield": "13,31%",
+      "patrimonio_liquido": "360,70 M",
+      "pvp": "0,86",
+      "variacao_12m": "12,44%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "KNHY11",
+      "dividend_yield": "13,30%",
+      "patrimonio_liquido": "3,08 B",
+      "pvp": "1,00",
+      "variacao_12m": "11,01%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "XPSF11",
+      "dividend_yield": "13,29%",
+      "patrimonio_liquido": "341,03 M",
+      "pvp": "0,78",
+      "variacao_12m": "15,51%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "RBRX11",
+      "dividend_yield": "13,28%",
+      "patrimonio_liquido": "1,43 B",
+      "pvp": "0,84",
+      "variacao_12m": "16,41%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "CPSH11",
+      "dividend_yield": "13,27%",
+      "patrimonio_liquido": "1,42 B",
+      "pvp": "0,87",
+      "variacao_12m": "17,33%",
+      "segmento": "Shoppings / Varejo"
+    },
+    {
+      "ativo": "ITRI11",
+      "dividend_yield": "13,26%",
+      "patrimonio_liquido": "585,70 M",
+      "pvp": "0,84",
+      "variacao_12m": "12,59%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "RECR11",
+      "dividend_yield": "13,25%",
+      "patrimonio_liquido": "2,34 B",
+      "pvp": "0,92",
+      "variacao_12m": "9,20%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "KDIF11",
+      "dividend_yield": "13,24%",
+      "patrimonio_liquido": "2,81 B",
+      "pvp": "1,02",
+      "variacao_12m": "12,83%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "CPLG11",
+      "dividend_yield": "13,23%",
+      "patrimonio_liquido": "592,81 M",
+      "pvp": "1,06",
+      "variacao_12m": "7,49%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "BDIF11",
+      "dividend_yield": "13,17%",
+      "patrimonio_liquido": "1,47 B",
+      "pvp": "0,89",
+      "variacao_12m": "7,39%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "CXCO11",
+      "dividend_yield": "13,10%",
+      "patrimonio_liquido": "375,38 M",
+      "pvp": "0,70",
+      "variacao_12m": "26,23%",
+      "segmento": "Lajes Corporativas"
+    },
+    {
+      "ativo": "BTHF11",
+      "dividend_yield": "12,99%",
+      "patrimonio_liquido": "2,05 B",
+      "pvp": "0,90",
+      "variacao_12m": "19,31%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "TRXF11",
+      "dividend_yield": "12,93%",
+      "patrimonio_liquido": "6,14 B",
+      "pvp": "0,93",
+      "variacao_12m": "2,58%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "SNFZ11",
+      "dividend_yield": "12,90%",
+      "patrimonio_liquido": "120,40 M",
+      "pvp": "0,93",
+      "variacao_12m": "4,14%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "FIIP11",
+      "dividend_yield": "12,85%",
+      "patrimonio_liquido": "185,49 M",
+      "pvp": "0,66",
+      "variacao_12m": "-14,54%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "HGCR11",
+      "dividend_yield": "12,84%",
+      "patrimonio_liquido": "1,52 B",
+      "pvp": "0,94",
+      "variacao_12m": "13,41%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "KCRE11",
+      "dividend_yield": "12,83%",
+      "patrimonio_liquido": "339,20 M",
+      "pvp": "0,95",
+      "variacao_12m": "16,51%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "XPCI11",
+      "dividend_yield": "12,82%",
+      "patrimonio_liquido": "770,58 M",
+      "pvp": "0,96",
+      "variacao_12m": "18,44%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "ITIT11",
+      "dividend_yield": "12,81%",
+      "patrimonio_liquido": "70,65 M",
+      "pvp": "0,74",
+      "variacao_12m": "-6,66%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "ICRI11",
+      "dividend_yield": "12,77%",
+      "patrimonio_liquido": "393,02 M",
+      "pvp": "0,92",
+      "variacao_12m": "11,95%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "BTCI11",
+      "dividend_yield": "12,74%",
+      "patrimonio_liquido": "1,02 B",
+      "pvp": "0,90",
+      "variacao_12m": "13,04%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "RBRR11",
+      "dividend_yield": "12,72%",
+      "patrimonio_liquido": "1,52 B",
+      "pvp": "0,84",
+      "variacao_12m": "-1,34%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "AFHI11",
+      "dividend_yield": "12,66%",
+      "patrimonio_liquido": "456,56 M",
+      "pvp": "1,01",
+      "variacao_12m": "18,08%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "KNHF11",
+      "dividend_yield": "12,63%",
+      "patrimonio_liquido": "1,98 B",
+      "pvp": "0,94",
+      "variacao_12m": "16,60%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "BTRA11",
+      "dividend_yield": "12,61%",
+      "patrimonio_liquido": "384,31 M",
+      "pvp": "0,55",
+      "variacao_12m": "35,38%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "RINV11",
+      "dividend_yield": "12,41%",
+      "patrimonio_liquido": "535,33 M",
+      "pvp": "1,00",
+      "variacao_12m": "14,29%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "HTMX11",
+      "dividend_yield": "12,38%",
+      "patrimonio_liquido": "430,80 M",
+      "pvp": "0,93",
+      "variacao_12m": "9,52%",
+      "segmento": "Hotéis"
+    },
+    {
+      "ativo": "KNSC11",
+      "dividend_yield": "12,36%",
+      "patrimonio_liquido": "1,77 B",
+      "pvp": "1,05",
+      "variacao_12m": "18,51%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "GGRC11",
+      "dividend_yield": "12,35%",
+      "patrimonio_liquido": "2,36 B",
+      "pvp": "0,88",
+      "variacao_12m": "10,20%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "PPEI11",
+      "dividend_yield": "12,35%",
+      "patrimonio_liquido": "420,10 M",
+      "pvp": "0,89",
+      "variacao_12m": "6,25%",
+      "segmento": "Fundo de Investimentos em Participações (FIP)"
+    },
+    {
+      "ativo": "VANG11",
+      "dividend_yield": "12,31%",
+      "patrimonio_liquido": "49,53 M",
+      "pvp": "0,98",
+      "variacao_12m": "9,62%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "HREC11",
+      "dividend_yield": "12,30%",
+      "patrimonio_liquido": "460,27 M",
+      "pvp": "0,93",
+      "variacao_12m": "14,50%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "MXRF11",
+      "dividend_yield": "12,24%",
+      "patrimonio_liquido": "4,31 B",
+      "pvp": "1,04",
+      "variacao_12m": "16,51%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "GARE11",
+      "dividend_yield": "12,22%",
+      "patrimonio_liquido": "2,68 B",
+      "pvp": "0,88",
+      "variacao_12m": "1,75%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "SPDE11",
+      "dividend_yield": "12,16%",
+      "patrimonio_liquido": "140,85 M",
+      "pvp": "0,69",
+      "variacao_12m": "-",
+      "segmento": "Residencial"
+    },
+    {
+      "ativo": "NUIF11",
+      "dividend_yield": "12,16%",
+      "patrimonio_liquido": "105,80 M",
+      "pvp": "0,92",
+      "variacao_12m": "9,78%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "KFOF11",
+      "dividend_yield": "12,13%",
+      "patrimonio_liquido": "643,80 M",
+      "pvp": "0,86",
+      "variacao_12m": "10,85%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "GRUL11",
+      "dividend_yield": "12,07%",
+      "patrimonio_liquido": "239,16 M",
+      "pvp": "0,85",
+      "variacao_12m": "12,33%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "INLG11",
+      "dividend_yield": "12,06%",
+      "patrimonio_liquido": "480,09 M",
+      "pvp": "0,63",
+      "variacao_12m": "2,66%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "RBVA11",
+      "dividend_yield": "12,05%",
+      "patrimonio_liquido": "1,67 B",
+      "pvp": "0,84",
+      "variacao_12m": "16,97%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "OGIN11",
+      "dividend_yield": "12,04%",
+      "patrimonio_liquido": "44,90 M",
+      "pvp": "0,82",
+      "variacao_12m": "11,13%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "BRCR11",
+      "dividend_yield": "12,04%",
+      "patrimonio_liquido": "2,11 B",
+      "pvp": "0,52",
+      "variacao_12m": "5,72%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "FATN11",
+      "dividend_yield": "12,02%",
+      "patrimonio_liquido": "655,03 M",
+      "pvp": "0,82",
+      "variacao_12m": "9,77%",
+      "segmento": "Lajes Corporativas"
+    },
+    {
+      "ativo": "KISU11",
+      "dividend_yield": "11,96%",
+      "patrimonio_liquido": "356,88 M",
+      "pvp": "0,80",
+      "variacao_12m": "5,76%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "IFRA11",
+      "dividend_yield": "11,93%",
+      "patrimonio_liquido": "1,48 B",
+      "pvp": "0,97",
+      "variacao_12m": "5,42%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "BCIA11",
+      "dividend_yield": "11,89%",
+      "patrimonio_liquido": "378,44 M",
+      "pvp": "0,86",
+      "variacao_12m": "15,58%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "VINO11",
+      "dividend_yield": "11,76%",
+      "patrimonio_liquido": "812,15 M",
+      "pvp": "0,47",
+      "variacao_12m": "2,20%",
+      "segmento": "Lajes Corporativas"
+    },
+    {
+      "ativo": "VINF11",
+      "dividend_yield": "11,72%",
+      "patrimonio_liquido": "191,66 M",
+      "pvp": "0,89",
+      "variacao_12m": "-5,19%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "IBBP11",
+      "dividend_yield": "11,66%",
+      "patrimonio_liquido": "696,68 M",
+      "pvp": "0,84",
+      "variacao_12m": "0,91%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "RBRL11",
+      "dividend_yield": "11,64%",
+      "patrimonio_liquido": "655,78 M",
+      "pvp": "0,75",
+      "variacao_12m": "-2,45%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "FIGS11",
+      "dividend_yield": "11,58%",
+      "patrimonio_liquido": "199,77 M",
+      "pvp": "0,71",
+      "variacao_12m": "23,25%",
+      "segmento": "Shoppings / Varejo"
+    },
+    {
+      "ativo": "CCME11",
+      "dividend_yield": "11,55%",
+      "patrimonio_liquido": "723,89 M",
+      "pvp": "0,83",
+      "variacao_12m": "10,29%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "NEWL11",
+      "dividend_yield": "11,42%",
+      "patrimonio_liquido": "365,89 M",
+      "pvp": "0,80",
+      "variacao_12m": "15,77%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "BICE11",
+      "dividend_yield": "11,32%",
+      "patrimonio_liquido": "145,38 M",
+      "pvp": "0,49",
+      "variacao_12m": "0,35%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "MCLO11",
+      "dividend_yield": "11,26%",
+      "patrimonio_liquido": "1,72 B",
+      "pvp": "0,74",
+      "variacao_12m": "6,26%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "CXAG11",
+      "dividend_yield": "11,15%",
+      "patrimonio_liquido": "231,41 M",
+      "pvp": "0,70",
+      "variacao_12m": "16,44%",
+      "segmento": "Agências Bancárias"
+    },
+    {
+      "ativo": "PCIP11",
+      "dividend_yield": "11,13%",
+      "patrimonio_liquido": "1,58 B",
+      "pvp": "0,85",
+      "variacao_12m": "5,76%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "HFOF11",
+      "dividend_yield": "11,08%",
+      "patrimonio_liquido": "1,71 B",
+      "pvp": "0,81",
+      "variacao_12m": "18,90%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "HSRE11",
+      "dividend_yield": "11,05%",
+      "patrimonio_liquido": "769,71 M",
+      "pvp": "1,01",
+      "variacao_12m": "-4,98%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "PMLL11",
+      "dividend_yield": "10,90%",
+      "patrimonio_liquido": "1,63 B",
+      "pvp": "0,88",
+      "variacao_12m": "13,95%",
+      "segmento": "Shoppings / Varejo"
+    },
+    {
+      "ativo": "KNIP11",
+      "dividend_yield": "10,88%",
+      "patrimonio_liquido": "7,48 B",
+      "pvp": "0,99",
+      "variacao_12m": "16,54%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "XPLG11",
+      "dividend_yield": "10,71%",
+      "patrimonio_liquido": "5,41 B",
+      "pvp": "0,87",
+      "variacao_12m": "0,96%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "PLAG11",
+      "dividend_yield": "10,56%",
+      "patrimonio_liquido": "357,54 M",
+      "pvp": "0,96",
+      "variacao_12m": "46,55%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "JURO11",
+      "dividend_yield": "10,44%",
+      "patrimonio_liquido": "2,05 B",
+      "pvp": "0,99",
+      "variacao_12m": "11,82%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "XPML11",
+      "dividend_yield": "10,38%",
+      "patrimonio_liquido": "7,08 B",
+      "pvp": "0,97",
+      "variacao_12m": "13,59%",
+      "segmento": "Shoppings / Varejo"
+    },
+    {
+      "ativo": "BROF11",
+      "dividend_yield": "10,36%",
+      "patrimonio_liquido": "1,28 B",
+      "pvp": "0,56",
+      "variacao_12m": "32,11%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "CPUR11",
+      "dividend_yield": "10,23%",
+      "patrimonio_liquido": "656,30 M",
+      "pvp": "1,08",
+      "variacao_12m": "8,14%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "HBCR11",
+      "dividend_yield": "10,19%",
+      "patrimonio_liquido": "186,80 M",
+      "pvp": "1,25",
+      "variacao_12m": "18,10%",
+      "segmento": "Lajes Corporativas"
+    },
+    {
+      "ativo": "JCCJ11",
+      "dividend_yield": "10,13%",
+      "patrimonio_liquido": "1,05 B",
+      "pvp": "0,70",
+      "variacao_12m": "-5,43%",
+      "segmento": "Fundo de Fundos"
+    },
+    {
+      "ativo": "ALZR11",
+      "dividend_yield": "10,00%",
+      "patrimonio_liquido": "1,76 B",
+      "pvp": "0,95",
+      "variacao_12m": "9,97%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "ENDD11",
+      "dividend_yield": "9,99%",
+      "patrimonio_liquido": "429,77 M",
+      "pvp": "1,03",
+      "variacao_12m": "18,23%",
+      "segmento": "Fundo de Investimentos em Participações (FIP)"
+    },
+    {
+      "ativo": "RBRP11",
+      "dividend_yield": "9,98%",
+      "patrimonio_liquido": "979,21 M",
+      "pvp": "0,60",
+      "variacao_12m": "5,28%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "HGBS11",
+      "dividend_yield": "9,87%",
+      "patrimonio_liquido": "2,94 B",
+      "pvp": "0,95",
+      "variacao_12m": "10,07%",
+      "segmento": "Shoppings / Varejo"
+    },
+    {
+      "ativo": "HSLG11",
+      "dividend_yield": "9,83%",
+      "patrimonio_liquido": "1,39 B",
+      "pvp": "0,79",
+      "variacao_12m": "16,77%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "JSRE11",
+      "dividend_yield": "9,79%",
+      "patrimonio_liquido": "2,14 B",
+      "pvp": "0,57",
+      "variacao_12m": "-0,29%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "VCRR11",
+      "dividend_yield": "9,71%",
+      "patrimonio_liquido": "207,50 M",
+      "pvp": "0,54",
+      "variacao_12m": "-4,47%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "HSML11",
+      "dividend_yield": "9,68%",
+      "patrimonio_liquido": "2,22 B",
+      "pvp": "0,83",
+      "variacao_12m": "14,46%",
+      "segmento": "Shoppings / Varejo"
+    },
+    {
+      "ativo": "VILG11",
+      "dividend_yield": "9,66%",
+      "patrimonio_liquido": "1,68 B",
+      "pvp": "0,86",
+      "variacao_12m": "27,55%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "BTWR11",
+      "dividend_yield": "9,49%",
+      "patrimonio_liquido": "95,99 M",
+      "pvp": "0,76",
+      "variacao_12m": "-3,15%",
+      "segmento": "Lajes Corporativas"
+    },
+    {
+      "ativo": "BRCO11",
+      "dividend_yield": "9,48%",
+      "patrimonio_liquido": "2,09 B",
+      "pvp": "0,99",
+      "variacao_12m": "15,62%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "VISC11",
+      "dividend_yield": "9,37%",
+      "patrimonio_liquido": "3,34 B",
+      "pvp": "0,91",
+      "variacao_12m": "11,28%",
+      "segmento": "Shoppings / Varejo"
+    },
+    {
+      "ativo": "BTLG11",
+      "dividend_yield": "9,30%",
+      "patrimonio_liquido": "7,11 B",
+      "pvp": "1,00",
+      "variacao_12m": "12,22%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "SUIN11",
+      "dividend_yield": "9,30%",
+      "patrimonio_liquido": "100,59 M",
+      "pvp": "0,85",
+      "variacao_12m": "-9,40%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "HGRU11",
+      "dividend_yield": "9,21%",
+      "patrimonio_liquido": "3,00 B",
+      "pvp": "1,00",
+      "variacao_12m": "13,52%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "HGRE11",
+      "dividend_yield": "9,19%",
+      "patrimonio_liquido": "1,74 B",
+      "pvp": "0,85",
+      "variacao_12m": "18,91%",
+      "segmento": "Lajes Corporativas"
+    },
+    {
+      "ativo": "RCRB11",
+      "dividend_yield": "8,92%",
+      "patrimonio_liquido": "734,80 M",
+      "pvp": "0,68",
+      "variacao_12m": "18,36%",
+      "segmento": "Lajes Corporativas"
+    },
+    {
+      "ativo": "FCFL11",
+      "dividend_yield": "8,90%",
+      "patrimonio_liquido": "434,56 M",
+      "pvp": "0,99",
+      "variacao_12m": "7,80%",
+      "segmento": "Educacional"
+    },
+    {
+      "ativo": "HGLG11",
+      "dividend_yield": "8,82%",
+      "patrimonio_liquido": "7,57 B",
+      "pvp": "0,90",
+      "variacao_12m": "4,79%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "FIIB11",
+      "dividend_yield": "8,74%",
+      "patrimonio_liquido": "405,58 M",
+      "pvp": "0,74",
+      "variacao_12m": "-6,28%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "LVBI11",
+      "dividend_yield": "8,69%",
+      "patrimonio_liquido": "1,94 B",
+      "pvp": "0,86",
+      "variacao_12m": "5,05%",
+      "segmento": "Logístico / Indústria / Galpões"
+    },
+    {
+      "ativo": "NEXG11",
+      "dividend_yield": "8,63%",
+      "patrimonio_liquido": "123,19 M",
+      "pvp": "1,29",
+      "variacao_12m": "8,61%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "KNRI11",
+      "dividend_yield": "8,18%",
+      "patrimonio_liquido": "4,60 B",
+      "pvp": "0,97",
+      "variacao_12m": "18,56%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "LASC11",
+      "dividend_yield": "7,66%",
+      "patrimonio_liquido": "387,89 M",
+      "pvp": "0,83",
+      "variacao_12m": "26,47%",
+      "segmento": "Shoppings / Varejo"
+    },
+    {
+      "ativo": "HJCT11",
+      "dividend_yield": "7,38%",
+      "patrimonio_liquido": "84,22 M",
+      "pvp": "1,41",
+      "variacao_12m": "5,81%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "AIEC11",
+      "dividend_yield": "7,33%",
+      "patrimonio_liquido": "366,76 M",
+      "pvp": "0,74",
+      "variacao_12m": "32,16%",
+      "segmento": "Lajes Corporativas"
+    },
+    {
+      "ativo": "PVBI11",
+      "dividend_yield": "7,20%",
+      "patrimonio_liquido": "2,92 B",
+      "pvp": "0,68",
+      "variacao_12m": "3,01%",
+      "segmento": "Lajes Corporativas"
+    },
+    {
+      "ativo": "XLPR11",
+      "dividend_yield": "6,90%",
+      "patrimonio_liquido": "36,09 M",
+      "pvp": "0,94",
+      "variacao_12m": "-11,31%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "AJFI11",
+      "dividend_yield": "6,72%",
+      "patrimonio_liquido": "371,93 M",
+      "pvp": "0,74",
+      "variacao_12m": "21,01%",
+      "segmento": "Shoppings / Varejo"
+    },
+    {
+      "ativo": "RBFM11",
+      "dividend_yield": "6,26%",
+      "patrimonio_liquido": "240,90 M",
+      "pvp": "0,80",
+      "variacao_12m": "2,89%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "BIPD11",
+      "dividend_yield": "6,00%",
+      "patrimonio_liquido": "103,25 M",
+      "pvp": "1,05",
+      "variacao_12m": "16,20%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "KDOL11",
+      "dividend_yield": "5,99%",
+      "patrimonio_liquido": "62,56 M",
+      "pvp": "0,94",
+      "variacao_12m": "-1,27%",
+      "segmento": "Fiagros"
+    },
+    {
+      "ativo": "VVRI11",
+      "dividend_yield": "5,86%",
+      "patrimonio_liquido": "158,46 M",
+      "pvp": "0,97",
+      "variacao_12m": "6,38%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "KNOX11",
+      "dividend_yield": "5,83%",
+      "patrimonio_liquido": "1,01 B",
+      "pvp": "0,98",
+      "variacao_12m": "12,03%",
+      "segmento": "Fundo de Investimentos em Participações (FIP)"
+    },
+    {
+      "ativo": "VIGT11",
+      "dividend_yield": "5,20%",
+      "patrimonio_liquido": "596,38 M",
+      "pvp": "0,73",
+      "variacao_12m": "45,20%",
+      "segmento": "Fundo de Investimentos em Participações (FIP)"
+    },
+    {
+      "ativo": "OXRL11",
+      "dividend_yield": "4,98%",
+      "patrimonio_liquido": "42,99 M",
+      "pvp": "1,05",
+      "variacao_12m": "0,42%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "BODI11",
+      "dividend_yield": "4,55%",
+      "patrimonio_liquido": "277,67 M",
+      "pvp": "1,00",
+      "variacao_12m": "2,43%",
+      "segmento": "Fundo de Infraestrutura (FI-Infra)"
+    },
+    {
+      "ativo": "BPFF11",
+      "dividend_yield": "3,89%",
+      "patrimonio_liquido": "279,19 M",
+      "pvp": "0,86",
+      "variacao_12m": "-1,83%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "CPOF11",
+      "dividend_yield": "3,88%",
+      "patrimonio_liquido": "694,92 M",
+      "pvp": "0,90",
+      "variacao_12m": "9,91%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "RVBI11",
+      "dividend_yield": "3,49%",
+      "patrimonio_liquido": "760,04 M",
+      "pvp": "0,81",
+      "variacao_12m": "1,41%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "CCVA11",
+      "dividend_yield": "2,57%",
+      "patrimonio_liquido": "64,20 M",
+      "pvp": "0,86",
+      "variacao_12m": "-",
+      "segmento": "Hospitalar"
+    },
+    {
+      "ativo": "PLCR11",
+      "dividend_yield": "2,17%",
+      "patrimonio_liquido": "175,91 M",
+      "pvp": "0,94",
+      "variacao_12m": "12,63%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "PICE11",
+      "dividend_yield": "1,56%",
+      "patrimonio_liquido": "1,06 B",
+      "pvp": "0,23",
+      "variacao_12m": "-13,19%",
+      "segmento": "Fundo de Investimentos em Participações (FIP)"
+    },
+    {
+      "ativo": "ADSH11",
+      "dividend_yield": "1,46%",
+      "patrimonio_liquido": "466,24 M",
+      "pvp": "1,06",
+      "variacao_12m": "8,45%",
+      "segmento": "Shoppings / Varejo"
+    },
+    {
+      "ativo": "OUFF11",
+      "dividend_yield": "-",
+      "patrimonio_liquido": "142,52 M",
+      "pvp": "0,78",
+      "variacao_12m": "-6,49%",
+      "segmento": "Títulos e Valores Mobiliários"
+    },
+    {
+      "ativo": "FIIP11B",
+      "dividend_yield": "-",
+      "patrimonio_liquido": "184,00 M",
+      "pvp": "0,81",
+      "variacao_12m": "-4,27%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "EQIN11",
+      "dividend_yield": "-",
+      "patrimonio_liquido": "135,10 M",
+      "pvp": "1,00",
+      "variacao_12m": "0,91%",
+      "segmento": "Outros"
+    },
+    {
+      "ativo": "PNPR11",
+      "dividend_yield": "-",
+      "patrimonio_liquido": "34,83 M",
+      "pvp": "1,19",
+      "variacao_12m": "-2,04%",
+      "segmento": "Híbrido"
+    },
+    {
+      "ativo": "HDOF11",
+      "dividend_yield": "-",
+      "patrimonio_liquido": "312,52 M",
+      "pvp": "0,98",
+      "variacao_12m": "-4,21%",
+      "segmento": "Lajes Corporativas"
+    }
+  ],
+  "acoes": [
+    {
+      "ativo": "SCAR3",
+      "dividend_yield": "54,62%",
+      "patrimonio_liquido": "1,04 B",
+      "pvp": "0,72",
+      "variacao_12m": "-21,73%",
+      "segmento": "Exploração de Imóveis"
+    },
+    {
+      "ativo": "GRND3",
+      "dividend_yield": "39,53%",
+      "patrimonio_liquido": "3,17 B",
+      "pvp": "1,11",
+      "variacao_12m": "-4,76%",
+      "segmento": "Calçados"
+    },
+    {
+      "ativo": "RIAA3",
+      "dividend_yield": "36,86%",
+      "patrimonio_liquido": "5,32 B",
+      "pvp": "1,72",
+      "variacao_12m": "60,98%",
+      "segmento": "Tecidos, Vestuário e Calçados"
+    },
+    {
+      "ativo": "JSLG3",
+      "dividend_yield": "33,24%",
+      "patrimonio_liquido": "1,17 B",
+      "pvp": "1,41",
+      "variacao_12m": "33,68%",
+      "segmento": "Transporte Rodoviário"
+    },
+    {
+      "ativo": "VULC3",
+      "dividend_yield": "32,18%",
+      "patrimonio_liquido": "2,51 B",
+      "pvp": "1,86",
+      "variacao_12m": "-12,23%",
+      "segmento": "Calçados"
+    },
+    {
+      "ativo": "CGRA4",
+      "dividend_yield": "25,86%",
+      "patrimonio_liquido": "883,32 M",
+      "pvp": "0,66",
+      "variacao_12m": "21,41%",
+      "segmento": "Tecidos, Vestuário e Calçados"
+    },
+    {
+      "ativo": "LOGG3",
+      "dividend_yield": "25,83%",
+      "patrimonio_liquido": "3,74 B",
+      "pvp": "0,63",
+      "variacao_12m": "59,18%",
+      "segmento": "Exploração de Imóveis"
+    },
+    {
+      "ativo": "ALLD3",
+      "dividend_yield": "24,81%",
+      "patrimonio_liquido": "1,54 B",
+      "pvp": "0,29",
+      "variacao_12m": "-7,06%",
+      "segmento": "Telecomunicações"
+    },
+    {
+      "ativo": "LAVV3",
+      "dividend_yield": "22,69%",
+      "patrimonio_liquido": "1,37 B",
+      "pvp": "1,62",
+      "variacao_12m": "7,52%",
+      "segmento": "Incorporações"
+    },
+    {
+      "ativo": "TRIS3",
+      "dividend_yield": "22,04%",
+      "patrimonio_liquido": "1,48 B",
+      "pvp": "0,73",
+      "variacao_12m": "-1,09%",
+      "segmento": "Incorporações"
+    },
+    {
+      "ativo": "BAZA3",
+      "dividend_yield": "18,84%",
+      "patrimonio_liquido": "7,18 B",
+      "pvp": "0,47",
+      "variacao_12m": "-3,86%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "POMO4",
+      "dividend_yield": "17,73%",
+      "patrimonio_liquido": "4,06 B",
+      "pvp": "1,79",
+      "variacao_12m": "-9,21%",
+      "segmento": "Material Rodoviário"
+    },
+    {
+      "ativo": "MDNE3",
+      "dividend_yield": "17,63%",
+      "patrimonio_liquido": "2,12 B",
+      "pvp": "1,33",
+      "variacao_12m": "38,33%",
+      "segmento": "Incorporações"
+    },
+    {
+      "ativo": "ARML3",
+      "dividend_yield": "16,75%",
+      "patrimonio_liquido": "1,28 B",
+      "pvp": "0,89",
+      "variacao_12m": "-8,01%",
+      "segmento": "Construção Pesada"
+    },
+    {
+      "ativo": "CSUD3",
+      "dividend_yield": "16,64%",
+      "patrimonio_liquido": "478,14 M",
+      "pvp": "1,24",
+      "variacao_12m": "-14,03%",
+      "segmento": "Serviços Diversos"
+    },
+    {
+      "ativo": "GEPA4",
+      "dividend_yield": "16,43%",
+      "patrimonio_liquido": "1,36 B",
+      "pvp": "2,71",
+      "variacao_12m": "29,83%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "UNIP6",
+      "dividend_yield": "16,19%",
+      "patrimonio_liquido": "1,87 B",
+      "pvp": "3,80",
+      "variacao_12m": "14,94%",
+      "segmento": "Químicos Diversos"
+    },
+    {
+      "ativo": "EVEN3",
+      "dividend_yield": "15,99%",
+      "patrimonio_liquido": "1,93 B",
+      "pvp": "0,59",
+      "variacao_12m": "-9,68%",
+      "segmento": "Incorporações"
+    },
+    {
+      "ativo": "CEBR3",
+      "dividend_yield": "15,84%",
+      "patrimonio_liquido": "945,70 M",
+      "pvp": "1,90",
+      "variacao_12m": "44,47%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "SHUL4",
+      "dividend_yield": "13,66%",
+      "patrimonio_liquido": "1,53 B",
+      "pvp": "1,08",
+      "variacao_12m": "-1,08%",
+      "segmento": "Motores, Compressores e Outros"
+    },
+    {
+      "ativo": "RECV3",
+      "dividend_yield": "13,35%",
+      "patrimonio_liquido": "4,20 B",
+      "pvp": "0,71",
+      "variacao_12m": "-20,53%",
+      "segmento": "Exploração, Refino e Distribuição"
+    },
+    {
+      "ativo": "FIQE3",
+      "dividend_yield": "13,20%",
+      "patrimonio_liquido": "1,17 B",
+      "pvp": "2,01",
+      "variacao_12m": "101,40%",
+      "segmento": "Telecomunicações"
+    },
+    {
+      "ativo": "AZZA3",
+      "dividend_yield": "12,96%",
+      "patrimonio_liquido": "8,01 B",
+      "pvp": "0,49",
+      "variacao_12m": "-40,98%",
+      "segmento": "Tecidos, Vestuário e Calçados"
+    },
+    {
+      "ativo": "MELK3",
+      "dividend_yield": "12,94%",
+      "patrimonio_liquido": "1,08 B",
+      "pvp": "0,62",
+      "variacao_12m": "3,39%",
+      "segmento": "Incorporações"
+    },
+    {
+      "ativo": "CAMB3",
+      "dividend_yield": "12,90%",
+      "patrimonio_liquido": "319,42 M",
+      "pvp": "1,25",
+      "variacao_12m": "8,27%",
+      "segmento": "Calçados"
+    },
+    {
+      "ativo": "CURY3",
+      "dividend_yield": "12,79%",
+      "patrimonio_liquido": "1,54 B",
+      "pvp": "6,82",
+      "variacao_12m": "32,00%",
+      "segmento": "Incorporações"
+    },
+    {
+      "ativo": "GPAR3",
+      "dividend_yield": "12,63%",
+      "patrimonio_liquido": "727,05 M",
+      "pvp": "1,32",
+      "variacao_12m": "-41,26%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "TGMA3",
+      "dividend_yield": "12,58%",
+      "patrimonio_liquido": "911,02 M",
+      "pvp": "2,21",
+      "variacao_12m": "-8,13%",
+      "segmento": "Transporte Rodoviário"
+    },
+    {
+      "ativo": "CEEB3",
+      "dividend_yield": "12,38%",
+      "patrimonio_liquido": "8,11 B",
+      "pvp": "1,52",
+      "variacao_12m": "46,24%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "MTRE3",
+      "dividend_yield": "12,21%",
+      "patrimonio_liquido": "1,02 B",
+      "pvp": "0,35",
+      "variacao_12m": "-7,08%",
+      "segmento": "Incorporações"
+    },
+    {
+      "ativo": "CYRE3",
+      "dividend_yield": "11,84%",
+      "patrimonio_liquido": "10,62 B",
+      "pvp": "0,98",
+      "variacao_12m": "15,78%",
+      "segmento": "Incorporações"
+    },
+    {
+      "ativo": "RDOR3",
+      "dividend_yield": "11,80%",
+      "patrimonio_liquido": "19,77 B",
+      "pvp": "4,08",
+      "variacao_12m": "18,85%",
+      "segmento": "Serviços Médicos, Hospitalares, Análises e Diagnósticos"
+    },
+    {
+      "ativo": "CSED3",
+      "dividend_yield": "11,76%",
+      "patrimonio_liquido": "1,65 B",
+      "pvp": "0,91",
+      "variacao_12m": "-6,13%",
+      "segmento": "Serviços Educacionais"
+    },
+    {
+      "ativo": "FESA4",
+      "dividend_yield": "11,71%",
+      "patrimonio_liquido": "3,28 B",
+      "pvp": "0,65",
+      "variacao_12m": "-11,53%",
+      "segmento": "Siderurgia"
+    },
+    {
+      "ativo": "DIRR3",
+      "dividend_yield": "11,67%",
+      "patrimonio_liquido": "2,13 B",
+      "pvp": "3,25",
+      "variacao_12m": "0,10%",
+      "segmento": "Incorporações"
+    },
+    {
+      "ativo": "CMIG4",
+      "dividend_yield": "11,26%",
+      "patrimonio_liquido": "28,89 B",
+      "pvp": "1,13",
+      "variacao_12m": "14,41%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "BBSE3",
+      "dividend_yield": "11,13%",
+      "patrimonio_liquido": "12,64 B",
+      "pvp": "6,20",
+      "variacao_12m": "30,62%",
+      "segmento": "Seguradoras"
+    },
+    {
+      "ativo": "BRSR6",
+      "dividend_yield": "10,95%",
+      "patrimonio_liquido": "11,65 B",
+      "pvp": "0,51",
+      "variacao_12m": "40,31%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "BRAP4",
+      "dividend_yield": "10,86%",
+      "patrimonio_liquido": "7,82 B",
+      "pvp": "1,09",
+      "variacao_12m": "35,14%",
+      "segmento": "Holdings Diversificadas"
+    },
+    {
+      "ativo": "ABCB4",
+      "dividend_yield": "10,83%",
+      "patrimonio_liquido": "7,15 B",
+      "pvp": "0,91",
+      "variacao_12m": "25,24%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "BGIP4",
+      "dividend_yield": "10,82%",
+      "patrimonio_liquido": "971,10 M",
+      "pvp": "0,80",
+      "variacao_12m": "24,49%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "EZTC3",
+      "dividend_yield": "10,77%",
+      "patrimonio_liquido": "5,15 B",
+      "pvp": "0,71",
+      "variacao_12m": "35,67%",
+      "segmento": "Incorporações"
+    },
+    {
+      "ativo": "BMGB4",
+      "dividend_yield": "10,28%",
+      "patrimonio_liquido": "4,98 B",
+      "pvp": "0,69",
+      "variacao_12m": "63,37%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "BRBI11",
+      "dividend_yield": "10,18%",
+      "patrimonio_liquido": "793,44 M",
+      "pvp": "2,03",
+      "variacao_12m": "0,29%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "BSLI3",
+      "dividend_yield": "9,70%",
+      "patrimonio_liquido": "3,98 B",
+      "pvp": "0,37",
+      "variacao_12m": "-61,87%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "CGAS3",
+      "dividend_yield": "9,68%",
+      "patrimonio_liquido": "1,72 B",
+      "pvp": "9,63",
+      "variacao_12m": "8,05%",
+      "segmento": "Gás"
+    },
+    {
+      "ativo": "SYNE3",
+      "dividend_yield": "9,66%",
+      "patrimonio_liquido": "692,82 M",
+      "pvp": "0,96",
+      "variacao_12m": "14,16%",
+      "segmento": "Exploração de Imóveis"
+    },
+    {
+      "ativo": "ALOS3",
+      "dividend_yield": "9,58%",
+      "patrimonio_liquido": "12,96 B",
+      "pvp": "1,12",
+      "variacao_12m": "45,42%",
+      "segmento": "Exploração de Imóveis"
+    },
+    {
+      "ativo": "VLID3",
+      "dividend_yield": "9,42%",
+      "patrimonio_liquido": "1,71 B",
+      "pvp": "0,85",
+      "variacao_12m": "-17,95%",
+      "segmento": "Serviços Diversos"
+    },
+    {
+      "ativo": "ITSA4",
+      "dividend_yield": "9,38%",
+      "patrimonio_liquido": "90,20 B",
+      "pvp": "1,76",
+      "variacao_12m": "52,24%",
+      "segmento": "Holdings Diversificadas"
+    },
+    {
+      "ativo": "PFRM3",
+      "dividend_yield": "9,34%",
+      "patrimonio_liquido": "1,34 B",
+      "pvp": "0,64",
+      "variacao_12m": "-16,77%",
+      "segmento": "Medicamentos e Outros Produtos"
+    },
+    {
+      "ativo": "ENMT4",
+      "dividend_yield": "9,26%",
+      "patrimonio_liquido": "3,87 B",
+      "pvp": "2,13",
+      "variacao_12m": "-39,28%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "EKTR3",
+      "dividend_yield": "9,14%",
+      "patrimonio_liquido": "2,28 B",
+      "pvp": "4,38",
+      "variacao_12m": "46,09%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "WLMM3",
+      "dividend_yield": "9,03%",
+      "patrimonio_liquido": "793,17 M",
+      "pvp": "0,94",
+      "variacao_12m": "-8,38%",
+      "segmento": "Material de Transporte"
+    },
+    {
+      "ativo": "BMOB3",
+      "dividend_yield": "8,94%",
+      "patrimonio_liquido": "974,19 M",
+      "pvp": "2,10",
+      "variacao_12m": "18,21%",
+      "segmento": "Programas e Serviços"
+    },
+    {
+      "ativo": "BEES3",
+      "dividend_yield": "8,93%",
+      "patrimonio_liquido": "2,46 B",
+      "pvp": "1,23",
+      "variacao_12m": "20,92%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "CLSC4",
+      "dividend_yield": "8,79%",
+      "patrimonio_liquido": "4,14 B",
+      "pvp": "1,29",
+      "variacao_12m": "44,69%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "LEVE3",
+      "dividend_yield": "8,75%",
+      "patrimonio_liquido": "1,07 B",
+      "pvp": "4,12",
+      "variacao_12m": "19,96%",
+      "segmento": "Automóveis e Motocicletas"
+    },
+    {
+      "ativo": "BLAU3",
+      "dividend_yield": "8,74%",
+      "patrimonio_liquido": "2,29 B",
+      "pvp": "1,07",
+      "variacao_12m": "12,38%",
+      "segmento": "Serviços Médicos, Hospitalares, Análises e Diagnósticos"
+    },
+    {
+      "ativo": "BBDC3",
+      "dividend_yield": "8,59%",
+      "patrimonio_liquido": "179,76 B",
+      "pvp": "0,97",
+      "variacao_12m": "27,09%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "INTB3",
+      "dividend_yield": "8,55%",
+      "patrimonio_liquido": "3,14 B",
+      "pvp": "1,38",
+      "variacao_12m": "-6,27%",
+      "segmento": "Telecomunicações"
+    },
+    {
+      "ativo": "EQPA3",
+      "dividend_yield": "8,41%",
+      "patrimonio_liquido": "5,56 B",
+      "pvp": "2,13",
+      "variacao_12m": "2,07%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "SANB11",
+      "dividend_yield": "8,36%",
+      "patrimonio_liquido": "126,40 B",
+      "pvp": "0,82",
+      "variacao_12m": "6,24%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "MOVI3",
+      "dividend_yield": "8,34%",
+      "patrimonio_liquido": "3,06 B",
+      "pvp": "1,19",
+      "variacao_12m": "53,38%",
+      "segmento": "Aluguel de carros"
+    },
+    {
+      "ativo": "KLBN11",
+      "dividend_yield": "8,12%",
+      "patrimonio_liquido": "9,05 B",
+      "pvp": "2,42",
+      "variacao_12m": "3,08%",
+      "segmento": "Papel e Celulose"
+    },
+    {
+      "ativo": "ITUB4",
+      "dividend_yield": "7,96%",
+      "patrimonio_liquido": "209,71 B",
+      "pvp": "2,33",
+      "variacao_12m": "40,32%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "ECOR3",
+      "dividend_yield": "7,87%",
+      "patrimonio_liquido": "4,09 B",
+      "pvp": "1,32",
+      "variacao_12m": "17,85%",
+      "segmento": "Exploração de Rodovias"
+    },
+    {
+      "ativo": "TAEE11",
+      "dividend_yield": "7,84%",
+      "patrimonio_liquido": "7,96 B",
+      "pvp": "1,81",
+      "variacao_12m": "31,15%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "PATI3",
+      "dividend_yield": "7,82%",
+      "patrimonio_liquido": "758,07 M",
+      "pvp": "0,95",
+      "variacao_12m": "-20,40%",
+      "segmento": "Artefatos de Ferro e Aço"
+    },
+    {
+      "ativo": "CPFE3",
+      "dividend_yield": "7,80%",
+      "patrimonio_liquido": "24,30 B",
+      "pvp": "2,27",
+      "variacao_12m": "35,60%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "DEXP3",
+      "dividend_yield": "7,65%",
+      "patrimonio_liquido": "1,05 B",
+      "pvp": "0,85",
+      "variacao_12m": "-20,39%",
+      "segmento": "Petroquímicos"
+    },
+    {
+      "ativo": "PETR4",
+      "dividend_yield": "7,42%",
+      "patrimonio_liquido": "445,19 B",
+      "pvp": "1,15",
+      "variacao_12m": "30,52%",
+      "segmento": "Exploração, Refino e Distribuição"
+    },
+    {
+      "ativo": "WIZC3",
+      "dividend_yield": "7,39%",
+      "patrimonio_liquido": "687,37 M",
+      "pvp": "1,98",
+      "variacao_12m": "18,70%",
+      "segmento": "Corretoras de Seguros"
+    },
+    {
+      "ativo": "VALE3",
+      "dividend_yield": "7,38%",
+      "patrimonio_liquido": "191,22 B",
+      "pvp": "1,72",
+      "variacao_12m": "43,13%",
+      "segmento": "Minerais Metálicos"
+    },
+    {
+      "ativo": "CMIN3",
+      "dividend_yield": "7,38%",
+      "patrimonio_liquido": "7,08 B",
+      "pvp": "4,01",
+      "variacao_12m": "8,76%",
+      "segmento": "Minerais Metálicos"
+    },
+    {
+      "ativo": "FLRY3",
+      "dividend_yield": "7,36%",
+      "patrimonio_liquido": "5,18 B",
+      "pvp": "1,73",
+      "variacao_12m": "39,74%",
+      "segmento": "Serviços Médicos, Hospitalares, Análises e Diagnósticos"
+    },
+    {
+      "ativo": "VITT3",
+      "dividend_yield": "7,36%",
+      "patrimonio_liquido": "632,73 M",
+      "pvp": "0,85",
+      "variacao_12m": "-21,20%",
+      "segmento": "Agricultura"
+    },
+    {
+      "ativo": "MTSA4",
+      "dividend_yield": "7,33%",
+      "patrimonio_liquido": "463,12 M",
+      "pvp": "0,91",
+      "variacao_12m": "19,23%",
+      "segmento": "Máquinas e Equipamentos de Construção e Agrícolas"
+    },
+    {
+      "ativo": "AFLT3",
+      "dividend_yield": "7,17%",
+      "patrimonio_liquido": "260,42 M",
+      "pvp": "1,74",
+      "variacao_12m": "6,11%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "REDE3",
+      "dividend_yield": "7,11%",
+      "patrimonio_liquido": "6,24 B",
+      "pvp": "2,41",
+      "variacao_12m": "-7,04%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "TIMS3",
+      "dividend_yield": "6,97%",
+      "patrimonio_liquido": "24,42 B",
+      "pvp": "2,23",
+      "variacao_12m": "14,15%",
+      "segmento": "Telecomunicações"
+    },
+    {
+      "ativo": "MILS3",
+      "dividend_yield": "6,88%",
+      "patrimonio_liquido": "1,78 B",
+      "pvp": "2,03",
+      "variacao_12m": "47,70%",
+      "segmento": "Serviços Diversos"
+    },
+    {
+      "ativo": "PGMN3",
+      "dividend_yield": "6,87%",
+      "patrimonio_liquido": "3,35 B",
+      "pvp": "0,81",
+      "variacao_12m": "16,12%",
+      "segmento": "Medicamentos e Outros Produtos"
+    },
+    {
+      "ativo": "CPLE3",
+      "dividend_yield": "6,84%",
+      "patrimonio_liquido": "23,83 B",
+      "pvp": "1,94",
+      "variacao_12m": "48,39%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "ROMI3",
+      "dividend_yield": "6,76%",
+      "patrimonio_liquido": "1,24 B",
+      "pvp": "0,47",
+      "variacao_12m": "-28,20%",
+      "segmento": "Máquinas e Equipamentos Industriais"
+    },
+    {
+      "ativo": "AXIA3",
+      "dividend_yield": "6,75%",
+      "patrimonio_liquido": "121,15 B",
+      "pvp": "1,44",
+      "variacao_12m": "87,24%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "PINE4",
+      "dividend_yield": "6,57%",
+      "patrimonio_liquido": "1,73 B",
+      "pvp": "1,87",
+      "variacao_12m": "119,70%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "KEPL3",
+      "dividend_yield": "6,54%",
+      "patrimonio_liquido": "791,85 M",
+      "pvp": "1,50",
+      "variacao_12m": "-10,89%",
+      "segmento": "Máquinas e Equipamentos Industriais"
+    },
+    {
+      "ativo": "SLCE3",
+      "dividend_yield": "6,46%",
+      "patrimonio_liquido": "5,31 B",
+      "pvp": "1,32",
+      "variacao_12m": "-8,88%",
+      "segmento": "Agricultura"
+    },
+    {
+      "ativo": "YDUQ3",
+      "dividend_yield": "6,36%",
+      "patrimonio_liquido": "3,00 B",
+      "pvp": "0,82",
+      "variacao_12m": "-32,21%",
+      "segmento": "Serviços Educacionais"
+    },
+    {
+      "ativo": "ISAE4",
+      "dividend_yield": "6,17%",
+      "patrimonio_liquido": "21,43 B",
+      "pvp": "0,92",
+      "variacao_12m": "39,59%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "LREN3",
+      "dividend_yield": "6,15%",
+      "patrimonio_liquido": "10,37 B",
+      "pvp": "1,42",
+      "variacao_12m": "-18,86%",
+      "segmento": "Tecidos, Vestuário e Calçados"
+    },
+    {
+      "ativo": "BNBR3",
+      "dividend_yield": "6,15%",
+      "patrimonio_liquido": "16,60 B",
+      "pvp": "0,67",
+      "variacao_12m": "28,74%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "PLPL3",
+      "dividend_yield": "6,05%",
+      "patrimonio_liquido": "1,06 B",
+      "pvp": "1,56",
+      "variacao_12m": "-42,95%",
+      "segmento": "Intermediação Imobiliária"
+    },
+    {
+      "ativo": "RANI3",
+      "dividend_yield": "5,96%",
+      "patrimonio_liquido": "1,47 B",
+      "pvp": "1,25",
+      "variacao_12m": "16,17%",
+      "segmento": "Papel e Celulose"
+    },
+    {
+      "ativo": "CXSE3",
+      "dividend_yield": "5,94%",
+      "patrimonio_liquido": "13,77 B",
+      "pvp": "4,80",
+      "variacao_12m": "66,74%",
+      "segmento": "Seguradoras"
+    },
+    {
+      "ativo": "MDIA3",
+      "dividend_yield": "5,88%",
+      "patrimonio_liquido": "8,36 B",
+      "pvp": "0,73",
+      "variacao_12m": "-32,16%",
+      "segmento": "Alimentos Diversos"
+    },
+    {
+      "ativo": "JHSF3",
+      "dividend_yield": "5,72%",
+      "patrimonio_liquido": "7,06 B",
+      "pvp": "1,08",
+      "variacao_12m": "128,09%",
+      "segmento": "Incorporações"
+    },
+    {
+      "ativo": "TPIS3",
+      "dividend_yield": "5,72%",
+      "patrimonio_liquido": "501,76 M",
+      "pvp": "0,84",
+      "variacao_12m": "138,21%",
+      "segmento": "Exploração de Rodovias"
+    },
+    {
+      "ativo": "PSSA3",
+      "dividend_yield": "5,48%",
+      "patrimonio_liquido": "15,54 B",
+      "pvp": "2,29",
+      "variacao_12m": "10,44%",
+      "segmento": "Seguradoras"
+    },
+    {
+      "ativo": "CAML3",
+      "dividend_yield": "5,41%",
+      "patrimonio_liquido": "3,02 B",
+      "pvp": "0,63",
+      "variacao_12m": "11,17%",
+      "segmento": "Alimentos Diversos"
+    },
+    {
+      "ativo": "COGN3",
+      "dividend_yield": "5,38%",
+      "patrimonio_liquido": "13,60 B",
+      "pvp": "0,36",
+      "variacao_12m": "3,83%",
+      "segmento": "Serviços Educacionais"
+    },
+    {
+      "ativo": "BEEF3",
+      "dividend_yield": "5,35%",
+      "patrimonio_liquido": "1,26 B",
+      "pvp": "2,91",
+      "variacao_12m": "-29,54%",
+      "segmento": "Carnes e Derivados"
+    },
+    {
+      "ativo": "WHRL4",
+      "dividend_yield": "5,31%",
+      "patrimonio_liquido": "1,92 B",
+      "pvp": "3,17",
+      "variacao_12m": "5,51%",
+      "segmento": "Eletrodomésticos"
+    },
+    {
+      "ativo": "SBFG3",
+      "dividend_yield": "5,30%",
+      "patrimonio_liquido": "3,09 B",
+      "pvp": "0,77",
+      "variacao_12m": "-10,55%",
+      "segmento": "Produtos Diversos"
+    },
+    {
+      "ativo": "HYPE3",
+      "dividend_yield": "5,26%",
+      "patrimonio_liquido": "14,12 B",
+      "pvp": "1,05",
+      "variacao_12m": "-18,48%",
+      "segmento": "Medicamentos e Outros Produtos"
+    },
+    {
+      "ativo": "RENT3",
+      "dividend_yield": "5,08%",
+      "patrimonio_liquido": "26,31 B",
+      "pvp": "1,76",
+      "variacao_12m": "19,95%",
+      "segmento": "Aluguel de carros"
+    },
+    {
+      "ativo": "ABEV3",
+      "dividend_yield": "4,96%",
+      "patrimonio_liquido": "90,13 B",
+      "pvp": "2,77",
+      "variacao_12m": "25,83%",
+      "segmento": "Cervejas e Refrigerantes"
+    },
+    {
+      "ativo": "SMFT3",
+      "dividend_yield": "4,91%",
+      "patrimonio_liquido": "5,92 B",
+      "pvp": "2,20",
+      "variacao_12m": "-3,24%",
+      "segmento": "Atividades Esportivas"
+    },
+    {
+      "ativo": "COCE5",
+      "dividend_yield": "4,90%",
+      "patrimonio_liquido": "5,61 B",
+      "pvp": "0,64",
+      "variacao_12m": "18,05%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "B3SA3",
+      "dividend_yield": "4,89%",
+      "patrimonio_liquido": "18,26 B",
+      "pvp": "4,26",
+      "variacao_12m": "17,40%",
+      "segmento": "Serviços Financeiros Diversos"
+    },
+    {
+      "ativo": "CEAB3",
+      "dividend_yield": "4,88%",
+      "patrimonio_liquido": "3,70 B",
+      "pvp": "0,89",
+      "variacao_12m": "-37,06%",
+      "segmento": "Tecidos, Vestuário e Calçados"
+    },
+    {
+      "ativo": "SOJA3",
+      "dividend_yield": "4,83%",
+      "patrimonio_liquido": "1,34 B",
+      "pvp": "0,65",
+      "variacao_12m": "-44,70%",
+      "segmento": "Agricultura"
+    },
+    {
+      "ativo": "VBBR3",
+      "dividend_yield": "4,73%",
+      "patrimonio_liquido": "21,73 B",
+      "pvp": "1,82",
+      "variacao_12m": "70,52%",
+      "segmento": "Exploração, Refino e Distribuição"
+    },
+    {
+      "ativo": "OFSA3",
+      "dividend_yield": "4,71%",
+      "patrimonio_liquido": "816,47 M",
+      "pvp": "1,81",
+      "variacao_12m": "23,43%",
+      "segmento": "Medicamentos e Outros Produtos"
+    },
+    {
+      "ativo": "WEGE3",
+      "dividend_yield": "4,68%",
+      "patrimonio_liquido": "17,75 B",
+      "pvp": "11,00",
+      "variacao_12m": "22,23%",
+      "segmento": "Motores, Compressores e Outros"
+    },
+    {
+      "ativo": "VAMO3",
+      "dividend_yield": "4,60%",
+      "patrimonio_liquido": "2,60 B",
+      "pvp": "1,44",
+      "variacao_12m": "-21,94%",
+      "segmento": "Material de Transporte"
+    },
+    {
+      "ativo": "POSI3",
+      "dividend_yield": "4,52%",
+      "patrimonio_liquido": "1,56 B",
+      "pvp": "0,36",
+      "variacao_12m": "-14,07%",
+      "segmento": "Computadores e Equipamentos"
+    },
+    {
+      "ativo": "ALPA4",
+      "dividend_yield": "4,44%",
+      "patrimonio_liquido": "3,46 B",
+      "pvp": "2,41",
+      "variacao_12m": "65,56%",
+      "segmento": "Calçados"
+    },
+    {
+      "ativo": "EGIE3",
+      "dividend_yield": "4,34%",
+      "patrimonio_liquido": "13,60 B",
+      "pvp": "2,82",
+      "variacao_12m": "15,87%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "TECN3",
+      "dividend_yield": "4,28%",
+      "patrimonio_liquido": "437,90 M",
+      "pvp": "1,34",
+      "variacao_12m": "59,90%",
+      "segmento": "Acessórios"
+    },
+    {
+      "ativo": "UGPA3",
+      "dividend_yield": "4,23%",
+      "patrimonio_liquido": "16,47 B",
+      "pvp": "2,08",
+      "variacao_12m": "82,92%",
+      "segmento": "Exploração, Refino e Distribuição"
+    },
+    {
+      "ativo": "EUCA3",
+      "dividend_yield": "4,18%",
+      "patrimonio_liquido": "2,94 B",
+      "pvp": "0,77",
+      "variacao_12m": "5,43%",
+      "segmento": "Madeira"
+    },
+    {
+      "ativo": "SMTO3",
+      "dividend_yield": "4,11%",
+      "patrimonio_liquido": "7,36 B",
+      "pvp": "0,74",
+      "variacao_12m": "-0,69%",
+      "segmento": "Açucar e Alcool"
+    },
+    {
+      "ativo": "AGRO3",
+      "dividend_yield": "3,96%",
+      "patrimonio_liquido": "2,04 B",
+      "pvp": "0,96",
+      "variacao_12m": "-5,06%",
+      "segmento": "Agricultura"
+    },
+    {
+      "ativo": "GOAU4",
+      "dividend_yield": "3,92%",
+      "patrimonio_liquido": "18,92 B",
+      "pvp": "0,72",
+      "variacao_12m": "51,12%",
+      "segmento": "Siderurgia"
+    },
+    {
+      "ativo": "SEER3",
+      "dividend_yield": "3,92%",
+      "patrimonio_liquido": "1,42 B",
+      "pvp": "1,11",
+      "variacao_12m": "44,95%",
+      "segmento": "Serviços Educacionais"
+    },
+    {
+      "ativo": "EQTL3",
+      "dividend_yield": "3,87%",
+      "patrimonio_liquido": "25,69 B",
+      "pvp": "2,01",
+      "variacao_12m": "23,58%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "VIVT3",
+      "dividend_yield": "3,82%",
+      "patrimonio_liquido": "69,50 B",
+      "pvp": "1,66",
+      "variacao_12m": "19,49%",
+      "segmento": "Telecomunicações"
+    },
+    {
+      "ativo": "PEAB3",
+      "dividend_yield": "3,74%",
+      "patrimonio_liquido": "926,67 M",
+      "pvp": "0,76",
+      "variacao_12m": "-3,02%",
+      "segmento": "Holdings Diversificadas"
+    },
+    {
+      "ativo": "MULT3",
+      "dividend_yield": "3,71%",
+      "patrimonio_liquido": "6,48 B",
+      "pvp": "2,40",
+      "variacao_12m": "20,87%",
+      "segmento": "Exploração de Imóveis"
+    },
+    {
+      "ativo": "GGBR3",
+      "dividend_yield": "3,50%",
+      "patrimonio_liquido": "52,77 B",
+      "pvp": "0,73",
+      "variacao_12m": "35,36%",
+      "segmento": "Siderurgia"
+    },
+    {
+      "ativo": "TEND3",
+      "dividend_yield": "3,49%",
+      "patrimonio_liquido": "1,36 B",
+      "pvp": "3,19",
+      "variacao_12m": "57,76%",
+      "segmento": "Incorporações"
+    },
+    {
+      "ativo": "MYPK3",
+      "dividend_yield": "3,30%",
+      "patrimonio_liquido": "4,10 B",
+      "pvp": "0,35",
+      "variacao_12m": "-29,33%",
+      "segmento": "Automóveis e Motocicletas"
+    },
+    {
+      "ativo": "ENGI11",
+      "dividend_yield": "3,26%",
+      "patrimonio_liquido": "19,65 B",
+      "pvp": "1,34",
+      "variacao_12m": "29,55%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "CSMG3",
+      "dividend_yield": "3,24%",
+      "patrimonio_liquido": "8,77 B",
+      "pvp": "2,92",
+      "variacao_12m": "156,67%",
+      "segmento": "Água e Saneamento"
+    },
+    {
+      "ativo": "ALUP11",
+      "dividend_yield": "3,17%",
+      "patrimonio_liquido": "9,29 B",
+      "pvp": "1,21",
+      "variacao_12m": "17,50%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "BMEB4",
+      "dividend_yield": "3,15%",
+      "patrimonio_liquido": "2,99 B",
+      "pvp": "2,46",
+      "variacao_12m": "56,66%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "MATD3",
+      "dividend_yield": "3,11%",
+      "patrimonio_liquido": "1,50 B",
+      "pvp": "1,08",
+      "variacao_12m": "9,17%",
+      "segmento": "Serviços Médicos, Hospitalares, Análises e Diagnósticos"
+    },
+    {
+      "ativo": "GMAT3",
+      "dividend_yield": "3,08%",
+      "patrimonio_liquido": "10,94 B",
+      "pvp": "0,84",
+      "variacao_12m": "-49,62%",
+      "segmento": "Produtos Diversos"
+    },
+    {
+      "ativo": "VIVA3",
+      "dividend_yield": "2,96%",
+      "patrimonio_liquido": "3,03 B",
+      "pvp": "1,83",
+      "variacao_12m": "-7,76%",
+      "segmento": "Acessórios"
+    },
+    {
+      "ativo": "MLAS3",
+      "dividend_yield": "2,95%",
+      "patrimonio_liquido": "3,09 B",
+      "pvp": "0,45",
+      "variacao_12m": "64,42%",
+      "segmento": "Computadores e Equipamentos"
+    },
+    {
+      "ativo": "EQMA3B",
+      "dividend_yield": "2,76%",
+      "patrimonio_liquido": "4,03 B",
+      "pvp": "1,20",
+      "variacao_12m": "11,57%",
+      "segmento": "Energia Elétrica"
+    },
+    {
+      "ativo": "ANIM3",
+      "dividend_yield": "2,71%",
+      "patrimonio_liquido": "2,39 B",
+      "pvp": "0,49",
+      "variacao_12m": "-22,62%",
+      "segmento": "Serviços Educacionais"
+    },
+    {
+      "ativo": "IRBR3",
+      "dividend_yield": "2,71%",
+      "patrimonio_liquido": "5,31 B",
+      "pvp": "0,88",
+      "variacao_12m": "30,63%",
+      "segmento": "Seguradoras"
+    },
+    {
+      "ativo": "SUZB3",
+      "dividend_yield": "2,70%",
+      "patrimonio_liquido": "48,04 B",
+      "pvp": "1,09",
+      "variacao_12m": "-14,88%",
+      "segmento": "Papel e Celulose"
+    },
+    {
+      "ativo": "BBAS3",
+      "dividend_yield": "2,65%",
+      "patrimonio_liquido": "191,69 B",
+      "pvp": "0,62",
+      "variacao_12m": "-1,30%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "MRSA3B",
+      "dividend_yield": "2,63%",
+      "patrimonio_liquido": "8,73 B",
+      "pvp": "1,54",
+      "variacao_12m": "45,84%",
+      "segmento": "Transporte Ferroviário"
+    },
+    {
+      "ativo": "MOTV3",
+      "dividend_yield": "2,56%",
+      "patrimonio_liquido": "16,34 B",
+      "pvp": "1,87",
+      "variacao_12m": "19,93%",
+      "segmento": "Exploração de Rodovias"
+    },
+    {
+      "ativo": "GGPS3",
+      "dividend_yield": "2,53%",
+      "patrimonio_liquido": "4,12 B",
+      "pvp": "2,34",
+      "variacao_12m": "-18,40%",
+      "segmento": "Serviços Diversos"
+    },
+    {
+      "ativo": "RADL3",
+      "dividend_yield": "2,37%",
+      "patrimonio_liquido": "7,34 B",
+      "pvp": "4,48",
+      "variacao_12m": "40,94%",
+      "segmento": "Medicamentos e Outros Produtos"
+    },
+    {
+      "ativo": "TOTS3",
+      "dividend_yield": "2,27%",
+      "patrimonio_liquido": "4,96 B",
+      "pvp": "3,61",
+      "variacao_12m": "-26,44%",
+      "segmento": "Programas e Serviços"
+    },
+    {
+      "ativo": "SBSP3",
+      "dividend_yield": "2,24%",
+      "patrimonio_liquido": "43,70 B",
+      "pvp": "2,51",
+      "variacao_12m": "47,71%",
+      "segmento": "Água e Saneamento"
+    },
+    {
+      "ativo": "PASS3",
+      "dividend_yield": "2,23%",
+      "patrimonio_liquido": "5,73 B",
+      "pvp": "3,18",
+      "variacao_12m": "-",
+      "segmento": "Gás"
+    },
+    {
+      "ativo": "BPAC11",
+      "dividend_yield": "2,12%",
+      "patrimonio_liquido": "74,51 B",
+      "pvp": "3,07",
+      "variacao_12m": "46,80%",
+      "segmento": "Bancos"
+    },
+    {
+      "ativo": "TFCO4",
+      "dividend_yield": "2,11%",
+      "patrimonio_liquido": "588,43 M",
+      "pvp": "3,93",
+      "variacao_12m": "6,09%",
+      "segmento": "Vestuário"
+    },
+    {
+      "ativo": "SIMH3",
+      "dividend_yield": "2,09%",
+      "patrimonio_liquido": "4,25 B",
+      "pvp": "1,12",
+      "variacao_12m": "-7,47%",
+      "segmento": "Holdings Diversificadas"
+    },
+    {
+      "ativo": "PNVL3",
+      "dividend_yield": "2,02%",
+      "patrimonio_liquido": "1,30 B",
+      "pvp": "1,31",
+      "variacao_12m": "22,97%",
+      "segmento": "Medicamentos e Outros Produtos"
+    },
+    {
+      "ativo": "CEGR3",
+      "dividend_yield": "1,86%",
+      "patrimonio_liquido": "2,18 B",
+      "pvp": "4,17",
+      "variacao_12m": "-63,34%",
+      "segmento": "Gás"
+    },
+    {
+      "ativo": "FRAS3",
+      "dividend_yield": "1,76%",
+      "patrimonio_liquido": "2,41 B",
+      "pvp": "2,45",
+      "variacao_12m": "-12,68%",
+      "segmento": "Material Rodoviário"
+    },
+    {
+      "ativo": "VSTE3",
+      "dividend_yield": "1,70%",
+      "patrimonio_liquido": "1,08 B",
+      "pvp": "0,32",
+      "variacao_12m": "-50,01%",
+      "segmento": "Tecidos, Vestuário e Calçados"
+    },
+    {
+      "ativo": "MGLU3",
+      "dividend_yield": "1,56%",
+      "patrimonio_liquido": "11,27 B",
+      "pvp": "0,36",
+      "variacao_12m": "-31,19%",
+      "segmento": "Eletrodomésticos"
+    },
+    {
+      "ativo": "BRST3",
+      "dividend_yield": "1,47%",
+      "patrimonio_liquido": "1,56 B",
+      "pvp": "0,78",
+      "variacao_12m": "2,86%",
+      "segmento": "Telecomunicações"
+    },
+    {
+      "ativo": "SAPR11",
+      "dividend_yield": "1,46%",
+      "patrimonio_liquido": "12,70 B",
+      "pvp": "0,90",
+      "variacao_12m": "3,82%",
+      "segmento": "Água e Saneamento"
+    },
+    {
+      "ativo": "IGTI3",
+      "dividend_yield": "1,39%",
+      "patrimonio_liquido": "4,87 B",
+      "pvp": "0,86",
+      "variacao_12m": "33,72%",
+      "segmento": "Exploração de Imóveis"
+    },
+    {
+      "ativo": "LWSA3",
+      "dividend_yield": "1,28%",
+      "patrimonio_liquido": "2,34 B",
+      "pvp": "0,98",
+      "variacao_12m": "15,63%",
+      "segmento": "Programas e Serviços"
+    },
+    {
+      "ativo": "EMBJ3",
+      "dividend_yield": "1,19%",
+      "patrimonio_liquido": "17,19 B",
+      "pvp": "3,64",
+      "variacao_12m": "14,70%",
+      "segmento": "Material Aeronáutico e de Defesa"
+    },
+    {
+      "ativo": "ASAI3",
+      "dividend_yield": "1,18%",
+      "patrimonio_liquido": "5,89 B",
+      "pvp": "2,04",
+      "variacao_12m": "-11,21%",
+      "segmento": "Alimentos"
+    },
+    {
+      "ativo": "TTEN3",
+      "dividend_yield": "1,16%",
+      "patrimonio_liquido": "4,77 B",
+      "pvp": "1,65",
+      "variacao_12m": "11,42%",
+      "segmento": "Agricultura"
+    },
+    {
+      "ativo": "AUAU3",
+      "dividend_yield": "0,95%",
+      "patrimonio_liquido": "3,09 B",
+      "pvp": "0,89",
+      "variacao_12m": "-",
+      "segmento": "Produtos Diversos"
+    },
+    {
+      "ativo": "DOHL4",
+      "dividend_yield": "0,93%",
+      "patrimonio_liquido": "689,53 M",
+      "pvp": "0,43",
+      "variacao_12m": "-9,27%",
+      "segmento": "Fios e Tecidos"
+    },
+    {
+      "ativo": "CASN3",
+      "dividend_yield": "0,89%",
+      "patrimonio_liquido": "2,71 B",
+      "pvp": "3,69",
+      "variacao_12m": "-3,39%",
+      "segmento": "Água e Saneamento"
+    },
+    {
+      "ativo": "OPCT3",
+      "dividend_yield": "0,86%",
+      "patrimonio_liquido": "1,00 B",
+      "pvp": "2,25",
+      "variacao_12m": "67,22%",
+      "segmento": "Água e Saneamento"
+    },
+    {
+      "ativo": "DESK3",
+      "dividend_yield": "0,82%",
+      "patrimonio_liquido": "1,42 B",
+      "pvp": "1,46",
+      "variacao_12m": "99,82%",
+      "segmento": "Telecomunicações"
+    },
+    {
+      "ativo": "RAIL3",
+      "dividend_yield": "0,75%",
+      "patrimonio_liquido": "13,90 B",
+      "pvp": "1,92",
+      "variacao_12m": "-15,53%",
+      "segmento": "Transporte Ferroviário"
+    },
+    {
+      "ativo": "BRAV3",
+      "dividend_yield": "0,65%",
+      "patrimonio_liquido": "11,41 B",
+      "pvp": "0,77",
+      "variacao_12m": "7,66%",
+      "segmento": "Exploração, Refino e Distribuição"
+    },
+    {
+      "ativo": "QUAL3",
+      "dividend_yield": "0,53%",
+      "patrimonio_liquido": "1,30 B",
+      "pvp": "0,37",
+      "variacao_12m": "-3,45%",
+      "segmento": "Serviços Médicos, Hospitalares, Análises e Diagnósticos"
+    },
+    {
+      "ativo": "SAUD3",
+      "dividend_yield": "0,51%",
+      "patrimonio_liquido": "1,43 B",
+      "pvp": "31,55",
+      "variacao_12m": "-",
+      "segmento": "Serviços Médicos, Hospitalares, Análises e Diagnósticos"
+    },
+    {
+      "ativo": "CBAV3",
+      "dividend_yield": "0,41%",
+      "patrimonio_liquido": "4,63 B",
+      "pvp": "1,52",
+      "variacao_12m": "121,99%",
+      "segmento": "Máquinas e Equipamentos Industriais"
+    },
+    {
+      "ativo": "VTRU3",
+      "dividend_yield": "0,19%",
+      "patrimonio_liquido": "3,72 B",
+      "pvp": "0,54",
+      "variacao_12m": "55,27%",
+      "segmento": "Serviços Educacionais"
+    },
+    {
+      "ativo": "ALPK3",
+      "dividend_yield": "0,17%",
+      "patrimonio_liquido": "361,76 M",
+      "pvp": "2,70",
+      "variacao_12m": "43,20%",
+      "segmento": "Serviços Diversos"
+    },
+    {
+      "ativo": "RPAD3",
+      "dividend_yield": "0,14%",
+      "patrimonio_liquido": "1,02 B",
+      "pvp": "0,54",
+      "variacao_12m": "44,12%",
+      "segmento": "Serviços Financeiros Diversos"
+    },
+    {
+      "ativo": "TASA3",
+      "dividend_yield": "0,06%",
+      "patrimonio_liquido": "1,19 B",
+      "pvp": "0,63",
+      "variacao_12m": "-24,95%",
+      "segmento": "Armas e Munições"
+    }
+  ]
+}

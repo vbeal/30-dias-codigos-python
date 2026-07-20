@@ -1,0 +1,104 @@
+/* Minimo necessario — layout e utilitarios vem do Bootstrap 5.3 */
+
+body {
+  padding-top: 0.25rem;
+}
+
+/* Logo na navbar (fundo escuro — logo clara) */
+.brand-logo {
+  height: 42px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+}
+
+.foto-btn {
+  cursor: pointer;
+}
+
+.foto-btn:hover img,
+.foto-btn:hover span.rounded-circle {
+  opacity: 0.9;
+}
+
+/* --- Dia 25: busca com lista fixa na navbar --- */
+.busca-ativo {
+  min-width: 16rem;
+  max-width: 22rem;
+}
+
+.busca-ativo-lista {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1080;
+  /* Lista completa com scroll — cabem bem mais itens visiveis */
+  max-height: min(70vh, 28rem);
+  overflow-y: auto;
+  margin-top: 0.25rem;
+  border-radius: 0.375rem;
+}
+
+.busca-ativo-item .badge {
+  font-size: 0.65rem;
+  vertical-align: middle;
+}
+
+/* Coluna estreita so para o botao da calculadora */
+th.col-calc,
+td.col-calc {
+  width: 1%;
+  white-space: nowrap;
+  padding-left: 0.35rem;
+  padding-right: 0.35rem;
+  vertical-align: middle;
+}
+
+td.col-calc .btn {
+  padding: 0.15rem 0.4rem;
+}
+
+.tip {
+  cursor: help;
+  font-size: 0.9em;
+}
+
+/* Historico da calculadora (estilo lista tipo Brapi) */
+.calc-historico {
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.calc-historico-item {
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+}
+
+/* --- Dia 26: loading global (navegacao + salvar) --- */
+.page-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(2px);
+}
+
+.page-loading[hidden] {
+  display: none !important;
+}
+
+.page-loading-box {
+  padding: 1.25rem 1.5rem;
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.12);
+  min-width: 10rem;
+}
+
+body.is-loading {
+  cursor: wait;
+}

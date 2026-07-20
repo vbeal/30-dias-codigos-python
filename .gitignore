@@ -1,16 +1,45 @@
 # Ignore Python bytecode and cache files
 __pycache__/
 *.py[cod]
+
 # Ignore virtual environment (if used locally)
 .venv/
+venv/
+env/
+
 # Ignore common OS files
 Thumbs.db
 .DS_Store
+
+# Secrets and local env (NUNCA commitar chaves reais)
 .env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Local / temporary
 temp/
+TEST/
+**/temp/
 *.log
+
+# Databases (usuarios, carteiras, cache de mercado)
 *.sqlite3
 *.db
 *.sqlite
+
+# Uploads de usuarios (fotos de perfil) — mantem so .gitkeep
+**/static/uploads/*
+!**/static/uploads/.gitkeep
+
+# Saidas geradas localmente
+**/outputs/
+**/assinaturas/
+**/downloaded/
+
+# IDE
 .vscode/
 .idea/
+*.swp

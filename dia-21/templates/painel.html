@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Painel{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-body p-4">
+    <h1 class="h4 mb-2">Painel do usuario</h1>
+    <p class="text-muted mb-4">Voce esta autenticado com sucesso.</p>
+
+    <ul class="list-group list-group-flush mb-4">
+      <li class="list-group-item d-flex justify-content-between">
+        <span>Nome</span>
+        <strong>{{ session.get('user_nome') }}</strong>
+      </li>
+      <li class="list-group-item d-flex justify-content-between">
+        <span>E-mail</span>
+        <strong>{{ session.get('user_email') }}</strong>
+      </li>
+      <li class="list-group-item d-flex justify-content-between">
+        <span>ID no banco</span>
+        <strong>{{ session.get('user_id') }}</strong>
+      </li>
+    </ul>
+
+    <div class="alert alert-info small mb-0">
+      Nos proximos dias vamos integrar aqui os dados da API do Dia 20
+      (rankings e detalhes de FIIs e Acoes).
+    </div>
+  </div>
+</div>
+{% endblock %}
