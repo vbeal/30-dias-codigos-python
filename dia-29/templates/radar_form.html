@@ -16,6 +16,7 @@
   method="post"
   action="{{ url_for('radar_editar', radar_id=radar.id) if radar else url_for('radar_novo') }}"
   id="formRadar"
+  data-api-preco="{{ url_for('api_preco_ativo') }}"
 >
   <div class="card shadow-sm mb-4">
     <div class="card-body">
@@ -29,7 +30,7 @@
             name="nome"
             maxlength="80"
             required
-            placeholder="Ex.: Semana VALE / PRIO"
+            placeholder="Ex.: Semana de acompanhamento"
             value="{{ radar.nome if radar else '' }}"
           />
         </div>
@@ -71,7 +72,7 @@
       <thead>
         <tr>
           <th>
-            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Codigo do ativo na B3 (ex.: VALE3)">
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Codigo do ativo na B3. Ao escolher, busca a cotacao e preenche os niveis">
               Ticker <i class="bi bi-info-circle text-body-secondary small"></i>
             </span>
           </th>
@@ -81,27 +82,27 @@
             </span>
           </th>
           <th>
-            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Valor recomendado para entrar na operacao (compra) ou regiao de venda">
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Valor de referencia (cotacao ao escolher o ticker). Pode alterar">
               Entrada / Regiao <i class="bi bi-info-circle text-body-secondary small"></i>
             </span>
           </th>
           <th>
-            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Valor maximo em que o ativo ainda esta em ponto de entrada para o trade (compra: ate quanto pagar; venda: ate quanto vender)">
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compra: +2,5% da entrada. Venda: -2,5%. Pode alterar">
               Ate investir / vender <i class="bi bi-info-circle text-body-secondary small"></i>
             </span>
           </th>
           <th>
-            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Valor que queremos chegar para realizar o ganho (stop gain)">
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compra: +10% da entrada. Venda: -10%. Pode alterar">
               Alvo <i class="bi bi-info-circle text-body-secondary small"></i>
             </span>
           </th>
           <th>
-            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Preco de stop loss — limite de perda da operacao">
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compra: -11% da entrada. Venda: +11%. Pode alterar">
               Stop <i class="bi bi-info-circle text-body-secondary small"></i>
             </span>
           </th>
           <th>
-            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compra: nao investir abaixo deste preco. Venda: nao vender acima deste preco">
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compra: -2% da entrada. Venda: +2%. Pode alterar">
               Corte <i class="bi bi-info-circle text-body-secondary small"></i>
             </span>
           </th>
@@ -113,10 +114,10 @@
   </div>
 
   <p class="small text-body-secondary mb-4">
-    Precos no formato brasileiro (ex.: <code>72,60</code>). Em
-    <strong>venda</strong>, os niveis sao o espelho da compra (alvo abaixo, stop acima).
-    Passe o mouse no icone <i class="bi bi-info-circle"></i> de cada coluna para ver o significado.
-    Remover um ativo pede confirmacao; so grava de fato ao <strong>Salvar</strong>.
+    Escolha o <strong>ticker</strong>: a cotacao vira a entrada e os niveis sao calculados
+    (compra: teto +2,5%, alvo +10%, corte −2%, stop −11%). Em
+    <strong>venda</strong>, os percentuais sao espelhados. Voce pode ajustar qualquer valor.
+    Nova linha comeca vazia. Remover pede confirmacao; so grava ao <strong>Salvar</strong>.
   </p>
 
   <div class="d-flex flex-wrap gap-2">
@@ -137,7 +138,7 @@
         list="listaTickersRadar"
         required
         autocomplete="off"
-        placeholder="VALE3"
+        placeholder="Ticker"
       />
     </td>
     <td style="min-width: 7.5rem">
@@ -146,11 +147,11 @@
         <option value="venda">Venda</option>
       </select>
     </td>
-    <td><input type="text" class="form-control form-control-sm" name="preco_entrada" required placeholder="72,60" /></td>
-    <td><input type="text" class="form-control form-control-sm" name="preco_teto" required placeholder="74,42" /></td>
-    <td><input type="text" class="form-control form-control-sm" name="preco_alvo" required placeholder="79,86" /></td>
-    <td><input type="text" class="form-control form-control-sm" name="preco_stop" required placeholder="64,61" /></td>
-    <td><input type="text" class="form-control form-control-sm" name="preco_corte" required placeholder="71,15" /></td>
+    <td><input type="text" class="form-control form-control-sm" name="preco_entrada" required placeholder="" /></td>
+    <td><input type="text" class="form-control form-control-sm" name="preco_teto" required placeholder="" /></td>
+    <td><input type="text" class="form-control form-control-sm" name="preco_alvo" required placeholder="" /></td>
+    <td><input type="text" class="form-control form-control-sm" name="preco_stop" required placeholder="" /></td>
+    <td><input type="text" class="form-control form-control-sm" name="preco_corte" required placeholder="" /></td>
     <td>
       <button type="button" class="btn btn-sm btn-outline-danger btn-remover" title="Remover ativo">
         <i class="bi bi-trash"></i>
@@ -172,7 +173,13 @@
   var corpo = document.getElementById("corpoAtivos");
   var tpl = document.getElementById("tplLinhaAtivo");
   var btnAdd = document.getElementById("btnAddAtivo");
+  var form = document.getElementById("formRadar");
+  var apiPreco = form.getAttribute("data-api-preco");
   var iniciais = {{ ativos_json|safe }};
+  var tickersOk = {};
+  document.querySelectorAll("#listaTickersRadar option").forEach(function (op) {
+    tickersOk[(op.value || "").toUpperCase()] = true;
+  });
 
   function ativarTooltips() {
     document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
@@ -187,6 +194,129 @@
     return Promise.resolve(false);
   }
 
+  function parseMoney(v) {
+    if (v == null || v === "") return null;
+    var s = String(v).replace(/R\$\s?/g, "").trim();
+    if (!s) return null;
+    if (s.indexOf(",") >= 0) {
+      s = s.replace(/\./g, "").replace(",", ".");
+    }
+    var n = Number(s);
+    return isFinite(n) ? n : null;
+  }
+
+  function formatMoney(n) {
+    if (n == null || !isFinite(n)) return "";
+    return Number(n).toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  }
+
+  function hojeISO() {
+    var d = new Date();
+    var m = String(d.getMonth() + 1).padStart(2, "0");
+    var day = String(d.getDate()).padStart(2, "0");
+    return d.getFullYear() + "-" + m + "-" + day;
+  }
+
+  /** Preenche teto/alvo/stop/corte a partir da entrada (+ direcao). */
+  function preencherNiveis(tr) {
+    var entrada = parseMoney(tr.querySelector('[name="preco_entrada"]').value);
+    if (entrada == null || entrada <= 0) return;
+    var venda = tr.querySelector('[name="direcao"]').value === "venda";
+    var teto, alvo, stop, corte;
+    if (venda) {
+      teto = entrada * 0.975; // -2,5%
+      alvo = entrada * 0.9; // -10%
+      corte = entrada * 1.02; // +2%
+      stop = entrada * 1.11; // +11%
+    } else {
+      teto = entrada * 1.025; // +2,5%
+      alvo = entrada * 1.1; // +10%
+      corte = entrada * 0.98; // -2%
+      stop = entrada * 0.89; // -11%
+    }
+    tr.querySelector('[name="preco_teto"]').value = formatMoney(teto);
+    tr.querySelector('[name="preco_alvo"]').value = formatMoney(alvo);
+    tr.querySelector('[name="preco_stop"]').value = formatMoney(stop);
+    tr.querySelector('[name="preco_corte"]').value = formatMoney(corte);
+  }
+
+  function buscarCotacaoEPreencher(tr) {
+    var input = tr.querySelector('[name="ticker"]');
+    var ticker = (input.value || "").trim().toUpperCase();
+    input.value = ticker;
+    if (!ticker || !tickersOk[ticker]) return;
+
+    var seq = (tr._precoSeq || 0) + 1;
+    tr._precoSeq = seq;
+    var entradaEl = tr.querySelector('[name="preco_entrada"]');
+    entradaEl.value = "";
+    entradaEl.placeholder = "Buscando...";
+
+    fetch(
+      apiPreco +
+        "?ticker=" +
+        encodeURIComponent(ticker) +
+        "&data=" +
+        encodeURIComponent(hojeISO())
+    )
+      .then(function (r) {
+        return r.json().then(function (j) {
+          return { ok: r.ok, j: j };
+        });
+      })
+      .then(function (res) {
+        if (seq !== tr._precoSeq) return;
+        entradaEl.placeholder = "";
+        if (!res.ok || res.j.preco == null) {
+          entradaEl.placeholder = "Informe a entrada";
+          return;
+        }
+        entradaEl.value = formatMoney(res.j.preco);
+        preencherNiveis(tr);
+      })
+      .catch(function () {
+        if (seq !== tr._precoSeq) return;
+        entradaEl.placeholder = "Informe a entrada";
+      });
+  }
+
+  function ligarLinha(tr) {
+    var tickerEl = tr.querySelector('[name="ticker"]');
+    var entradaEl = tr.querySelector('[name="preco_entrada"]');
+    var direcaoEl = tr.querySelector('[name="direcao"]');
+
+    function onTickerEscolhido() {
+      buscarCotacaoEPreencher(tr);
+    }
+
+    tickerEl.addEventListener("change", onTickerEscolhido);
+    tickerEl.addEventListener("blur", function () {
+      var t = (tickerEl.value || "").trim().toUpperCase();
+      if (t && tickersOk[t] && t !== tr._ultimoTicker) {
+        tr._ultimoTicker = t;
+        onTickerEscolhido();
+      }
+    });
+
+    entradaEl.addEventListener("blur", function () {
+      var n = parseMoney(entradaEl.value);
+      if (n != null) {
+        entradaEl.value = formatMoney(n);
+        preencherNiveis(tr);
+      }
+    });
+    entradaEl.addEventListener("change", function () {
+      preencherNiveis(tr);
+    });
+
+    direcaoEl.addEventListener("change", function () {
+      preencherNiveis(tr);
+    });
+  }
+
   function addLinha(dados) {
     var node = tpl.content.cloneNode(true);
     var tr = node.querySelector("tr");
@@ -198,6 +328,7 @@
       tr.querySelector('[name="preco_alvo"]').value = dados.preco_alvo || "";
       tr.querySelector('[name="preco_stop"]').value = dados.preco_stop || "";
       tr.querySelector('[name="preco_corte"]').value = dados.preco_corte || "";
+      tr._ultimoTicker = (dados.ticker || "").toUpperCase();
     }
     tr.querySelector(".btn-remover").addEventListener("click", function () {
       var ticker =
@@ -227,6 +358,7 @@
         if (ok) tr.remove();
       });
     });
+    ligarLinha(tr);
     corpo.appendChild(tr);
   }
 
