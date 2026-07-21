@@ -46,6 +46,8 @@ Cada pasta `dia-X/` contém:
 - **Dia 26**: Carteiras do investidor — várias por usuário + lançamentos (CRUD)
 - **Dia 27**: Carteira completa — posições, resumo e gráfico mensal (Yahoo)
 - **Dia 28**: InvestidorWeb — proventos, cache Yahoo, número mágico, lista completa B3 (~1200 ativos)
+- **Dia 29**: Radar — acompanhamento de ativos por período (zonas, histórico 15m/diário, gráfico)
+- **Dia 30**: Deploy do InvestidorWeb (gravação do deploy a partir do Dia 29)
 
 > **Extra:** O projeto **Afinador de Violão** (sounddevice + numpy + Tkinter) está em `dia-31-outraidea/dia14_afinador_violao.py`.
 
@@ -662,7 +664,49 @@ python dia28_app.py
 
 **Segurança (antes de publicar):** bancos `.db`, `.env`, uploads de foto e pastas `outputs/` / `downloaded/` / `assinaturas/` ficam no `.gitignore`. As `SECRET_KEY` nos `config.py` são placeholders de estudo — troque no Dia 30 (deploy).
 
-**Dia 29–30:** servidor e deploy (não novas features grandes).
+---
+
+## Dia 29 - Radar (acompanhamento por zonas)
+
+Continua o Dia 28. App: `dia29_app.py` — **versão pronta para gravar e para o deploy do Dia 30**.
+
+- **Radar**: período (início/fim) + N ativos com direção **compra** ou **venda**
+- Níveis: entrada, teto (até investir/vender), alvo, stop, corte
+- **CRUD** completo com modal Bootstrap padrão + tooltips
+- Sync Yahoo: histórico **15m** (últimos ~60 dias) e **1d** fora dessa janela
+- Gráfico (aba **Visual**): semanas; ≤7 dias em 15m, >7 dias em diário; linhas das zonas
+- Log (aba **Histórico**): 15m/diário, % até teto/alvo, paginação
+- Status dinâmico: Fora / Zona de entrada / Alvo / Stop / Corte
+- **Cron ao vivo (APScheduler)**: seg–sex **10h–18h** (America/Sao_Paulo), a cada **15 min**
+  - Roda **no mesmo processo** do Flask (local e produção iguais — app precisa estar ligado)
+  - Desliga com `RADAR_CRON=0`
+- Host `0.0.0.0` + `PORT` / `DEBUG` / `SECRET_KEY` via ambiente
+
+**Arquivos principais:**
+
+- `dia-29/dia29_app.py` (entrada fina)
+- `dia-29/web/` — `create_app`, helpers, timezone UTC-3
+- `dia-29/routes/` — auth, painel, rankings, ativos, calculadora, radar, carteiras, perfil
+- `dia-29/db_radar.py`
+- `dia-29/services/radar_form.py`
+- `dia-29/services/radar_status.py`
+- `dia-29/services/radar_yahoo.py`
+- `dia-29/services/radar_acompanhamento.py`
+- `dia-29/services/radar_cron.py`
+- `dia-29/templates/radares.html` / `radar_form.html` / `radar_detalhe.html`
+- `dia-29/requirements.txt`
+
+**Fuso horário:** `America/Sao_Paulo` (UTC-3) via `config.TIMEZONE` — cron e status do radar não dependem do fuso do SO do container.
+
+```bash
+cd dia-29
+pip install -r requirements.txt
+python dia29_app.py
+```
+
+Acesse: **http://127.0.0.1:5000** · Radar: **/radar**
+
+**Dia 30 (só deploy):** sem código novo — configure o servidor (EasyPanel) com build path `/dia-29`, install via `requirements.txt`, start `python dia29_app.py`. Volume em `database/` e `static/uploads/`. Troque `SECRET_KEY`.
 
 ---
 

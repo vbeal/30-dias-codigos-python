@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Radar{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+  <div>
+    <h1 class="h3 mb-1">Radar</h1>
+    <p class="text-body-secondary mb-0">
+      Acompanhe ativos por periodo com niveis de entrada, alvo e stop.
+    </p>
+  </div>
+  <a class="btn btn-primary" href="{{ url_for('radar_novo') }}">
+    <i class="bi bi-plus-lg"></i> Novo radar
+  </a>
+</div>
+
+{% if not radares %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-body text-center py-5 px-4">
+        <i class="bi bi-broadcast display-5 text-primary d-block mb-3"></i>
+        <h2 class="h5 mb-2">Nenhum radar ainda</h2>
+        <p class="text-body-secondary mb-4">
+          Cadastre um periodo e os ativos que quer acompanhar (compra ou venda).
+        </p>
+        <a class="btn btn-primary" href="{{ url_for('radar_novo') }}">
+          <i class="bi bi-plus-lg"></i> Criar primeiro radar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="table-responsive">
+  <table class="table table-hover align-middle bg-white shadow-sm">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Periodo</th>
+        <th>Ativos</th>
+        <th>Status</th>
+        <th class="text-end">Acoes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in radares %}
+      {% set st = status_fn(r.data_inicio, r.data_fim) %}
+      <tr>
+        <td>
+          <a href="{{ url_for('radar_detalhe', radar_id=r.id) }}" class="fw-semibold text-decoration-none">
+            {{ r.nome }}
+          </a>
+        </td>
+        <td class="text-nowrap">
+          {{ r.data_inicio[8:10] }}/{{ r.data_inicio[5:7] }}/{{ r.data_inicio[0:4] }}
+          —
+          {{ r.data_fim[8:10] }}/{{ r.data_fim[5:7] }}/{{ r.data_fim[0:4] }}
+        </td>
+        <td>{{ r.qtd_ativos }}</td>
+        <td>
+          {% if st == 'ativo' %}
+          <span class="badge text-bg-success">Ao vivo</span>
+          {% elif st == 'futuro' %}
+          <span class="badge text-bg-info">Agendado</span>
+          {% else %}
+          <span class="badge text-bg-secondary">Encerrado</span>
+          {% endif %}
+        </td>
+        <td class="text-end text-nowrap">
+          <a class="btn btn-sm btn-outline-primary" href="{{ url_for('radar_detalhe', radar_id=r.id) }}">
+            Abrir
+          </a>
+          <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('radar_editar', radar_id=r.id) }}">
+            Editar
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+{% endblock %}

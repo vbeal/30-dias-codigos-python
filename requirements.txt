@@ -1,40 +1,39 @@
-# Dependências gerais
+# Dependências gerais do desafio 30 dias
 
-# Dependência para o dia 12
-
+# Dia 12 — QR Code
 qrcode
-
 Pillow>=10.0.1
 
+# Dia 1 — câmera / visão
 opencv-python==4.8.1.78
-
 numpy==1.24.3
 
+# Dia 2 — voz
 pyttsx3==2.90
 
+# Dia 3 — YouTube
 pytubefix==6.3.1
 
-pandas
-
-yfinance
-
+# Dias 15–29 — mercado / dados
+pandas>=2.0.0
+yfinance>=0.2.40
 tqdm
-
 requests==2.31.0
+beautifulsoup4>=4.12.0
 
-beautifulsoup4
-
-# Dias 17–24: Flask (werkzeug vem junto; sqlite3 e padrao do Python)
-
-# Dias 18–20, 23 e 24: requests + beautifulsoup4 (scraper Investidor10)
-
+# Dias 17–29 — Flask (InvestidorWeb + Radar Dia 29)
+# Dia 30: deploy a partir de dia-29/ (use dia-29/requirements.txt no build)
 flask==3.1.0
+APScheduler>=3.10.0
 
+# Dia 9 — gráficos
 matplotlib
 
+# Dia 10 / 20 / 32 — Instagram
 instaloader
 
+# Dia 11 — X/Twitter
 yt-dlp
 
+# Extra — afinador (dia-31-outraidea)
 sounddevice
-

@@ -1,0 +1,561 @@
+{% extends "base.html" %}
+{% block title %}{{ radar.nome }} — Radar{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-4">
+  <div>
+    <a href="{{ url_for('radares') }}" class="text-decoration-none small">
+      <i class="bi bi-arrow-left"></i> Voltar
+    </a>
+    <h1 class="h3 mt-2 mb-1">{{ radar.nome }}</h1>
+    <p class="text-body-secondary mb-0">
+      {{ radar.data_inicio[8:10] }}/{{ radar.data_inicio[5:7] }}/{{ radar.data_inicio[0:4] }}
+      —
+      {{ radar.data_fim[8:10] }}/{{ radar.data_fim[5:7] }}/{{ radar.data_fim[0:4] }}
+      {% if status == 'ativo' %}
+      <span class="badge text-bg-success ms-1">Ao vivo</span>
+      {% elif status == 'futuro' %}
+      <span class="badge text-bg-info ms-1">Agendado</span>
+      {% else %}
+      <span class="badge text-bg-secondary ms-1">Encerrado</span>
+      {% endif %}
+      <span class="badge text-bg-light text-dark ms-1">
+        Grafico: {{ '15m' if meta.resolucao_grafico == '15m' else 'diario' }}
+      </span>
+    </p>
+  </div>
+  <div class="d-flex flex-wrap gap-2">
+    <form method="post" action="{{ url_for('radar_sincronizar', radar_id=radar.id) }}">
+      <button type="submit" class="btn btn-outline-primary">
+        <i class="bi bi-arrow-clockwise"></i> Atualizar historico
+      </button>
+    </form>
+    <a class="btn btn-outline-secondary" href="{{ url_for('radar_editar', radar_id=radar.id) }}">
+      <i class="bi bi-pencil"></i> Editar
+    </a>
+    <form
+      method="post"
+      action="{{ url_for('radar_apagar', radar_id=radar.id) }}"
+      data-confirm="Apagar este radar, todos os ativos e o historico sincronizado? Essa acao nao pode ser desfeita."
+      data-confirm-title="Apagar radar"
+      data-confirm-ok="Apagar radar"
+    >
+      <button type="submit" class="btn btn-outline-danger">
+        <i class="bi bi-trash"></i> Apagar
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="table-responsive mb-4">
+  <table class="table table-hover align-middle bg-white shadow-sm">
+    <thead>
+      <tr>
+        <th>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Codigo do ativo na B3">Ticker</span>
+        </th>
+        <th>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compra: busca de entrada. Venda: busca de saida / realizacao">Direcao</span>
+        </th>
+        <th>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Valor recomendado para entrar na operacao">Entrada / Regiao</span>
+        </th>
+        <th>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Valor maximo em que o ativo ainda esta em ponto de entrada para o trade">Ate investir / vender</span>
+        </th>
+        <th>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Valor que queremos chegar para realizar o ganho (stop gain)">Alvo</span>
+        </th>
+        <th>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Preco de stop loss — limite de perda da operacao">Stop</span>
+        </th>
+        <th>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compra: nao investir abaixo deste preco. Venda: nao vender acima deste preco">Corte</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for a in ativos %}
+      <tr>
+        <td class="fw-semibold">
+          <a href="{{ url_for('ativo_detalhe', tipo=a.tipo_ativo, ticker=a.ticker) }}">{{ a.ticker }}</a>
+          <span class="badge text-bg-light text-dark ms-1">{{ a.tipo_ativo|upper }}</span>
+        </td>
+        <td>
+          {% if a.direcao == 'compra' %}
+          <span class="badge text-bg-success">Compra</span>
+          {% else %}
+          <span class="badge text-bg-warning text-dark">Venda</span>
+          {% endif %}
+        </td>
+        <td>{{ fmt(a.preco_entrada) }}</td>
+        <td>{{ fmt(a.preco_teto) }}</td>
+        <td>{{ fmt(a.preco_alvo) }}</td>
+        <td>{{ fmt(a.preco_stop) }}</td>
+        <td>{{ fmt(a.preco_corte) }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="7" class="text-body-secondary">Nenhum ativo.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% if ativos %}
+<ul class="nav nav-tabs" id="radarTabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link active"
+      id="tab-visual"
+      data-bs-toggle="tab"
+      data-bs-target="#pane-visual"
+      type="button"
+      role="tab"
+    >
+      <i class="bi bi-graph-up"></i> Visual
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link"
+      id="tab-historico"
+      data-bs-toggle="tab"
+      data-bs-target="#pane-historico"
+      type="button"
+      role="tab"
+    >
+      <i class="bi bi-list-ul"></i> Historico
+    </button>
+  </li>
+</ul>
+
+<div class="tab-content border border-top-0 bg-white shadow-sm p-3 mb-4" id="radarTabContent"
+  data-radar-id="{{ radar.id }}"
+  data-api-serie="{{ url_for('api_radar_serie', radar_id=radar.id) }}"
+  data-api-logs="{{ url_for('api_radar_logs', radar_id=radar.id) }}"
+>
+  <div class="tab-pane fade show active" id="pane-visual" role="tabpanel">
+    <div class="row g-3 align-items-end mb-3">
+      <div class="col-md-3">
+        <label class="form-label" for="selTicker">Ativo</label>
+        <select class="form-select" id="selTicker">
+          {% for a in ativos %}
+          <option value="{{ a.ticker }}">{{ a.ticker }} ({{ a.direcao }})</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-5">
+        <label class="form-label" for="selSemana">Semana</label>
+        <select class="form-select" id="selSemana">
+          {% for s in meta.semanas %}
+          <option value="{{ s.inicio }}|{{ s.fim }}">{{ s.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-4">
+        <div class="small text-body-secondary" id="serieInfo">Carregando...</div>
+      </div>
+    </div>
+    <div style="position: relative; height: 360px">
+      <canvas id="chartRadar"></canvas>
+    </div>
+    <div class="mt-2 small text-body-secondary">
+      Linhas horizontais = zonas (entrada, teto, alvo, stop, corte).
+      Pontos coloridos = status no momento.
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="pane-historico" role="tabpanel">
+    <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+      <label class="form-label mb-0 me-1" for="logTicker">Filtrar</label>
+      <select class="form-select form-select-sm w-auto" id="logTicker">
+        <option value="">Todos</option>
+        {% for a in ativos %}
+        <option value="{{ a.ticker }}">{{ a.ticker }}</option>
+        {% endfor %}
+      </select>
+      <span class="small text-body-secondary ms-auto" id="logInfo"></span>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-sm table-striped align-middle mb-2">
+        <thead>
+          <tr>
+            <th>Quando</th>
+            <th>Ticker</th>
+            <th>
+              <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Cotacao do ativo naquele momento">Preco</span>
+            </th>
+            <th>
+              <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Valor recomendado para entrar na operacao">Entrada</span>
+            </th>
+            <th>
+              <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Valor maximo em que o ativo ainda esta em ponto de entrada para o trade">Teto</span>
+            </th>
+            <th>
+              <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Quanto % falta (+) ou ja passou (-) para chegar no teto, em relacao ao preco do momento">% Teto</span>
+            </th>
+            <th>
+              <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Valor que queremos chegar para realizar o ganho (stop gain)">Alvo</span>
+            </th>
+            <th>
+              <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Quanto % falta (+) ou ja passou (-) para chegar no alvo, em relacao ao preco do momento">% Alvo</span>
+            </th>
+            <th>
+              <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Preco de stop loss — limite de perda da operacao">Stop</span>
+            </th>
+            <th>
+              <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compra: nao investir abaixo deste preco. Venda: nao vender acima deste preco">Corte</span>
+            </th>
+            <th>
+              <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Resolucao da barra: 15 minutos ou diario">Res.</span>
+            </th>
+            <th>
+              <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zona em que o preco estava naquele momento">Status</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="logBody">
+          <tr><td colspan="12" class="text-body-secondary">Abrindo historico...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <button type="button" class="btn btn-sm btn-outline-secondary" id="logPrev" disabled>Anterior</button>
+      <span class="small" id="logPageLabel">—</span>
+      <button type="button" class="btn btn-sm btn-outline-secondary" id="logNext" disabled>Proxima</button>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="alert alert-warning">Adicione ativos no radar para ver o acompanhamento.</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+    bootstrap.Tooltip.getOrCreateInstance(el);
+  });
+})();
+</script>
+{% if ativos %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+(function () {
+  var root = document.getElementById("radarTabContent");
+  if (!root) return;
+  var apiSerie = root.getAttribute("data-api-serie");
+  var apiLogs = root.getAttribute("data-api-logs");
+  var metaAtivos = {{ meta.ativos|tojson }};
+  var selTicker = document.getElementById("selTicker");
+  var selSemana = document.getElementById("selSemana");
+  var serieInfo = document.getElementById("serieInfo");
+  var chart = null;
+  var logPage = 1;
+  var logPages = 1;
+
+  var statusColor = {
+    STOP: "#dc3545",
+    ALVO: "#198754",
+    ZONA_ENTRADA: "#0d6efd",
+    CORTE: "#fd7e14",
+    FORA: "#6c757d",
+  };
+
+  function ativoAtual() {
+    var t = selTicker.value;
+    for (var i = 0; i < metaAtivos.length; i++) {
+      if (metaAtivos[i].ticker === t) return metaAtivos[i];
+    }
+    return null;
+  }
+
+  function fmtMoney(v) {
+    return Number(v).toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  }
+
+  /** % para chegar no nivel: ((nivel - preco) / preco) * 100. + falta subir; - ja passou. */
+  function pctAteNivel(preco, nivel) {
+    preco = Number(preco);
+    nivel = Number(nivel);
+    if (!preco || !isFinite(preco) || !isFinite(nivel)) return null;
+    return ((nivel - preco) / preco) * 100;
+  }
+
+  function fmtPct(p) {
+    if (p == null || !isFinite(p)) return "—";
+    var sinal = p > 0 ? "+" : "";
+    return (
+      sinal +
+      p.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }) +
+      "%"
+    );
+  }
+
+  function celulaPct(p) {
+    if (p == null || !isFinite(p)) return "<td>—</td>";
+    var cls = p > 0 ? "text-success" : p < 0 ? "text-danger" : "text-body-secondary";
+    return '<td class="text-nowrap ' + cls + '">' + fmtPct(p) + "</td>";
+  }
+
+  function fmtQuando(s) {
+    // YYYY-MM-DD HH:MM:SS -> dd/mm HH:MM
+    if (!s) return "—";
+    var d = s.slice(8, 10) + "/" + s.slice(5, 7);
+    var h = s.slice(11, 16);
+    if (h === "18:00") return d + " (dia)";
+    return d + " " + h;
+  }
+
+  function linhaZona(label, valor, cor, dash) {
+    return {
+      label: label,
+      data: [],
+      borderColor: cor,
+      borderWidth: 1.5,
+      borderDash: dash || [],
+      pointRadius: 0,
+      fill: false,
+      tension: 0,
+      _zona: valor,
+    };
+  }
+
+  function carregarSerie() {
+    var parts = (selSemana.value || "").split("|");
+    var inicio = parts[0];
+    var fim = parts[1];
+    var ticker = selTicker.value;
+    serieInfo.textContent = "Carregando serie...";
+    fetch(
+      apiSerie +
+        "?ticker=" +
+        encodeURIComponent(ticker) +
+        "&inicio=" +
+        encodeURIComponent(inicio) +
+        "&fim=" +
+        encodeURIComponent(fim)
+    )
+      .then(function (r) {
+        return r.json().then(function (j) {
+          return { ok: r.ok, j: j };
+        });
+      })
+      .then(function (res) {
+        if (!res.ok) {
+          serieInfo.textContent = res.j.erro || "Falha ao carregar.";
+          return;
+        }
+        var pontos = res.j.pontos || [];
+        var intervalo = res.j.intervalo || "—";
+        serieInfo.textContent =
+          pontos.length +
+          " ponto(s) · resolucao " +
+          intervalo +
+          (intervalo === "1d" ? " (diario)" : "");
+        desenhar(pontos, intervalo);
+      })
+      .catch(function () {
+        serieInfo.textContent = "Falha de rede.";
+      });
+  }
+
+  function desenhar(pontos, intervalo) {
+    var a = ativoAtual();
+    var labels = pontos.map(function (p) {
+      return intervalo === "1d" ? p.coletado_em.slice(0, 10) : p.coletado_em.slice(5, 16);
+    });
+    var precos = pontos.map(function (p) {
+      return p.preco;
+    });
+    var cores = pontos.map(function (p) {
+      return statusColor[p.status] || "#6c757d";
+    });
+
+    var datasets = [
+      {
+        label: "Preco",
+        data: precos,
+        borderColor: "#212529",
+        backgroundColor: cores,
+        pointBackgroundColor: cores,
+        pointBorderColor: cores,
+        pointRadius: intervalo === "15m" ? 3 : 5,
+        borderWidth: 1.5,
+        tension: 0.15,
+        fill: false,
+      },
+    ];
+
+    if (a) {
+      var zonas = [
+        ["Entrada", a.preco_entrada, "#0d6efd", []],
+        ["Teto", a.preco_teto, "#6610f2", [4, 4]],
+        ["Alvo", a.preco_alvo, "#198754", [6, 3]],
+        ["Stop", a.preco_stop, "#dc3545", [2, 2]],
+        ["Corte", a.preco_corte, "#fd7e14", [8, 4]],
+      ];
+      zonas.forEach(function (z) {
+        var ds = linhaZona(z[0], z[1], z[2], z[3]);
+        ds.data = labels.map(function () {
+          return z[1];
+        });
+        datasets.push(ds);
+      });
+    }
+
+    var ctx = document.getElementById("chartRadar");
+    if (chart) chart.destroy();
+    chart = new Chart(ctx, {
+      type: "line",
+      data: { labels: labels, datasets: datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          legend: { position: "bottom" },
+          tooltip: {
+            callbacks: {
+              label: function (ctx) {
+                if (ctx.dataset._zona != null) {
+                  return ctx.dataset.label + ": R$ " + fmtMoney(ctx.dataset._zona);
+                }
+                var st = (pontos[ctx.dataIndex] && pontos[ctx.dataIndex].status) || "";
+                return "R$ " + fmtMoney(ctx.parsed.y) + (st ? " · " + st : "");
+              },
+            },
+          },
+        },
+        scales: {
+          y: {
+            ticks: {
+              callback: function (v) {
+                return "R$ " + fmtMoney(v);
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
+  function carregarLogs() {
+    var t = document.getElementById("logTicker").value;
+    var url =
+      apiLogs +
+      "?page=" +
+      logPage +
+      (t ? "&ticker=" + encodeURIComponent(t) : "");
+    var body = document.getElementById("logBody");
+    body.innerHTML =
+      '<tr><td colspan="12" class="text-body-secondary">Carregando...</td></tr>';
+    fetch(url)
+      .then(function (r) {
+        return r.json().then(function (j) {
+          return { ok: r.ok, j: j };
+        });
+      })
+      .then(function (res) {
+        if (!res.ok) {
+          body.innerHTML =
+            '<tr><td colspan="12" class="text-danger">' +
+            (res.j.erro || "Erro") +
+            "</td></tr>";
+          return;
+        }
+        var j = res.j;
+        logPages = j.pages || 1;
+        logPage = j.page || 1;
+        document.getElementById("logInfo").textContent =
+          j.total + " registro(s) · 15m ou diario fora da janela Yahoo";
+        document.getElementById("logPageLabel").textContent =
+          "Pagina " + logPage + " de " + logPages;
+        document.getElementById("logPrev").disabled = logPage <= 1;
+        document.getElementById("logNext").disabled = logPage >= logPages;
+        if (!j.itens || !j.itens.length) {
+          body.innerHTML =
+            '<tr><td colspan="12" class="text-body-secondary">Sem historico ainda. Use Atualizar historico.</td></tr>';
+          return;
+        }
+        body.innerHTML = j.itens
+          .map(function (it) {
+            var badge =
+              '<span class="badge" style="background:' +
+              (statusColor[it.status] || "#6c757d") +
+              '">' +
+              (it.status_label || it.status || "—") +
+              "</span>";
+            var pTeto = pctAteNivel(it.preco, it.preco_teto);
+            var pAlvo = pctAteNivel(it.preco, it.preco_alvo);
+            return (
+              "<tr><td class='text-nowrap'>" +
+              fmtQuando(it.coletado_em) +
+              "</td><td>" +
+              it.ticker +
+              "</td><td class='fw-semibold'>R$ " +
+              fmtMoney(it.preco) +
+              "</td><td>" +
+              fmtMoney(it.preco_entrada) +
+              "</td><td>" +
+              fmtMoney(it.preco_teto) +
+              "</td>" +
+              celulaPct(pTeto) +
+              "<td>" +
+              fmtMoney(it.preco_alvo) +
+              "</td>" +
+              celulaPct(pAlvo) +
+              "<td>" +
+              fmtMoney(it.preco_stop) +
+              "</td><td>" +
+              fmtMoney(it.preco_corte) +
+              "</td><td>" +
+              it.intervalo +
+              "</td><td>" +
+              badge +
+              "</td></tr>"
+            );
+          })
+          .join("");
+      })
+      .catch(function () {
+        body.innerHTML =
+          '<tr><td colspan="12" class="text-danger">Falha de rede.</td></tr>';
+      });
+  }
+
+  selTicker.addEventListener("change", carregarSerie);
+  selSemana.addEventListener("change", carregarSerie);
+  document.getElementById("logTicker").addEventListener("change", function () {
+    logPage = 1;
+    carregarLogs();
+  });
+  document.getElementById("logPrev").addEventListener("click", function () {
+    if (logPage > 1) {
+      logPage -= 1;
+      carregarLogs();
+    }
+  });
+  document.getElementById("logNext").addEventListener("click", function () {
+    if (logPage < logPages) {
+      logPage += 1;
+      carregarLogs();
+    }
+  });
+
+  document.getElementById("tab-historico").addEventListener("shown.bs.tab", function () {
+    carregarLogs();
+  });
+
+  carregarSerie();
+})();
+</script>
+{% endif %}
+{% endblock %}

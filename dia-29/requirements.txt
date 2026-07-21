@@ -1,0 +1,13 @@
+# Dependencias Dia 29 — InvestidorWeb + Radar
+# Base de deploy do Dia 30 (EasyPanel / container)
+#
+# Install: pip install -r requirements.txt
+# Start:   python dia29_app.py
+# Env:     PORT (default 5000), DEBUG=0|1, SECRET_KEY, RADAR_CRON=1|0
+
+flask==3.1.0
+requests==2.31.0
+beautifulsoup4>=4.12.0
+yfinance>=0.2.40
+pandas>=2.0.0
+APScheduler>=3.10.0

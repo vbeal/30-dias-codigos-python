@@ -1,0 +1,497 @@
+{% extends "base.html" %}
+
+{% block title %}Painel{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+  <div class="d-flex align-items-center gap-3">
+    {% if user.foto %}
+    <img
+      src="{{ url_for('uploaded_file', filename=user.foto) }}"
+      alt="Foto"
+      class="rounded-circle border object-fit-cover"
+      width="56"
+      height="56"
+    />
+    {% else %}
+    <span
+      class="rounded-circle bg-body-secondary text-secondary d-inline-flex align-items-center justify-content-center fw-semibold"
+      style="width: 56px; height: 56px"
+    >{{ user.nome[:1]|upper }}</span>
+    {% endif %}
+    <div>
+      <h1 class="h4 mb-0">Ola, {{ user.nome }}</h1>
+      <p class="text-body-secondary small mb-0">
+        {% if carteira_padrao %}
+        Carteira padrao: <strong>{{ carteira_padrao.nome }}</strong>
+        {% else %}
+        Top dividendos em tempo real
+        {% endif %}
+      </p>
+    </div>
+  </div>
+  <div class="d-flex flex-wrap gap-2">
+    <a href="{{ url_for('rankings', tipo='fiis') }}" class="btn btn-outline-primary btn-sm">
+      <i class="bi bi-list-ol"></i> Ver todos FIIs
+    </a>
+    <a href="{{ url_for('rankings', tipo='acoes') }}" class="btn btn-outline-success btn-sm">
+      <i class="bi bi-list-ol"></i> Ver todas Ações
+    </a>
+    <a href="{{ url_for('calculadora') }}" class="btn btn-outline-warning btn-sm">
+      <i class="bi bi-calculator"></i> Calculadora
+    </a>
+    <a href="{{ url_for('carteiras') }}" class="btn btn-outline-primary btn-sm">
+      <i class="bi bi-briefcase"></i> Carteiras
+    </a>
+    <a href="{{ url_for('perfil') }}" class="btn btn-outline-secondary btn-sm">
+      <i class="bi bi-person"></i> Perfil
+    </a>
+  </div>
+</div>
+
+{% if carteira_padrao %}
+{# Dia 28: resumo da carteira padrao no painel #}
+<div
+  class="card shadow-sm mb-4"
+  id="painelCarteira"
+  data-api-url="{{ url_for('api_carteira_acompanhamento', carteira_id=carteira_padrao.id) }}"
+  data-carteira-url="{{ url_for('carteira_detalhe', carteira_id=carteira_padrao.id) }}"
+>
+  <div class="card-header bg-body d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <div>
+      <strong><i class="bi bi-briefcase"></i> {{ carteira_padrao.nome }}</strong>
+      <span class="badge text-bg-warning ms-1">Padrao</span>
+    </div>
+    <a href="{{ url_for('carteira_detalhe', carteira_id=carteira_padrao.id) }}" class="btn btn-sm btn-outline-primary">
+      Abrir carteira
+    </a>
+  </div>
+  <div class="card-body">
+    <div id="painelCartLoading" class="text-center py-3">
+      <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+      <span class="ms-2 small text-body-secondary">Carregando resumo da carteira...</span>
+    </div>
+    <div id="painelCartErro" class="alert alert-warning d-none mb-0"></div>
+    <div id="painelCartConteudo" class="d-none">
+      <div class="row g-3 mb-3">
+        <div class="col-6 col-md-3">
+          <div class="text-body-secondary small">Patrimonio</div>
+          <div class="fw-semibold" id="pcPatrimonio">—</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="text-body-secondary small">Investido</div>
+          <div class="fw-semibold" id="pcInvestido">—</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="text-body-secondary small">Dividendos (total)</div>
+          <div class="fw-semibold text-success" id="pcDivs">—</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="text-body-secondary small">Lucro total</div>
+          <div class="fw-semibold" id="pcLucro">—</div>
+        </div>
+      </div>
+      <div class="row g-3 align-items-stretch">
+        <div class="col-12 col-lg-8">
+          <div class="small text-body-secondary mb-1">Evolucao do patrimonio</div>
+          <canvas id="painelCartChart" height="100"></canvas>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="small text-body-secondary mb-1 text-lg-center">Composicao por ativo</div>
+          <div class="mx-auto" style="max-width: 260px">
+            <canvas id="painelCartDonut" height="200"></canvas>
+          </div>
+          <p class="small text-body-secondary mb-0 mt-2 text-lg-center">
+            Fatias pelo <strong>valor investido</strong>. Hover: cotas, dividendos e saldo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="alert alert-light border mb-4">
+  Voce ainda nao tem carteira.
+  <a href="{{ url_for('carteiras') }}">Crie a primeira</a>
+  para ver o resumo aqui no painel.
+</div>
+{% endif %}
+
+<div
+  class="card shadow-sm"
+  id="top10Page"
+  data-api-url="{{ url_for('api_top10') }}"
+>
+  <div class="card-header bg-body d-flex justify-content-between align-items-center">
+    <div>
+      <strong>Top 10 Dividendos</strong>
+      <span class="text-body-secondary small ms-1">(5 FIIs + 5 Ações, ordenados por DY)</span>
+    </div>
+    <button type="button" class="btn btn-sm btn-primary" id="btnAtualizarTop10">
+      <i class="bi bi-arrow-clockwise"></i> Atualizar
+    </button>
+  </div>
+  <div class="card-body">
+    {# Spinner Bootstrap enquanto o scraper roda #}
+    <div id="top10Loading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem">
+        <span class="visually-hidden">Carregando...</span>
+      </div>
+      <p class="mt-3 mb-0 text-body-secondary">Consultando rankings no Investidor10...</p>
+      <p class="small text-body-secondary">Isso pode levar alguns segundos.</p>
+    </div>
+
+    <div id="top10Erro" class="alert alert-danger d-none" role="alert"></div>
+
+    <div id="top10Conteudo" class="d-none">
+      <p class="small text-body-secondary mb-3" id="top10Meta"></p>
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Ativo</th>
+                  <th>Nome</th>
+                  <th class="text-center">Tipo</th>
+                  <th class="text-center">DY</th>
+                  <th class="text-center">DY mensal*</th>
+                  <th class="col-calc" aria-label="Calculadora"></th>
+                </tr>
+              </thead>
+              <tbody id="top10Tabela"></tbody>
+            </table>
+          </div>
+          <p class="small text-body-secondary mt-2 mb-0">* DY mensal estimado = DY anual / 12</p>
+        </div>
+        <div class="col-lg-5">
+          <canvas id="top10Chart" height="260"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+  (function () {
+    var loading = document.getElementById("top10Loading");
+    var erroBox = document.getElementById("top10Erro");
+    var conteudo = document.getElementById("top10Conteudo");
+    var tbody = document.getElementById("top10Tabela");
+    var meta = document.getElementById("top10Meta");
+    var chart = null;
+
+    function showLoading() {
+      loading.classList.remove("d-none");
+      erroBox.classList.add("d-none");
+      conteudo.classList.add("d-none");
+    }
+
+    function renderTable(itens) {
+      tbody.innerHTML = "";
+      itens.forEach(function (item, idx) {
+        var tr = document.createElement("tr");
+        var slug = item.tipo === "FII" ? "fii" : "acao";
+        var badge =
+          item.tipo === "FII"
+            ? '<span class="badge text-bg-primary">FII</span>'
+            : '<span class="badge text-bg-success">Ação</span>';
+        var linkCalc =
+          "<a href=\"/calculadora?ticker=" +
+          encodeURIComponent(item.ativo) +
+          "&tipo=" +
+          slug +
+          "\" class=\"btn btn-sm btn-outline-warning\" title=\"Simular na calculadora\"><i class=\"bi bi-calculator\"></i></a>";
+        var linkCart =
+          "<button type=\"button\" class=\"btn btn-sm btn-outline-primary btn-add-carteira\" title=\"Inserir na carteira\" " +
+          "data-ticker=\"" +
+          item.ativo +
+          "\" data-tipo=\"" +
+          slug +
+          "\" data-nome=\"" +
+          (item.nome || "").replace(/"/g, "&quot;") +
+          "\"><i class=\"bi bi-briefcase\"></i></button>";
+        tr.innerHTML =
+          "<td>" +
+          (idx + 1) +
+          "</td>" +
+          "<td><strong><a href=\"/ativo/" +
+          slug +
+          "/" +
+          item.ativo +
+          "\">" +
+          item.ativo +
+          "</a></strong></td>" +
+          "<td class=\"small\">" +
+          (item.nome || "-") +
+          "</td>" +
+          "<td class=\"text-center\">" +
+          badge +
+          "</td>" +
+          "<td class=\"text-center\">" +
+          (item.dividend_yield || "-") +
+          "</td>" +
+          "<td class=\"text-center\">" +
+          (item.dy_mensal || "-") +
+          "</td>" +
+          "<td class=\"col-calc text-center\"><div class=\"d-inline-flex gap-1\">" +
+          linkCalc +
+          linkCart +
+          "</div></td>";
+        tbody.appendChild(tr);
+      });
+      tbody.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+        bootstrap.Tooltip.getOrCreateInstance(el);
+      });
+    }
+
+    function renderChart(itens) {
+      var labels = itens.map(function (i) {
+        return i.ativo;
+      });
+      var valores = itens.map(function (i) {
+        return i.dy_num > 0 ? i.dy_num : 0;
+      });
+      var cores = itens.map(function (i) {
+        return i.tipo === "FII" ? "rgba(13, 110, 253, 0.75)" : "rgba(25, 135, 84, 0.75)";
+      });
+
+      var ctx = document.getElementById("top10Chart");
+      if (chart) chart.destroy();
+      chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Dividend Yield (%)",
+              data: valores,
+              backgroundColor: cores,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            title: { display: true, text: "DY — Top 10 mistos" },
+            tooltip: {
+              callbacks: {
+                title: function (items) {
+                  if (!items.length) return "";
+                  var idx = items[0].dataIndex;
+                  var item = itens[idx];
+                  if (!item) return items[0].label;
+                  return item.ativo + " (" + item.tipo + ")";
+                },
+                label: function (ctx) {
+                  var valor = ctx.parsed.y;
+                  return "DY: " + (valor != null ? valor.toFixed(2).replace(".", ",") : "-") + "%";
+                },
+              },
+            },
+          },
+          scales: {
+            y: { beginAtZero: true, title: { display: true, text: "%" } },
+          },
+        },
+      });
+    }
+
+    function carregarTop10() {
+      showLoading();
+      fetch(document.getElementById("top10Page").getAttribute("data-api-url"))
+        .then(function (r) {
+          return r.json().then(function (data) {
+            return { ok: r.ok, data: data };
+          });
+        })
+        .then(function (res) {
+          loading.classList.add("d-none");
+          if (!res.ok || res.data.erro) {
+            erroBox.textContent = res.data.erro || "Erro ao carregar Top 10.";
+            erroBox.classList.remove("d-none");
+            return;
+          }
+          meta.textContent =
+            "Atualizado em " +
+            res.data.consultado_em +
+            " · Tempo de carregamento: " +
+            (res.data.tempo_carregamento || "-") +
+            " · Fonte: " +
+            res.data.fonte +
+            " · " +
+            res.data.total +
+            " ativos";
+          renderTable(res.data.itens || []);
+          renderChart(res.data.itens || []);
+          conteudo.classList.remove("d-none");
+        })
+        .catch(function (err) {
+          loading.classList.add("d-none");
+          erroBox.textContent = "Falha de rede: " + err;
+          erroBox.classList.remove("d-none");
+        });
+    }
+
+    document.getElementById("btnAtualizarTop10").addEventListener("click", carregarTop10);
+    carregarTop10();
+  })();
+</script>
+{% if carteira_padrao %}
+<script>
+  (function () {
+    var box = document.getElementById("painelCarteira");
+    if (!box) return;
+    var chart = null;
+    var donutChart = null;
+    var DONUT_COLORS = [
+      "rgba(25, 135, 84, 0.85)",
+      "rgba(13, 110, 253, 0.85)",
+      "rgba(255, 193, 7, 0.85)",
+      "rgba(220, 53, 69, 0.8)",
+      "rgba(111, 66, 193, 0.85)",
+      "rgba(13, 202, 240, 0.85)",
+      "rgba(253, 126, 20, 0.85)",
+      "rgba(108, 117, 125, 0.85)",
+    ];
+
+    function dinheiro(n) {
+      if (n === null || n === undefined || isNaN(n)) return "—";
+      return "R$ " + Number(n).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function cor(n) {
+      if (n == null) return "";
+      if (n > 0) return "text-success";
+      if (n < 0) return "text-danger";
+      return "";
+    }
+
+    function renderDonut(posicoes) {
+      var canvas = document.getElementById("painelCartDonut");
+      if (!canvas) return;
+      if (donutChart) {
+        donutChart.destroy();
+        donutChart = null;
+      }
+      var itens = (posicoes || []).filter(function (p) {
+        return p && p.ticker && Number(p.valor_investido) > 0;
+      });
+      if (!itens.length) return;
+
+      var metaMap = {};
+      var labels = [];
+      var data = [];
+      var colors = [];
+      itens.forEach(function (p, i) {
+        var investido = Number(p.valor_investido) || 0;
+        labels.push(p.ticker);
+        data.push(investido);
+        colors.push(DONUT_COLORS[i % DONUT_COLORS.length]);
+        metaMap[p.ticker] = {
+          quantidade: Number(p.quantidade) || 0,
+          dividendos: Number(p.dividendos) || 0,
+          investido: investido,
+          saldo: p.saldo_atual,
+        };
+      });
+
+      donutChart = new Chart(canvas, {
+        type: "doughnut",
+        data: {
+          labels: labels,
+          datasets: [{ data: data, backgroundColor: colors, borderWidth: 2, borderColor: "#fff" }],
+        },
+        options: {
+          responsive: true,
+          cutout: "55%",
+          plugins: {
+            legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } },
+            tooltip: {
+              callbacks: {
+                title: function (items) { return items[0] ? items[0].label : ""; },
+                label: function (ctx) {
+                  var m = metaMap[ctx.label] || {};
+                  var qtd = Number(m.quantidade || 0).toLocaleString("pt-BR", { maximumFractionDigits: 4 });
+                  return [
+                    "Cotas: " + qtd,
+                    "Dividendos: " + dinheiro(m.dividendos),
+                    "Valor investido: " + dinheiro(m.investido),
+                    "Valor atual: " + dinheiro(m.saldo),
+                  ];
+                },
+              },
+            },
+          },
+        },
+      });
+    }
+
+    fetch(box.getAttribute("data-api-url"))
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        document.getElementById("painelCartLoading").classList.add("d-none");
+        if (!res.ok) {
+          var er = document.getElementById("painelCartErro");
+          er.textContent = res.j.erro || "Falha ao carregar carteira.";
+          er.classList.remove("d-none");
+          return;
+        }
+        var r = res.j.resumo || {};
+        document.getElementById("pcPatrimonio").textContent = dinheiro(r.patrimonio);
+        document.getElementById("pcInvestido").textContent = dinheiro(r.valor_investido);
+        document.getElementById("pcDivs").textContent = dinheiro(r.dividendos_total != null ? r.dividendos_total : r.dividendos);
+        var luc = document.getElementById("pcLucro");
+        luc.textContent = dinheiro(r.lucro_total != null ? r.lucro_total : r.lucro);
+        luc.className = "fw-semibold " + cor(r.lucro_total != null ? r.lucro_total : r.lucro);
+
+        var evo = res.j.evolucao || [];
+        if (evo.length) {
+          if (chart) chart.destroy();
+          var divMes = evo.map(function (p) { return Number(p.dividendos_mes || 0); });
+          var temDiv = divMes.some(function (v) { return v > 0; });
+          var datasets = [
+            { label: "Aplicado", data: evo.map(function (p) { return p.valor_aplicado; }), backgroundColor: "rgba(33,37,41,.7)" },
+            { label: "Patrimonio", data: evo.map(function (p) { return p.patrimonio; }), backgroundColor: "rgba(25,135,84,.65)" },
+          ];
+          if (temDiv) {
+            datasets.push({
+              label: "Dividendos do mes",
+              data: divMes,
+              backgroundColor: "rgba(13,110,253,.7)",
+              yAxisID: "yDiv",
+            });
+          }
+          chart = new Chart(document.getElementById("painelCartChart"), {
+            type: "bar",
+            data: {
+              labels: evo.map(function (p) { return p.mes; }),
+              datasets: datasets,
+            },
+            options: {
+              responsive: true,
+              plugins: { legend: { position: "bottom" } },
+              scales: {
+                y: { position: "left" },
+                yDiv: { position: "right", display: temDiv, grid: { drawOnChartArea: false } },
+              },
+            },
+          });
+        }
+        renderDonut(res.j.posicoes || []);
+        document.getElementById("painelCartConteudo").classList.remove("d-none");
+      })
+      .catch(function () {
+        document.getElementById("painelCartLoading").classList.add("d-none");
+        var er = document.getElementById("painelCartErro");
+        er.textContent = "Falha de rede ao carregar carteira.";
+        er.classList.remove("d-none");
+      });
+  })();
+</script>
+{% endif %}
+{% endblock %}

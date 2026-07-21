@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Editar' if radar else 'Novo' }} radar{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+  <a href="{{ url_for('radares') }}" class="text-decoration-none small">
+    <i class="bi bi-arrow-left"></i> Voltar aos radares
+  </a>
+  <h1 class="h3 mt-2 mb-1">{{ 'Editar radar' if radar else 'Novo radar' }}</h1>
+  <p class="text-body-secondary mb-0">
+    Defina o periodo e os niveis de cada ativo (compra ou venda).
+  </p>
+</div>
+
+<form
+  method="post"
+  action="{{ url_for('radar_editar', radar_id=radar.id) if radar else url_for('radar_novo') }}"
+  id="formRadar"
+>
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label" for="nome">Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nome"
+            name="nome"
+            maxlength="80"
+            required
+            placeholder="Ex.: Semana VALE / PRIO"
+            value="{{ radar.nome if radar else '' }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label" for="data_inicio">Inicio</label>
+          <input
+            type="date"
+            class="form-control"
+            id="data_inicio"
+            name="data_inicio"
+            required
+            value="{{ radar.data_inicio if radar else '' }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label" for="data_fim">Fim</label>
+          <input
+            type="date"
+            class="form-control"
+            id="data_fim"
+            name="data_fim"
+            required
+            value="{{ radar.data_fim if radar else '' }}"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+    <h2 class="h5 mb-0">Ativos</h2>
+    <button type="button" class="btn btn-sm btn-outline-primary" id="btnAddAtivo">
+      <i class="bi bi-plus-lg"></i> Adicionar ativo
+    </button>
+  </div>
+
+  <div class="table-responsive mb-3">
+    <table class="table table-sm align-middle bg-white shadow-sm" id="tabelaAtivos">
+      <thead>
+        <tr>
+          <th>
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Codigo do ativo na B3 (ex.: VALE3)">
+              Ticker <i class="bi bi-info-circle text-body-secondary small"></i>
+            </span>
+          </th>
+          <th>
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compra: busca de entrada. Venda: busca de saida / realizacao">
+              Direcao <i class="bi bi-info-circle text-body-secondary small"></i>
+            </span>
+          </th>
+          <th>
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Valor recomendado para entrar na operacao (compra) ou regiao de venda">
+              Entrada / Regiao <i class="bi bi-info-circle text-body-secondary small"></i>
+            </span>
+          </th>
+          <th>
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Valor maximo em que o ativo ainda esta em ponto de entrada para o trade (compra: ate quanto pagar; venda: ate quanto vender)">
+              Ate investir / vender <i class="bi bi-info-circle text-body-secondary small"></i>
+            </span>
+          </th>
+          <th>
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Valor que queremos chegar para realizar o ganho (stop gain)">
+              Alvo <i class="bi bi-info-circle text-body-secondary small"></i>
+            </span>
+          </th>
+          <th>
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Preco de stop loss — limite de perda da operacao">
+              Stop <i class="bi bi-info-circle text-body-secondary small"></i>
+            </span>
+          </th>
+          <th>
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compra: nao investir abaixo deste preco. Venda: nao vender acima deste preco">
+              Corte <i class="bi bi-info-circle text-body-secondary small"></i>
+            </span>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="corpoAtivos"></tbody>
+    </table>
+  </div>
+
+  <p class="small text-body-secondary mb-4">
+    Precos no formato brasileiro (ex.: <code>72,60</code>). Em
+    <strong>venda</strong>, os niveis sao o espelho da compra (alvo abaixo, stop acima).
+    Passe o mouse no icone <i class="bi bi-info-circle"></i> de cada coluna para ver o significado.
+    Remover um ativo pede confirmacao; so grava de fato ao <strong>Salvar</strong>.
+  </p>
+
+  <div class="d-flex flex-wrap gap-2">
+    <button type="submit" class="btn btn-primary">
+      <i class="bi bi-check-lg"></i> Salvar
+    </button>
+    <a class="btn btn-outline-secondary" href="{{ url_for('radares') }}">Cancelar</a>
+  </div>
+</form>
+
+<template id="tplLinhaAtivo">
+  <tr class="linha-ativo">
+    <td style="min-width: 7rem">
+      <input
+        type="text"
+        class="form-control form-control-sm ticker-input"
+        name="ticker"
+        list="listaTickersRadar"
+        required
+        autocomplete="off"
+        placeholder="VALE3"
+      />
+    </td>
+    <td style="min-width: 7.5rem">
+      <select class="form-select form-select-sm" name="direcao" required>
+        <option value="compra">Compra</option>
+        <option value="venda">Venda</option>
+      </select>
+    </td>
+    <td><input type="text" class="form-control form-control-sm" name="preco_entrada" required placeholder="72,60" /></td>
+    <td><input type="text" class="form-control form-control-sm" name="preco_teto" required placeholder="74,42" /></td>
+    <td><input type="text" class="form-control form-control-sm" name="preco_alvo" required placeholder="79,86" /></td>
+    <td><input type="text" class="form-control form-control-sm" name="preco_stop" required placeholder="64,61" /></td>
+    <td><input type="text" class="form-control form-control-sm" name="preco_corte" required placeholder="71,15" /></td>
+    <td>
+      <button type="button" class="btn btn-sm btn-outline-danger btn-remover" title="Remover ativo">
+        <i class="bi bi-trash"></i>
+      </button>
+    </td>
+  </tr>
+</template>
+
+<datalist id="listaTickersRadar">
+  {% for a in ativos_lista %}
+  <option value="{{ a.ticker }}"></option>
+  {% endfor %}
+</datalist>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var corpo = document.getElementById("corpoAtivos");
+  var tpl = document.getElementById("tplLinhaAtivo");
+  var btnAdd = document.getElementById("btnAddAtivo");
+  var iniciais = {{ ativos_json|safe }};
+
+  function ativarTooltips() {
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+      bootstrap.Tooltip.getOrCreateInstance(el);
+    });
+  }
+
+  function pedirConfirmacao(opcoes) {
+    if (window.AppConfirm && typeof window.AppConfirm.ask === "function") {
+      return window.AppConfirm.ask(opcoes);
+    }
+    return Promise.resolve(false);
+  }
+
+  function addLinha(dados) {
+    var node = tpl.content.cloneNode(true);
+    var tr = node.querySelector("tr");
+    if (dados) {
+      tr.querySelector('[name="ticker"]').value = dados.ticker || "";
+      tr.querySelector('[name="direcao"]').value = dados.direcao || "compra";
+      tr.querySelector('[name="preco_entrada"]').value = dados.preco_entrada || "";
+      tr.querySelector('[name="preco_teto"]').value = dados.preco_teto || "";
+      tr.querySelector('[name="preco_alvo"]').value = dados.preco_alvo || "";
+      tr.querySelector('[name="preco_stop"]').value = dados.preco_stop || "";
+      tr.querySelector('[name="preco_corte"]').value = dados.preco_corte || "";
+    }
+    tr.querySelector(".btn-remover").addEventListener("click", function () {
+      var ticker =
+        (tr.querySelector('[name="ticker"]').value || "").trim().toUpperCase() ||
+        "este ativo";
+      if (corpo.querySelectorAll(".linha-ativo").length <= 1) {
+        pedirConfirmacao({
+          titulo: "Nao e possivel remover",
+          mensagem:
+            "O radar precisa de ao menos um ativo. Adicione outro antes de remover " +
+            ticker +
+            ".",
+          textoOk: "Entendi",
+          classeOk: "btn-primary",
+          icone: "bi-check-lg",
+        });
+        return;
+      }
+      pedirConfirmacao({
+        titulo: "Remover ativo",
+        mensagem:
+          "Remover " +
+          ticker +
+          " deste radar? A exclusao so sera gravada quando voce clicar em Salvar.",
+        textoOk: "Remover ativo",
+      }).then(function (ok) {
+        if (ok) tr.remove();
+      });
+    });
+    corpo.appendChild(tr);
+  }
+
+  btnAdd.addEventListener("click", function () {
+    addLinha(null);
+  });
+
+  if (iniciais && iniciais.length) {
+    iniciais.forEach(addLinha);
+  } else {
+    addLinha(null);
+  }
+
+  ativarTooltips();
+})();
+</script>
+{% endblock %}
