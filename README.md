@@ -37,6 +37,8 @@ Cada pasta `dia-X/` contém:
 - **Dia 15**: Top dividendos B3 — versão terminal (yfinance)
 - **Dia 16**: Top dividendos B3 — versão Windows (Tkinter + yfinance)
 - **Dia 17**: Top dividendos B3 — versão web (Flask + Bootstrap + Chart.js)
+- **Dia 18**: Scraper de FIIs no Investidor10 (requests + BeautifulSoup)
+- **Dia 19**: Scraper de FIIs + Ações no Investidor10 com JSON (requests + BeautifulSoup)
 - **Dia 20**: Baixar postagem do Instagram — versão desktop (Instaloader + Tkinter)
 - **Dia 21**: Sistema de login com SQLite (Flask + Bootstrap + sessões)
 - **Dia 22**: Perfil do usuário (CRUD + foto) — continua o Dia 21
@@ -392,6 +394,46 @@ python dia17_top_dividendos_b3_web.py
 ```
 
 Acesse: **http://127.0.0.1:5000**
+
+---
+
+## Dia 18 - Scraper de FIIs (Investidor10)
+
+Coleta o ranking de FIIs com maior dividend yield no Investidor10 e exibe a tabela no terminal.
+
+- Faz scraping das 3 primeiras páginas do ranking de FIIs.
+- Extrai ticker, DY, patrimônio líquido, P/VP, variação 12 meses e segmento.
+- Pausa de 1 segundo entre páginas para não sobrecarregar o site.
+- Resultado impresso em tabela alinhada no terminal.
+
+**Bibliotecas usadas:** requests, beautifulsoup4
+
+**Arquivo principal:** `dia-18/dia18_scraper_fiis.py`
+
+```bash
+cd dia-18
+python dia18_scraper_fiis.py
+```
+
+---
+
+## Dia 19 - Scraper de FIIs e Ações (Investidor10)
+
+Evolução do Dia 18: coleta rankings de FIIs e de ações, mostra no terminal e salva em JSON.
+
+- Scraping de FIIs e ações (3 páginas cada) no Investidor10.
+- Colunas diferentes por ranking (ticker, DY, patrimônio, P/VP, variação 12m e segmento).
+- Tabelas no terminal para os dois rankings.
+- Salva o resultado em `dia-19/data/rankings.json` (com data, totais e listas).
+
+**Bibliotecas usadas:** requests, beautifulsoup4
+
+**Arquivo principal:** `dia-19/dia19_scraper_rankings.py`
+
+```bash
+cd dia-19
+python dia19_scraper_rankings.py
+```
 
 ---
 
