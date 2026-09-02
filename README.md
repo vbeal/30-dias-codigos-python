@@ -37,6 +37,8 @@ Cada pasta `dia-X/` contém:
 - **Dia 15**: Top dividendos B3 — versão terminal (yfinance)
 - **Dia 16**: Top dividendos B3 — versão Windows (Tkinter + yfinance)
 - **Dia 17**: Top dividendos B3 — versão web (Flask + Bootstrap + Chart.js)
+- **Dia 18**: Scraper de FIIs do Investidor10 em terminal (requests + BeautifulSoup)
+- **Dia 19**: Scraper de FIIs + ações com exportação para JSON (requests + BeautifulSoup)
 - **Dia 20**: Baixar postagem do Instagram — versão desktop (Instaloader + Tkinter)
 - **Dia 21**: Sistema de login com SQLite (Flask + Bootstrap + sessões)
 - **Dia 22**: Perfil do usuário (CRUD + foto) — continua o Dia 21
@@ -392,6 +394,53 @@ python dia17_top_dividendos_b3_web.py
 ```
 
 Acesse: **http://127.0.0.1:5000**
+
+---
+
+## Dia 18 - Scraper de FIIs (Investidor10)
+
+Coleta o ranking de FIIs com maior dividend yield diretamente do site Investidor10.
+
+- Busca múltiplas páginas do ranking.
+- Extrai os dados principais da tabela HTML: ticker, DY, patrimônio líquido, P/VP, variação em 12 meses e segmento.
+- Organiza os resultados em uma tabela limpa no terminal.
+- Simula navegação real com `User-Agent` para reduzir bloqueios.
+
+**Bibliotecas usadas:** requests, beautifulsoup4
+
+**Fonte:** `https://investidor10.com.br/fiis/rankings/maior-dividend-yield/`
+
+**Arquivo principal:** `dia-18/dia18_scraper_fiis.py`
+
+```bash
+cd dia-18
+python dia18_scraper_fiis.py
+```
+
+---
+
+## Dia 19 - Scraper de FIIs + Ações
+
+Expande o Dia 18 para coletar rankings de FIIs e ações em um único script e exportar os dados para JSON.
+
+- Busca rankings de FIIs e ações em paralelo por páginas.
+- Extrai os mesmos campos principais da tabela, adaptando as posições das colunas para cada categoria.
+- Exibe os resultados em formato de tabela no terminal.
+- Salva tudo em `dia-19/data/rankings.json` com horário de atualização e total por categoria.
+
+**Bibliotecas usadas:** requests, beautifulsoup4, json
+
+**Fontes:**
+
+- FIIs: `https://investidor10.com.br/fiis/rankings/maior-dividend-yield/`
+- Ações: `https://investidor10.com.br/acoes/rankings/maiores-dividend-yield/`
+
+**Arquivo principal:** `dia-19/dia19_scraper_rankings.py`
+
+```bash
+cd dia-19
+python dia19_scraper_rankings.py
+```
 
 ---
 
